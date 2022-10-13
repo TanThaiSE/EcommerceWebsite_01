@@ -1,0 +1,26 @@
+:root{
+    --colorBlack:black;
+}
+
+.categoryItem{
+    width: 112px;
+    height: 156px;
+    border: none;
+    margin-left: 12px;
+    margin-bottom: 19px;
+    
+}
+.categoryItemImg{
+    width: 110px;
+    height: 110px;
+}
+.categoryItemName{
+    text-align: center;
+}
+.categoryLink{
+    text-decoration: none;
+    color: var(--colorBlack);
+}
+.categoryLink:hover .categoryItem{
+    border: 1px solid var(--colorBlack);
+}

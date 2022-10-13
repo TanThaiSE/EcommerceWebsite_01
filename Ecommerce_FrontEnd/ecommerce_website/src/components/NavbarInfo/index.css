@@ -1,0 +1,15 @@
+/* Define variable css */
+:root{
+    --bgNavBar:#fb5631;
+    --bgFormSearch:white;
+    --btnSearch:#ff2f14;
+}
+.navbarMainInfo{
+    background-color: var(--bgNavBar);
+}
+.navbarDropdown::after {
+    display: none;
+}
+#iconCart{
+    color: var(--bgFormSearch);
+}

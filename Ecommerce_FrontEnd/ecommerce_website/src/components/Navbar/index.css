@@ -1,0 +1,43 @@
+/* Define variable css */
+:root{
+    --bgNavBar:#fb5631;
+    --bgFormSearch:white;
+    --btnSearch:#ff2f14;
+}
+
+
+.navbarMain{
+    background-color: var(--bgNavBar);
+}
+
+#branchLogo{
+    width: 50px;
+    height: 50px;
+}
+.formSearch{
+    background-color: var(--bgFormSearch);
+    margin-left: 48px;
+    width: 850px;
+}
+.navbarSearchInput{
+    width: 823px;
+    border: none;
+}
+#iconSearch{
+    margin-top: 12px;
+    margin-left: 9px;
+    color:var(--bgFormSearch);
+}
+.containIconSearch{
+    width: 35px;
+    background-color: var(--btnSearch);
+}
+.dropdown-toggle::after {
+    display: none;
+}
+#iconCart{
+    color: var(--bgFormSearch);
+}
+.cartMain{
+    margin-left: 100px;
+}

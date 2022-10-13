@@ -1,0 +1,46 @@
+@import url('/src/utils/DefineVariable.css');
+.head-product-name-product{
+    font-size: 23px;
+}
+.btn-color-product{
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    padding: 0.25rem 0.75rem;
+    margin: 0px 8px 8px 0px;
+    border-radius: 2px;
+    background: rgb(255, 255, 255);
+    text-align: left;
+    color: rgba(0, 0, 0, 0.8);
+}
+.color-name{
+    width: 110px;
+}
+.hightlight-attribute{
+    background: var(--colorFullFillAttribute);
+}
+.choose-full-attribute-open{
+    margin: 15px 0 0 110px;
+    color: var(--colorErrorValid);
+    opacity: 1;
+    visibility: visible;
+}
+.choose-full-attribute-close{
+    opacity: 0;
+    visibility: hidden;
+}
+.bg-color-choose{
+    border-color: var(--colorPrice);
+    color: var(--colorPrice);
+}
+
+.amountProduct::-webkit-outer-spin-button,
+.amountProduct::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.ammount-product{
+    margin: 0;
+}
+.amountProduct{
+    text-align: center;
+    width: 50px;
+}

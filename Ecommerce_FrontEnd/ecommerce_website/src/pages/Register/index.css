@@ -1,0 +1,96 @@
+@import url('/src/utils/DefineVariable.css');
+
+.loginBackground{
+    background-color: var(--bgcommon);
+}
+.bg-login{
+    background-image: url('https://cf.shopee.vn/file/000d7f7e293e29de23ddefbaa0e80436');
+    /* background-repeat: no-repeat; */
+    height: 482px;
+}
+.colm-form-register {
+    text-align: center;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.colm-form-register .form-container-register {
+    background-color: var(--bgwhite);
+    border: none;
+    margin-bottom: 30px;
+    padding: 20px;
+    max-width: 400px;
+    margin-top: 70px;
+}
+
+.colm-form-register .form-container-register input, .colm-form-register .form-container-register .btn-login {
+    width: 100%;
+    margin: 5px 0;
+    height: 45px;
+    vertical-align: middle;
+    font-size: 16px;
+}
+
+.colm-form-register .form-container-register input {
+    border: 1px solid #dddfe2;
+    color: #1d2129;
+    padding: 0 8px;
+    outline: none;
+}
+
+.colm-form-register .form-container-register input:focus {
+    border-color: var(--bgcommon);
+    /* box-shadow: 0 0 0 2px #e7f3ff; */
+}
+
+.colm-form-register .form-container-register .btn-login {
+    background-color: var(--bgcommon);
+    border: none;
+    border-radius: 6px;
+    font-size: 20px;
+    padding: 0 16px;
+    color: var(--bgwhite);
+    font-weight: 700;
+}
+
+.colm-form-register .form-container-register a {
+    display: block;
+    color:  var(--bgcommon);
+    font-size: 14px;
+    text-decoration: none;
+    padding: 10px 0 20px;
+    border-bottom: 1px solid var(--colorform);
+}
+
+.colm-form-register .form-container-register a:hover {
+    text-decoration: underline;
+}
+
+.colm-form-register .form-container-register .btn-new {
+    background-color: #42b72a;
+    border: none;
+    border-radius: 6px;
+    font-size: 17px;
+    line-height: 48px;
+    padding: 0 16px;
+    color: var(--bgwhite);
+    font-weight: 700;
+    margin-top: 20px; 
+}
+
+.colm-form-register p {
+    font-size: 14px;
+}
+
+.colm-form-register p a {
+    text-decoration: none;
+    color: #1c1e21;
+    font-weight: 600;
+}
+
+.colm-form-register p a:hover {
+    text-decoration: underline;
+}
+.title-register{
+    text-align: left;
+}
