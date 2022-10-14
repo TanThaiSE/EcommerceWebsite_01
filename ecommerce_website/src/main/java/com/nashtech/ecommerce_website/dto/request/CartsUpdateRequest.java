@@ -1,6 +1,9 @@
 package com.nashtech.ecommerce_website.dto.request;
 
-public class CartsRequestDto {
+import javax.validation.constraints.NotNull;
+
+public class CartsUpdateRequest {
+	@NotNull
 	private String id;
 	private String productId;
 	private int quantity;
@@ -8,8 +11,6 @@ public class CartsRequestDto {
 	private String accountId;
 	private String sizeId;
 	private String colorId;
-	
-
 	public String getId() {
 		return id;
 	}
@@ -51,11 +52,6 @@ public class CartsRequestDto {
 	}
 	public void setColorId(String colorId) {
 		this.colorId = colorId;
-	}
-	@Override
-	public String toString() {
-		return "CartsRequestDto [productId=" + productId + ", quantity=" + quantity + ", price=" + price
-				+ ", accountId=" + accountId + ", sizeId=" + sizeId + ", colorId=" + colorId + "]";
 	}
 	
 }

@@ -17,6 +17,20 @@ import com.nashtech.ecommerce_website.dto.response.ErrorResponse;
 
 @ControllerAdvice
 public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
+	@ExceptionHandler({ItemExistException.class})
+	protected ResponseEntity<ErrorResponse> handleItemExistExceptionException(RuntimeException exception,
+			WebRequest request) {
+		ErrorResponse error = new ErrorResponse("302", exception.getMessage());
+		return new ResponseEntity<ErrorResponse>(error, HttpStatus.FOUND);
+	}
+	
+	@ExceptionHandler({CartFoundException.class})
+	protected ResponseEntity<ErrorResponse> handleCartNotFoundException(RuntimeException exception,
+			WebRequest request) {
+		ErrorResponse error = new ErrorResponse("404", exception.getMessage());
+		return new ResponseEntity<ErrorResponse>(error, HttpStatus.NOT_FOUND);
+	}
+	
 	@ExceptionHandler({ ResourceFoundException.class })
 	protected ResponseEntity<ErrorResponse> handleResourceNotFoundException(RuntimeException exception,
 			WebRequest request) {

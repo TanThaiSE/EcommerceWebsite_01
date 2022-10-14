@@ -1,19 +1,24 @@
 package com.nashtech.ecommerce_website.services;
 
+import java.util.ArrayList;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
+
 import org.springframework.stereotype.Service;
 
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
-import com.nashtech.ecommerce_website.dto.response.CartsResponse;
-import com.nashtech.ecommerce_website.dto.response.FindProductInCartResponseDto;
+import com.nashtech.ecommerce_website.dto.request.CartsUpdateRequest;
+import com.nashtech.ecommerce_website.dto.response.CartResponseDto;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.entity.Carts;
+import com.nashtech.ecommerce_website.exceptions.CartFoundException;
+import com.nashtech.ecommerce_website.exceptions.ItemExistException;
 import com.nashtech.ecommerce_website.exceptions.SqlException;
 import com.nashtech.ecommerce_website.repository.CartsRepository;
 
@@ -21,62 +26,85 @@ import com.nashtech.ecommerce_website.repository.CartsRepository;
 public class CartsService implements CartsServiceImp {
 	@Autowired
 	CartsRepository cartsRepository;
-
+	
 	private ModelMapper modelMapper = new ModelMapper();
 
 	@Override
-	public List<Carts> abc() {
-		// TODO Auto-generated method stub
-		return cartsRepository.findAll();
-	}
-	
-	@Override
-	public SuccessResponse addToCart(CartsRequestDto cartsRequestDto) {		
+	public CartResponseDto addToCart(CartsRequestDto cartsRequestDto) {		
 		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
 		Map<String, Object> findProduct = cartsRepository.findProductInCart(cartsRequestDto,accountId);
 		if (findProduct==null ||findProduct.isEmpty()) {
 			try {
+				String idCart=UUID.randomUUID().toString();
+				cartsRequestDto.setAccountId(accountId);
+				cartsRequestDto.setId(idCart);
 				cartsRepository.addToCart(cartsRequestDto,accountId);
-				SuccessResponse successResponse=new SuccessResponse("200","insert product success");
-				return successResponse;
+				CartResponseDto cartResponseDto=modelMapper.map(cartsRequestDto, CartResponseDto.class);
+				return cartResponseDto;
 			} catch (Exception e) {
-				throw new SqlException("Cannot insert product to cart");
+				throw new SqlException("Product cannot insert");
 			}
 		}
 		else {
-			try {
-				int quantity=(int) findProduct.get("quantity");
-				int quantityNew=quantity+cartsRequestDto.getQuantity();
-				cartsRepository.updateQuantityCart((String)findProduct.get("id"),quantityNew);
-				SuccessResponse successResponse=new SuccessResponse("200","update product success");
-				return successResponse;
-			} catch (Exception e) {
-				System.out.println(e);
-				throw new SqlException(e.getMessage());
-			}
+			throw new ItemExistException("Product existed in cart");
 		}
 		
 	}
 
+	@Override
+	public List<CartResponseDto> getAllProductInCartByAccountId() {
+		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
+		List<Map<String,Object>> getProduct=cartsRepository.getAllProductInCartByAccountId(accountId);
+		if(getProduct.isEmpty()||getProduct==null) {
+			throw new CartFoundException("Not found product in cart");
+		}
+		else {
+			List<CartResponseDto> lst=new ArrayList<CartResponseDto>();
+			for(Map<String,Object> x:getProduct) {
+				lst.add(modelMapper.map(x, CartResponseDto.class));
+			}
+			return lst;
+		}
+
+	}
 
 
-//
-//	@Override
-//	public void updateCart(Carts carts) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	@Override
-//	public void deleteCart(String id) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-//
-//	@Override
-//	public void getCart(String accountId) {
-//		// TODO Auto-generated method stub
-//		
-//	}
+	@Override
+	public CartResponseDto updateQuantityProductInCart(String id,CartsRequestDto cartsRequestDto) {
+		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
+		try {
+			int isUpdate=cartsRepository.updateQuantityCart(id,cartsRequestDto,accountId);
+			if(isUpdate==1) {
+				CartResponseDto cartResponseDto=modelMapper.map(cartsRequestDto, CartResponseDto.class);
+				cartResponseDto.setId(id);
+				cartResponseDto.setAccountId(accountId);
+				return cartResponseDto;
+			}
+			else {
+				throw new SqlException("Cannot update quantity product in cart");
+			}
 
+		} catch (Exception e) {
+			throw new SqlException("Cannot update quantity product in cart");
+			
+		}
+	}
+
+	@Override
+	public SuccessResponse deleteProductInCart(String id) {
+		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
+		try {
+			Optional<Carts> c=cartsRepository.findByIdAndAccountCart_Id(id,accountId);
+			if(c.isEmpty()) {
+				throw new CartFoundException("Not found product in cart");
+			}
+			else {
+				cartsRepository.deleteById(id);
+				SuccessResponse successResponse=new SuccessResponse("200","delete product success");
+				return successResponse;
+			}
+		} catch (Exception e) {
+			throw new SqlException("Cannot delete product in cart");
+		}
+	}
 }

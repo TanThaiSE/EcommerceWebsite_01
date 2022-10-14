@@ -18,18 +18,10 @@ public class Carts implements Serializable{
 	@Id
 	private String id;
 	
-//	@ManyToOne
-//	@JoinColumn(name="product_id")
-//	private Products productsCart;
-
 	@ManyToOne
 	@JoinColumn(name="product_id")
 	private Products productsCart;
-//	private List<Products> productsCart;
-	
-//	@Column(name="product_id")
-//	private String productId;
-	
+
 	@Column(name="quantity")
 	private int quantity;
 	
@@ -40,21 +32,14 @@ public class Carts implements Serializable{
 	@JoinColumn(name="account_id")
 	private Accounts accountCart;
 
-
-	
 	@ManyToOne
 	@JoinColumn(name="size_id")
 	private Sizes sizesCart;
-	
 	
 	@ManyToOne
 	@JoinColumn(name="color_id")
 	private Colors colorsCart;
 	
-
-	@Column(name="status_cart")
-	private int statusCart;
-
 	public String getId() {
 		return id;
 	}
@@ -62,14 +47,6 @@ public class Carts implements Serializable{
 	public void setId(String id) {
 		this.id = id;
 	}
-
-//	public Products getProductsCart() {
-//		return productsCart;
-//	}
-//
-//	public void setProductsCart(Products productsCart) {
-//		this.productsCart = productsCart;
-//	}
 
 	public int getQuantity() {
 		return quantity;
@@ -111,13 +88,6 @@ public class Carts implements Serializable{
 		this.colorsCart = colorsCart;
 	}
 
-	public int getStatusCart() {
-		return statusCart;
-	}
-
-	public void setStatusCart(int statusCart) {
-		this.statusCart = statusCart;
-	}
 
 	public Products getProductsCart() {
 		return productsCart;
@@ -126,23 +96,6 @@ public class Carts implements Serializable{
 	public void setProductsCart(Products productsCart) {
 		this.productsCart = productsCart;
 	}
-
-//	public List<Products> getProductsCart() {
-//		return productsCart;
-//	}
-//
-//	public void setProductsCart(List<Products> productsCart) {
-//		this.productsCart = productsCart;
-//	}
-
-//	public String getProductId() {
-//		return productId;
-//	}
-//
-//	public void setProductId(String productId) {
-//		this.productId = productId;
-//	}
-
 
 
 

@@ -5,6 +5,8 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity(name="image")
@@ -18,9 +20,13 @@ public class Images {
 	@Column(name="index_image")
 	private int indexImage;
 	
-	@OneToMany(mappedBy = "imagesImageProducts")
-	private Set<ImageProducts> imageProducts;
+//	@OneToMany(mappedBy = "imagesImageProducts")
+//	private Set<ImageProducts> imageProducts;
 
+	@ManyToOne
+	@JoinColumn(name = "product_id")
+	private Products productsImages;
+	
 	public String getId() {
 		return id;
 	}
@@ -43,6 +49,14 @@ public class Images {
 
 	public void setIndexImage(int indexImage) {
 		this.indexImage = indexImage;
+	}
+
+	public Products getProductsImages() {
+		return productsImages;
+	}
+
+	public void setProductsImages(Products productsImages) {
+		this.productsImages = productsImages;
 	}
 	
 }

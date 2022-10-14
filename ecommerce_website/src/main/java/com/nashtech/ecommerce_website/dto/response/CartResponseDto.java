@@ -8,18 +8,14 @@ public class CartResponseDto {
 	private String accountId;
 	private String sizeId;
 	private String colorId;
-	private int statusCart;
+	private String sizeName;
+	private String colorName;
+	private String imgName;
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
-	}
-	public String getProductId() {
-		return productId;
-	}
-	public void setProductId(String productId) {
-		this.productId = productId;
 	}
 	public int getQuantity() {
 		return quantity;
@@ -32,6 +28,30 @@ public class CartResponseDto {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+	public String getSizeName() {
+		return sizeName;
+	}
+	public void setSizeName(String sizeName) {
+		this.sizeName = sizeName;
+	}
+	public String getColorName() {
+		return colorName;
+	}
+	public void setColorName(String colorName) {
+		this.colorName = colorName;
+	}
+	public String getImgName() {
+		return imgName;
+	}
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+	public String getProductId() {
+		return productId;
+	}
+	public void setProductId(String productId) {
+		this.productId = productId;
 	}
 	public String getAccountId() {
 		return accountId;
@@ -51,10 +71,12 @@ public class CartResponseDto {
 	public void setColorId(String colorId) {
 		this.colorId = colorId;
 	}
-	public int getStatusCart() {
-		return statusCart;
+	@Override
+	public String toString() {
+		return "CartResponseDto [id=" + id + ", productId=" + productId + ", quantity=" + quantity + ", price=" + price
+				+ ", accountId=" + accountId + ", sizeId=" + sizeId + ", colorId=" + colorId + ", sizeName=" + sizeName
+				+ ", colorName=" + colorName + ", imgName=" + imgName + "]";
 	}
-	public void setStatusCart(int statusCart) {
-		this.statusCart = statusCart;
-	}
+	
+
 }
