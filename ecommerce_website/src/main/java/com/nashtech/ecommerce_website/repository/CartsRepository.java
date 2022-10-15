@@ -36,4 +36,6 @@ public interface CartsRepository extends JpaRepository<Carts, String>{
 	
 	public Optional<Carts> findByIdAndAccountCart_Id(String id,String accountId);
 	
+	@Query(value = "call FindProductWithSizeAndColor(:#{#c.productId},:#{#c.sizeId},:#{#c.colorId})",nativeQuery = true)
+	public Map<String,Object> findProductWithSizeAndColor(@Param("c") CartsRequestDto cartsRequestDto);
 }

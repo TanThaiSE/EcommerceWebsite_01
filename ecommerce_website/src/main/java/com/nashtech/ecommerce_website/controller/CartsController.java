@@ -31,10 +31,6 @@ public class CartsController {
 	@Autowired
 	CartsService cartsService;
 	
-//	//test
-	@Autowired
-	CartsRepository cartsRepository;
-
 	@GetMapping("")
 	public List<CartResponseDto> getAllProductInCart(){
 		return  cartsService.getAllProductInCartByAccountId();
