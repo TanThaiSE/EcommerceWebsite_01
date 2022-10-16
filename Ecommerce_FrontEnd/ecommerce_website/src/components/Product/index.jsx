@@ -7,7 +7,7 @@ const Product = ({ idCategory }) => {
   const [lstProduct, setLstProduct] = useState([]);
 
   const fetchListProducts = async (idCategory) => {
-    apiProduct.fetchGetAllProduct(idCategory)
+    await apiProduct.fetchGetAllProduct(idCategory)
       .then((res) => setLstProduct(res.data))
       .catch((err) => { console.log('fetchListProducts failed') });
   };

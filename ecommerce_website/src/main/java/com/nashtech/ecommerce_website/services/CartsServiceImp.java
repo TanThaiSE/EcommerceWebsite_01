@@ -8,7 +8,7 @@ import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 
 
 public interface CartsServiceImp {
-	public CartResponseDto addToCart(CartsRequestDto cartsRequestDto);
+	public SuccessResponse addToCart(CartsRequestDto cartsRequestDto);
 	public List<CartResponseDto> getAllProductInCartByAccountId();
 	public CartResponseDto updateQuantityProductInCart(String id,CartsRequestDto cartsRequestDto);
 	public SuccessResponse deleteProductInCart(String id);

@@ -16,7 +16,6 @@ import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.dto.response.CartResponseDto;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.entity.Carts;
-import com.nashtech.ecommerce_website.exceptions.ItemExistException;
 import com.nashtech.ecommerce_website.exceptions.NotFoundException;
 import com.nashtech.ecommerce_website.exceptions.SqlException;
 import com.nashtech.ecommerce_website.repository.CartsRepository;
@@ -29,7 +28,7 @@ public class CartsService implements CartsServiceImp {
 	private ModelMapper modelMapper = new ModelMapper();
 
 	@Override
-	public CartResponseDto addToCart(CartsRequestDto cartsRequestDto) {
+	public SuccessResponse addToCart(CartsRequestDto cartsRequestDto) {
 		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
 		Map<String, Object> isValidValue = cartsRepository.findProductWithSizeAndColor(cartsRequestDto);
 		if (isValidValue == null || isValidValue.isEmpty()) {
@@ -43,12 +42,15 @@ public class CartsService implements CartsServiceImp {
 					cartsRequestDto.setId(idCart);
 					cartsRepository.addToCart(cartsRequestDto, accountId);
 					CartResponseDto cartResponseDto = modelMapper.map(cartsRequestDto, CartResponseDto.class);
-					return cartResponseDto;
+					SuccessResponse result=new SuccessResponse("201", "add product to cart success", cartResponseDto);
+					return result;
 				} catch (Exception e) {
 					throw new SqlException("Product cannot insert");
 				}
 			} else {
-				throw new ItemExistException("Product existed in cart");
+				CartResponseDto cartResponseDto = modelMapper.map(findProduct, CartResponseDto.class);
+				SuccessResponse result=new SuccessResponse("302", "Product existed in cart", cartResponseDto);
+				return result;
 			}
 		}
 
@@ -99,7 +101,7 @@ public class CartsService implements CartsServiceImp {
 				throw new NotFoundException("Not found product in cart");
 			} else {
 				cartsRepository.deleteById(id);
-				SuccessResponse successResponse = new SuccessResponse("200", "delete product success");
+				SuccessResponse successResponse = new SuccessResponse("200", "delete product success",null);
 				return successResponse;
 			}
 		} catch (Exception e) {

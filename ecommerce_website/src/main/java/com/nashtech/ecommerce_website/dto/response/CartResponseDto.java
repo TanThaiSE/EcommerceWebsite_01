@@ -11,6 +11,7 @@ public class CartResponseDto {
 	private String sizeName;
 	private String colorName;
 	private String imgName;
+	private String productName;
 	public String getId() {
 		return id;
 	}
@@ -70,6 +71,13 @@ public class CartResponseDto {
 	}
 	public void setColorId(String colorId) {
 		this.colorId = colorId;
+	}
+	
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 	@Override
 	public String toString() {

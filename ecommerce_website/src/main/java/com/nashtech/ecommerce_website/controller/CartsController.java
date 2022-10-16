@@ -37,7 +37,7 @@ public class CartsController {
 	}
 	
 	@PostMapping("")
-	public CartResponseDto addToCart(@RequestBody CartsRequestDto cartsRequestDto ){
+	public SuccessResponse addToCart(@RequestBody CartsRequestDto cartsRequestDto ){
 		return cartsService.addToCart(cartsRequestDto);
 	}
 	

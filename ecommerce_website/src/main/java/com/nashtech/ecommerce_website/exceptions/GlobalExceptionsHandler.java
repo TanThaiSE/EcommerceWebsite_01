@@ -22,7 +22,7 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
 	protected ResponseEntity<ErrorResponse> handleNotFoundException(RuntimeException exception,
 			WebRequest request) {
 		ErrorResponse error = new ErrorResponse("404", exception.getMessage());
-		return new ResponseEntity<ErrorResponse>(error, HttpStatus.FOUND);
+		return new ResponseEntity<ErrorResponse>(error, HttpStatus.NOT_FOUND);
 	}
 	
 	@ExceptionHandler({ItemExistException.class})
@@ -64,7 +64,7 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
 			String errorMessage = error.getDefaultMessage();
 			errors.put(fieldName, errorMessage);
 		});
-		ErrorResponse error = new ErrorResponse("01", "Validation Error", errors);
+		ErrorResponse error = new ErrorResponse("400", "Validation Error", errors);
 		return new ResponseEntity<Object>(error, HttpStatus.BAD_REQUEST);
 	}
 }

@@ -6,7 +6,7 @@ const Category = () => {
   const [lstCategories, setLstCategories] = useState([]);
 
   const fetchListCategories = async () => {
-    apiCategory.fetchCategory()
+    await apiCategory.fetchCategory()
       .then((res) => setLstCategories(res.data))
       .catch((err) => { console.log('fetchListCategories failed') });
   };
