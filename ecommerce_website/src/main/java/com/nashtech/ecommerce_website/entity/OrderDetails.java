@@ -5,7 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
-
+/*quan he vs order vs product . k chua account
+ * 
+ * bang co 2 khoa chinh => dat la unique key =>>
+ * */
 @Entity(name="orderdetail")
 public class OrderDetails {
 	@EmbeddedId

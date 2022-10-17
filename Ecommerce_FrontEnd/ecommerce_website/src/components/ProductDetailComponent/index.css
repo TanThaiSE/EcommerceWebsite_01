@@ -1,6 +1,7 @@
 @import url('/src/utils/DefineVariable.css');
 .head-product-name-product{
     font-size: 23px;
+    word-wrap: break-word;
 }
 .btn-color-product{
     border: 1px solid rgba(0, 0, 0, 0.09);
@@ -28,8 +29,8 @@
     visibility: hidden;
 }
 .bg-color-choose{
-    border-color: var(--colorPrice);
-    color: var(--colorPrice);
+    border-color: var(--colorPrice) !important;
+    color: var(--colorPrice) !important;
 }
 
 .amountProduct::-webkit-outer-spin-button,

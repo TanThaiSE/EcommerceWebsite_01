@@ -44,8 +44,8 @@ export const fetchUpdateCart = async (id,data) => {
     });
 };
 
-export const fetchDeleteCart = async (data) => {
-    return axios.delete(`/cart`, data).then((result) => {
+export const fetchDeleteCart = async (idCart) => {
+    return axios.delete(`/cart/${idCart}`).then((result) => {
         return result;
     });
 };

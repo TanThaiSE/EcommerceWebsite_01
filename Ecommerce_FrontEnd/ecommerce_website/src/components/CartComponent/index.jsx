@@ -1,10 +1,12 @@
+import { faStaffSnake } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
-// import { apiCart, apiProduct } from '../../api';
+import { Link } from 'react-router-dom';
 import { apiCart } from '../../api';
 import './index.css';
 const CartComponent = () => {
   const [listProducts, setListProducts] = useState([]);
   const [isEmptyCart, setIsEmptyCart] = useState(false);
+  const [editQuantity, setEditQuantity] = useState({});
   const fetchGetProductsInCart = async () => {
     await apiCart.fetchGetCart()
       .then((res) => {
@@ -18,38 +20,151 @@ const CartComponent = () => {
       })
   }
 
+  const splitString = (st) => {
+    if (st.length !== 0) {
+      if (st.length > 72) {
+        return st.substring(0, 68) + '...';
+      }
+      else {
+        return st;
+      }
+    }
+  }
+  const setAmountProduct = async(item, type) => {
+    let tempProducts = [...listProducts];
+    let findIndex = tempProducts.findIndex((product) => product.id === item.id);
+    if(type===1){
+      if(tempProducts[findIndex].quantity<=1){
+        tempProducts[findIndex] = { ...tempProducts[findIndex], quantity: 1 }
+      }
+      else{
+        tempProducts[findIndex] = { ...tempProducts[findIndex], quantity: Number(tempProducts[findIndex].quantity)-1 }
+      }
+    }
+    else if(type===2){
+      tempProducts[findIndex] = { ...tempProducts[findIndex], quantity: Number(tempProducts[findIndex].quantity)+1 }
+    }
+    await apiCart.fetchUpdateCart(tempProducts[findIndex].id,tempProducts[findIndex])
+    .then(()=>{setListProducts(tempProducts)})
+    .catch((err)=>console.log('fetchUpdateCart failed ',err))
+  };
+  const handleInputAmountProduct = (event) => {
+    let { value, name } = event.target;
+    let item = JSON.parse(name);
+    let tempProducts = [...listProducts];
+    let findIndex = tempProducts.findIndex((product) => product.id === item.id);
+    if (value === '' || Number(value) < 1) {
+      tempProducts[findIndex] = { ...tempProducts[findIndex], quantity: 1 }
+    }
+    else {
+      tempProducts[findIndex] = { ...tempProducts[findIndex], quantity: value }
+    }
+    setListProducts(tempProducts);
+  };
+  const handleCheckInputAmountProduct = async(event) => {
+    let { name } = event.target;
+    let item = JSON.parse(name);
+    let findIndex = listProducts.findIndex((product) => product.id === item.id);
+    await apiCart.fetchUpdateCart(listProducts[findIndex].id,listProducts[findIndex])
+    .then(()=>{})
+    .catch((err)=>console.log('fetchUpdateCart failed ',err))
+  };
+  const handleClickProduct = (e) => {
+    const { name, checked } = e.target;
+    if (name === "allSelect") {
+      let tempProduct = listProducts.map((item) => {
+        return { ...item, isChecked: checked }
+      });
+      setListProducts(tempProduct);
+    }
+    else {
+      let tempProduct = listProducts.map((item) => {
+        return item?.id === name ? { ...item, isChecked: checked } : item
+      });
+      setListProducts(tempProduct);
+    }
+  }
+  const handleRemoveProduct = async (idCart) => {
+    await apiCart.fetchDeleteCart(idCart)
+      .then((res) => {
+        if (res.data.code === "200") {
+          let tempListProduct = [...listProducts];
+          let indexRemove = tempListProduct.findIndex((item) => item.id === idCart);
+          if (indexRemove !== -1) {
+            tempListProduct.splice(indexRemove, 1);
+            setListProducts(tempListProduct);
+          }
+        }
+        else {
+          console.log('fetchDeleteCart', res.data);
+        }
+      })
+      .catch((err) => { console.log(err); })
+  }
+  const displayMoney=(listProducts)=>{
+    let totalMoney=0;
+    if(listProducts.length>0){
+      for(let i=0;i<listProducts.length;i++){
+        if(listProducts[i]?.isChecked){
+          totalMoney+=Number(listProducts[i].price) * Number(listProducts[i].quantity);
+        }
+      }
+      return totalMoney;
+    }
+    else{
+      return totalMoney;
+    }
+  }
+  const handleDeleteMultipleChooice=()=>{
+    
+  }
   const displayProducts = (listProducts) => {
     if (listProducts.length > 0) {
       return listProducts.map((item, index) => {
         return (
-          <div className="row" key={`listProducts-${index}`}>
+          <div className="row mt-2 mb-5" key={`listProducts-${index}`}>
             <div className="col-md-1">
-              <input type='checkbox' />
+              <input type='checkbox'
+                className='choose-product'
+                name={item.id}
+                checked={item?.isChecked || false}
+                onChange={handleClickProduct}
+              />
             </div>
             <div className="col-md-5">
-              <div className="row">
-                <div className="col-md-1">
-                  <img src={item.imgName} alt={item.productName}/>
+              <div className="content d-flex" >
+                <div className="content-img">
+                  <Link to={`/productdetail/${item.productId}`}>
+                    <img src={item.imgName} alt={item.productName} />
+                  </Link>
+
                 </div>
-                <div className="col-md-2">
-                  <p>{item.productName}</p>
+                <div className="content-product">
+                  <Link to={`/productdetail/${item.productId}`} className='content-product-link'>
+                    <p>{splitString(item.productName)}</p>
+                  </Link>
                 </div>
-                <div className="col-md-2">
+                <div className="content-attribute">
                   <p>{item.sizeName},{item.colorName} </p>
                 </div>
               </div>
+
             </div>
             <div className="col-md-2">
               <p>{item.price}</p>
             </div>
             <div className="col-md-2">
-              <p>{item.quantity}</p>
+              <div className='d-flex'>
+                <button className='btn-color-product ammount-product' onClick={() => { setAmountProduct(item, 1) }}>-</button>
+                <input type="number" value={item.quantity} className='amountProduct' onChange={handleInputAmountProduct} onBlur={handleCheckInputAmountProduct} name={JSON.stringify(item)} />
+                <button className='btn-color-product ammount-product' onClick={() => { setAmountProduct(item, 2) }}>+</button>
+              </div>
             </div>
             <div className="col-md-1">
-              <p>{Number(item.price)*Number(item.quantity)}</p>
+              <p>{Number(item.price) * Number(item.quantity)}</p>
             </div>
             <div className="col-md-1">
-              <p>Xóa</p>
+              <button onClick={() => handleRemoveProduct(item.id)} className='btn-remove-product'>Xóa</button>
             </div>
           </div>
         );
@@ -59,6 +174,7 @@ const CartComponent = () => {
       return (<></>);
     }
   }
+
   useEffect(() => {
     fetchGetProductsInCart();
   }, []);
@@ -68,7 +184,10 @@ const CartComponent = () => {
     <div className='container'>
       <div className="row">
         <div className="col-md-1">
-          <input type='checkbox' />
+          {listProducts.length > 0 ? (<input type='checkbox' className='choose-product' name="allSelect"
+            checked={!listProducts.some((p) => { return p?.isChecked !== true })}
+            onChange={handleClickProduct}
+          />) : (<></>)}
         </div>
         <div className="col-md-5">
           <p>Sản phẩm</p>
@@ -92,13 +211,13 @@ const CartComponent = () => {
           <input type='checkbox' />
         </div>
         <div className="col-md-4">
-          <button>Xóa</button>
+          <button onClick={()=>{handleDeleteMultipleChooice()}}>Xóa</button>
         </div>
         <div className="col-md-2">
           <p>Tổng thanh toán</p>
         </div>
         <div className="col-md-3">
-          120000
+          {displayMoney(listProducts)}
         </div>
         <div className="col-md-2">
           <button>Mua hàng</button>

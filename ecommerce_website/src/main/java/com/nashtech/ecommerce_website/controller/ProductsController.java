@@ -18,7 +18,7 @@ public class ProductsController {
 	ProductsService productsService;
 	
 
-	@GetMapping("{idProduct}")
+	@GetMapping("/{idProduct}")
 	public ProductDetailResponseDto getDetailProduct(@PathVariable("idProduct") String idProduct){
 		return productsService.getDetailProduct(idProduct);
 	}

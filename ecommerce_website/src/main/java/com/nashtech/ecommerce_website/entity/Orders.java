@@ -14,7 +14,10 @@ import javax.persistence.TemporalType;
 
 @Entity(name="orders")
 public class Orders {
-
+/* 
+ * account, list order detail
+ * 
+ * */
 	@Id
 	private String id;
 
