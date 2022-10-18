@@ -15,17 +15,11 @@ public class JwtProvider {
 
 	private long EXPIRED=8*60*60*1000;
 	private String SECRET_KEY = "YWRtaW4xMjM0NTY3ODkwQGFkbWluMTIzNDU2Nzg5MEBhZG1pbjEyMzQ1Njc4OTBkZmRmZGZkZmRmZGZkZmRtaW4xMjM0NTY3ODkwZGZkZmRmZGZkZmRmZGY="; // 
-//	public String generateToken(String userName) {
-//		Date now=new Date();
-//		Date expiredDate=new Date(now.getTime()+EXPIRED);
-//		return Jwts.builder().setSubject(userName) .setIssuedAt(now) .setExpiration(expiredDate) 
-//				.signWith(SignatureAlgorithm.HS512,SECRET_KEY).compact();
-//	}
 
-	public String generateToken(String valueGenerate) {
+	public String generateToken(String accountId) {
 		Date now=new Date();
 		Date expiredDate=new Date(now.getTime()+EXPIRED);
-		return Jwts.builder().setSubject(valueGenerate) .setIssuedAt(now) .setExpiration(expiredDate) 
+		return Jwts.builder().setSubject(accountId) .setIssuedAt(now) .setExpiration(expiredDate) 
 				.signWith(SignatureAlgorithm.HS512,SECRET_KEY).compact();
 	}
 	

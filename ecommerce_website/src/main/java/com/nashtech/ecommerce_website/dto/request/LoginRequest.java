@@ -1,4 +1,4 @@
-package com.nashtech.ecommerce_website.payload;
+package com.nashtech.ecommerce_website.dto.request;
 
 public class LoginRequest {
 	private String userName;
@@ -15,5 +15,4 @@ public class LoginRequest {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
 }

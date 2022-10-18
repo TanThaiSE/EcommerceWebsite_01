@@ -16,8 +16,10 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.nashtech.ecommerce_website.security.AccountService;
-//import com.nashtech.ecommerce_website.security.UserService;
+import com.nashtech.ecommerce_website.services.UserDetailsServiceImp;
+
+//import com.nashtech.ecommerce_website.security.AccountService;
+
 
 public class JwtAuthFilter extends  OncePerRequestFilter{
 
@@ -27,38 +29,27 @@ public class JwtAuthFilter extends  OncePerRequestFilter{
 	@Autowired
 	AuthenticationManager authenticationManager;
 	
-//	@Autowired
-//	UserService userService;
-
 	@Autowired
-	AccountService accountService;
+	UserDetailsServiceImp userDetailsServiceImp;
 	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
-		String token=getJwtToken(request);
+		String token=getJwtToken(request);                                                                                                           
 		if(jwtProvider.validationToken(token)) {
 			String jsonData=jwtProvider.decodeToken(token);
-			System.out.println("ktra token "+ jsonData);
-			
-//			User userDetail= (User) userService.loadUserByUsername(jsonData);
 			try {
-				User userDetail= (User) accountService.loadUserByUsername(jsonData);
+				User userDetail= (User) userDetailsServiceImp.loadUserByUsername(jsonData);
 				UsernamePasswordAuthenticationToken authenticationToken=new UsernamePasswordAuthenticationToken(userDetail,null,userDetail.getAuthorities());
 				authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
-				
 				SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 			} catch (Exception e) {
-				// TODO: handle exception
 				System.out.println("doFilterInternal"+ e);
 			}
-			
-			
-			
 		}
-		else {
-			System.out.println("Auth: Đăng nhập thất bại ");
-		}
+		/*
+		 * else { System.out.println("Auth: Đăng nhập thất bại "); }
+		 */
 		
 		filterChain.doFilter(request, response);
 	}

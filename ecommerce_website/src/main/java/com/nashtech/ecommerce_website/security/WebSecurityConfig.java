@@ -73,13 +73,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.nashtech.ecommerce_website.helper.JwtAuthFilter;
+import com.nashtech.ecommerce_website.services.UserDetailsServiceImp;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
-	AccountService accountService;
+	UserDetailsServiceImp userDetailsServiceImp;
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -88,7 +89,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		// TODO Auto-generated method stub
-		auth.userDetailsService(accountService).passwordEncoder(passwordEncoder());
+		auth.userDetailsService(userDetailsServiceImp).passwordEncoder(passwordEncoder());
 	}
 	
 	@Override

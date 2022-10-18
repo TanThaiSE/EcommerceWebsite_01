@@ -1,4 +1,4 @@
-package com.nashtech.ecommerce_website.security;
+package com.nashtech.ecommerce_website.services;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,30 +12,27 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.nashtech.ecommerce_website.entity.Accounts;
-import com.nashtech.ecommerce_website.services.AccountsServiceImp;
-
 @Service
-public class AccountService implements UserDetailsService {
-	@Autowired AccountsServiceImp accountsServiceImp;
-	
+public class UserDetailsServiceImp implements UserDetailsService {
+	@Autowired
+	AccountsServiceImp accountsServiceImp;
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		List<SimpleGrantedAuthority> roles=new ArrayList<SimpleGrantedAuthority>();
+		List<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
 		try {
-			Map<String,Object> acc=accountsServiceImp.findByemail(username);
-			if(!acc.isEmpty()&&acc!=null) {
-				SimpleGrantedAuthority role=new SimpleGrantedAuthority((String) acc.get("roles"));
+			Map<String, Object> acc = accountsServiceImp.findByemail(username);
+			if (!acc.isEmpty() && acc != null) {
+				SimpleGrantedAuthority role = new SimpleGrantedAuthority((String) acc.get("roles"));
 				roles.add(role);
-				User user=new User((String) acc.get("email"),(String) acc.get("password"), roles);
+				User user = new User((String) acc.get("email"), (String) acc.get("password"), roles);
 				return user;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			// TODO: handle exception
-			
+
 		}
 		return null;
 	}
-
 }
