@@ -1,11 +1,9 @@
 package com.nashtech.ecommerce_website.entity;
 
-import java.io.Serializable;
-import java.util.Set;
 
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -41,7 +39,7 @@ public class Accounts {
 	private Profiles profiles;
 	
 	@OneToOne(mappedBy = "accountOrderDetails")
-	private OrderDetails orderDetails;
+	private OrderDetail orderDetails;
 	
 	public String getId() {
 		return id;

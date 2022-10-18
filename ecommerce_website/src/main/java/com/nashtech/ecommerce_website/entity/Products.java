@@ -59,14 +59,13 @@ public class Products {
 	
 	@OneToMany(mappedBy = "productsSizeProducts")
 	private Set<SizeProducts> sizeProducts;
-
-	@OneToMany(mappedBy = "productOrderDetails")
-	private Set<OrderDetails> orderDetails;
 	
-//	@OneToMany(mappedBy = "productsImageProducts")
-//	private Set<ImageProducts> imageProducts;
+	@OneToMany(mappedBy = "productOderDetail")
+	private Set<Orders> orderDetails;
+	
 	@OneToMany(mappedBy = "productsImages")
 	private Set<Images> images;
+	
 	
 	public String getId() {
 		return id;

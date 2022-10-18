@@ -17,26 +17,7 @@ import com.nashtech.ecommerce_website.pojo.DetailProductPojo;
 import com.nashtech.ecommerce_website.pojo.ImageProductPojo;
 import com.nashtech.ecommerce_website.repository.ProductsRepository;
 
-@Service
-public class ProductsService implements ProductsServiceImp {
-	@Autowired
-	ProductsRepository productsRepository;
-	
 
-	@Override
-	public ProductDetailResponseDto getDetailProduct(String productId) {
-		Optional<DetailProductPojo> detailProduct=productsRepository.getDetailProduct(productId);
-		if(detailProduct.isEmpty()) {
-			throw new NotFoundException("Not found detailproduct");
-		}
-		List<AttributeProductPojo> getColorProduct=productsRepository.getColorProduct(productId);
-		List<AttributeProductPojo> getSizeProduct=productsRepository.getSizeProduct(productId);
-		List<ImageProductPojo> getImageProduct=productsRepository.getImageProduct(productId);
-		
-		ProductDetailResponseDto result=new ProductDetailResponseDto(detailProduct.get(), getColorProduct, getSizeProduct, getImageProduct);
-
-		return result;
-	}
-
-
+public interface ProductsService {
+	public ProductDetailResponseDto getDetailProduct(String productId);
 }

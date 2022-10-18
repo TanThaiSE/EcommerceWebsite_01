@@ -2,12 +2,12 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './index.css';
-import NavBarComon from '../../components/NavBarComon';
+import NavBarCommon from '../../components/NavBarComon';
 
 const Register = () => {
   return (
     <>
-      <NavBarComon title={`Đăng ký`} colors={'black'} />
+      <NavBarCommon title={`Đăng ký`} colors={'black'} />
       <div className="loginBackground">
         <div className="container bg-login">
 

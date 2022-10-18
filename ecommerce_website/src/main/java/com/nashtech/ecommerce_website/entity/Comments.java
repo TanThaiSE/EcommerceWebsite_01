@@ -22,8 +22,6 @@ public class Comments {
 	@JoinColumn(name = "product_id")
 	private Products productsComments;
 	
-	@Column(name = "point_rate")
-	private int pointRate;
 
 	public String getId() {
 		return id;
@@ -55,14 +53,6 @@ public class Comments {
 
 	public void setProductsComments(Products productsComments) {
 		this.productsComments = productsComments;
-	}
-
-	public int getPointRate() {
-		return pointRate;
-	}
-
-	public void setPointRate(int pointRate) {
-		this.pointRate = pointRate;
 	}
 
 }

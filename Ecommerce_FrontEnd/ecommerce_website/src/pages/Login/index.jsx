@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './index.css';
-import NavBarComon from '../../components/NavBarComon';
+import NavBarCommon from '../../components/NavBarComon';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -46,7 +46,7 @@ const Login = () => {
   }, []);
   return (
     <>
-      <NavBarComon title={`Đăng nhập`} colors={'black'} />
+      <NavBarCommon title={`Đăng nhập`} colors={'black'} />
       <div className="loginBackground">
         <div className="container bg-login" style={{ backgroundImage: "url('https://res.cloudinary.com/dwolphrup/image/upload/v1665237930/cart_4_srrov7.jpg')" }}>
           <div className="colm-form">

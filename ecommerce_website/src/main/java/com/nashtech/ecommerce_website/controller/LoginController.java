@@ -61,7 +61,6 @@ public class LoginController {
 
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
-		// Hàm dùng để kích hoạt đăng nhập bằng tay
 		try {
 			Authentication authen = authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));

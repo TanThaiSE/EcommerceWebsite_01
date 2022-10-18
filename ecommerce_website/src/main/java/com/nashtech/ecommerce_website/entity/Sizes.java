@@ -17,6 +17,12 @@ public class Sizes {
 	private Set<Carts> carts;
 	@OneToMany(mappedBy = "sizesSizeProducts")
 	private Set<SizeProducts> sizeProducts;
+	
+	@OneToMany(mappedBy = "sizeOrderDetails")
+	private Set<OrderDetail> orderDetails ;
+	
+	
+	
 	public String getId() {
 		return id;
 	}

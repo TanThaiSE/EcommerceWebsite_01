@@ -11,22 +11,23 @@ import com.nashtech.ecommerce_website.dto.response.ProductsInCategoryDto;
 import com.nashtech.ecommerce_website.entity.Categorys;
 
 import com.nashtech.ecommerce_website.services.CategorysService;
+import com.nashtech.ecommerce_website.services.CategorysServiceImp;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/category")
 public class CategorysController {
 	@Autowired
-	CategorysService categorysService;
+	CategorysServiceImp categorysServiceImp;
 
 	@GetMapping("")
 	public List<Categorys> getAllCategory(){
-		return categorysService.getAllCategory();
+		return categorysServiceImp.getAllCategory();
 	}
 	
 	@GetMapping("/{idCategory}/product")
 	public List<ProductsInCategoryDto> getProductsByCategoryId(@PathVariable("idCategory") String idCategory){
-		return categorysService.getAllProductByCategory(idCategory);
+		return categorysServiceImp.getAllProductByCategory(idCategory);
 	}
 
 }

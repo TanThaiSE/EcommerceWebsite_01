@@ -20,6 +20,10 @@ public class Colors {
 	@OneToMany(mappedBy = "colorsColorsProducts")
 	private Set<ColorsProducts> colorsProducts;
 
+	@OneToMany(mappedBy = "colorOrderDetails")
+	private Set<OrderDetail> orderDetails;
+	
+	
 	public String getId() {
 		return id;
 	}

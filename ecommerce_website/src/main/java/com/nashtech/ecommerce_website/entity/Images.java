@@ -20,9 +20,6 @@ public class Images {
 	@Column(name="index_image")
 	private int indexImage;
 	
-//	@OneToMany(mappedBy = "imagesImageProducts")
-//	private Set<ImageProducts> imageProducts;
-
 	@ManyToOne
 	@JoinColumn(name = "product_id")
 	private Products productsImages;

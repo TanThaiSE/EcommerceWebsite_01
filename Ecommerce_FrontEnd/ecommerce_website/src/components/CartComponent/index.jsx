@@ -1,9 +1,10 @@
 import { faStaffSnake } from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { apiCart } from '../../api';
 import './index.css';
 const CartComponent = () => {
+  const navigate = useNavigate();
   const [listProducts, setListProducts] = useState([]);
   const [isEmptyCart, setIsEmptyCart] = useState(false);
   const [editQuantity, setEditQuantity] = useState({});
@@ -30,23 +31,23 @@ const CartComponent = () => {
       }
     }
   }
-  const setAmountProduct = async(item, type) => {
+  const setAmountProduct = async (item, type) => {
     let tempProducts = [...listProducts];
     let findIndex = tempProducts.findIndex((product) => product.id === item.id);
-    if(type===1){
-      if(tempProducts[findIndex].quantity<=1){
+    if (type === 1) {
+      if (tempProducts[findIndex].quantity <= 1) {
         tempProducts[findIndex] = { ...tempProducts[findIndex], quantity: 1 }
       }
-      else{
-        tempProducts[findIndex] = { ...tempProducts[findIndex], quantity: Number(tempProducts[findIndex].quantity)-1 }
+      else {
+        tempProducts[findIndex] = { ...tempProducts[findIndex], quantity: Number(tempProducts[findIndex].quantity) - 1 }
       }
     }
-    else if(type===2){
-      tempProducts[findIndex] = { ...tempProducts[findIndex], quantity: Number(tempProducts[findIndex].quantity)+1 }
+    else if (type === 2) {
+      tempProducts[findIndex] = { ...tempProducts[findIndex], quantity: Number(tempProducts[findIndex].quantity) + 1 }
     }
-    await apiCart.fetchUpdateCart(tempProducts[findIndex].id,tempProducts[findIndex])
-    .then(()=>{setListProducts(tempProducts)})
-    .catch((err)=>console.log('fetchUpdateCart failed ',err))
+    await apiCart.fetchUpdateCart(tempProducts[findIndex].id, tempProducts[findIndex])
+      .then(() => { setListProducts(tempProducts) })
+      .catch((err) => console.log('fetchUpdateCart failed ', err))
   };
   const handleInputAmountProduct = (event) => {
     let { value, name } = event.target;
@@ -61,13 +62,13 @@ const CartComponent = () => {
     }
     setListProducts(tempProducts);
   };
-  const handleCheckInputAmountProduct = async(event) => {
+  const handleCheckInputAmountProduct = async (event) => {
     let { name } = event.target;
     let item = JSON.parse(name);
     let findIndex = listProducts.findIndex((product) => product.id === item.id);
-    await apiCart.fetchUpdateCart(listProducts[findIndex].id,listProducts[findIndex])
-    .then(()=>{})
-    .catch((err)=>console.log('fetchUpdateCart failed ',err))
+    await apiCart.fetchUpdateCart(listProducts[findIndex].id, listProducts[findIndex])
+      .then(() => { })
+      .catch((err) => console.log('fetchUpdateCart failed ', err))
   };
   const handleClickProduct = (e) => {
     const { name, checked } = e.target;
@@ -101,22 +102,45 @@ const CartComponent = () => {
       })
       .catch((err) => { console.log(err); })
   }
-  const displayMoney=(listProducts)=>{
-    let totalMoney=0;
-    if(listProducts.length>0){
-      for(let i=0;i<listProducts.length;i++){
-        if(listProducts[i]?.isChecked){
-          totalMoney+=Number(listProducts[i].price) * Number(listProducts[i].quantity);
+  const displayMoney = (listProducts) => {
+    let totalMoney = 0;
+    if (listProducts.length > 0) {
+      for (let i = 0; i < listProducts.length; i++) {
+        if (listProducts[i]?.isChecked) {
+          totalMoney += Number(listProducts[i].price) * Number(listProducts[i].quantity);
         }
       }
       return totalMoney;
     }
-    else{
+    else {
       return totalMoney;
     }
   }
-  const handleDeleteMultipleChooice=()=>{
-    
+  const handleDeleteMultipleChoice = async () => {
+    let isNotEmpty = listProducts.some((item) => item?.isChecked === true);
+    if (isNotEmpty) {
+      let prepareToDelete = listProducts.filter((item) => item?.isChecked === true);
+      for(const element of prepareToDelete){
+        await apiCart.fetchDeleteCart(element.id);
+        console.log('element',element);
+      }
+      let newCart = listProducts.filter((item) => item?.isChecked === false);
+      setListProducts(newCart);
+    }
+    else {
+      console.log('empty handleDeleteMultipleChoice');
+    }
+  }
+  const handleCheckout = () => {
+    let isNotEmpty = listProducts.some((item) => item?.isChecked === true);
+    if (isNotEmpty) {
+      let prepareCheckOut = listProducts.filter((item) => item?.isChecked === true);
+      localStorage.setItem("CHECKOUT", JSON.stringify(prepareCheckOut));
+      navigate('/checkout');
+    }
+    else {
+      console.log('empty handleCheckout');
+    }
   }
   const displayProducts = (listProducts) => {
     if (listProducts.length > 0) {
@@ -176,6 +200,7 @@ const CartComponent = () => {
   }
 
   useEffect(() => {
+    localStorage.removeItem("CHECKOUT");
     fetchGetProductsInCart();
   }, []);
 
@@ -211,7 +236,7 @@ const CartComponent = () => {
           <input type='checkbox' />
         </div>
         <div className="col-md-4">
-          <button onClick={()=>{handleDeleteMultipleChooice()}}>Xóa</button>
+          <button onClick={() => { handleDeleteMultipleChoice() }}>Xóa</button>
         </div>
         <div className="col-md-2">
           <p>Tổng thanh toán</p>
@@ -220,7 +245,7 @@ const CartComponent = () => {
           {displayMoney(listProducts)}
         </div>
         <div className="col-md-2">
-          <button>Mua hàng</button>
+          <button onClick={() => { handleCheckout() }}>Mua hàng</button>
         </div>
       </div>
     </div>

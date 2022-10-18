@@ -9,17 +9,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nashtech.ecommerce_website.dto.response.ProductDetailResponseDto;
 import com.nashtech.ecommerce_website.services.ProductsService;
+import com.nashtech.ecommerce_website.services.ProductsServiceImp;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/product")
 public class ProductsController {
 	@Autowired
-	ProductsService productsService;
+	ProductsServiceImp productsServiceImp;
 	
 
 	@GetMapping("/{idProduct}")
 	public ProductDetailResponseDto getDetailProduct(@PathVariable("idProduct") String idProduct){
-		return productsService.getDetailProduct(idProduct);
+		return productsServiceImp.getDetailProduct(idProduct);
 	}
 }

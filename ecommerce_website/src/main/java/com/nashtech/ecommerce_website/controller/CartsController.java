@@ -23,32 +23,33 @@ import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.repository.CartsRepository;
 
 import com.nashtech.ecommerce_website.services.CartsService;
+import com.nashtech.ecommerce_website.services.CartsServiceImp;
 
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/v1/cart")
 public class CartsController {
 	@Autowired
-	CartsService cartsService;
+	CartsServiceImp cartsServiceImp;
 	
 	@GetMapping("")
 	public List<CartResponseDto> getAllProductInCart(){
-		return  cartsService.getAllProductInCartByAccountId();
+		return  cartsServiceImp.getAllProductInCartByAccountId();
 	}
 	
 	@PostMapping("")
 	public SuccessResponse addToCart(@RequestBody CartsRequestDto cartsRequestDto ){
-		return cartsService.addToCart(cartsRequestDto);
+		return cartsServiceImp.addToCart(cartsRequestDto);
 	}
 	
 	@PutMapping("/{id}/product")
 	public CartResponseDto updateQuantityProductInCart(@PathVariable("id") String id ,@RequestBody CartsRequestDto cartsRequestDto ) {
-		return cartsService.updateQuantityProductInCart(id,cartsRequestDto);
+		return cartsServiceImp.updateQuantityProductInCart(id,cartsRequestDto);
 	}
 	
 	@DeleteMapping("/{idProduct}")
 	public SuccessResponse deleteProductInCart(@PathVariable("idProduct")String idProduct) {
-		return cartsService.deleteProductInCart(idProduct);
+		return cartsServiceImp.deleteProductInCart(idProduct);
 	}
 }
 

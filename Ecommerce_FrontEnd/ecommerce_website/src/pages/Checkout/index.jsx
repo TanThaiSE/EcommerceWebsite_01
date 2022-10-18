@@ -4,15 +4,15 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './index.css';
 import NavBarInfo from '../../components/NavbarInfo';
 import NavBarCommon from '../../components/NavBarComon';
-import CartComponent from '../../components/CartComponent';
-const Cart = () => {
+import CheckoutComponent from '../../components/CheckoutComponent';
+const Checkout = () => {
   return (
-    <>
+    <div>
         <NavBarInfo/>
         <NavBarCommon title={`Giỏ Hàng`}/>
-        <CartComponent/>
-    </>
+        <CheckoutComponent/>
+    </div>
   )
 }
 
-export default Cart;
+export default Checkout;

@@ -13,8 +13,8 @@ public class DeliveryStatus {
 	private String id;
 	@Column(name = "name")
 	private String name;
-	@OneToMany(mappedBy = "deliveryStatusOrders")
-	private Set<Orders> orders;
+	@OneToMany(mappedBy = "deliveryStatusOrdersDetails")
+	private Set<OrderDetail> orders;
 	public String getId() {
 		return id;
 	}

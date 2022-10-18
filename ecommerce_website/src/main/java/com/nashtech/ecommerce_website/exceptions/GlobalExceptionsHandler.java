@@ -14,7 +14,6 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.nashtech.ecommerce_website.dto.response.ErrorResponse;
-/*gom notfoundex vs ResourceFoundException*/
 @ControllerAdvice
 public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
 	
@@ -33,14 +32,6 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
 	}
 	
 
-	
-	@ExceptionHandler({ ResourceFoundException.class })
-	protected ResponseEntity<ErrorResponse> handleResourceNotFoundException(RuntimeException exception,
-			WebRequest request) {
-		ErrorResponse error = new ErrorResponse("404", exception.getMessage());
-		return new ResponseEntity<ErrorResponse>(error, HttpStatus.NOT_FOUND);
-	}
-	
 	@ExceptionHandler({IllegalArgumentException.class})
 	protected ResponseEntity<ErrorResponse> handleIllegalArgumentException(RuntimeException exception,
 			WebRequest request) {
