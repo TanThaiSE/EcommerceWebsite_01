@@ -11,6 +11,7 @@ import com.nashtech.ecommerce_website.entity.Accounts;
 
 @Repository
 public interface AccountsRepository extends JpaRepository<Accounts,String>  {
-	@Query(value = "call GetAccountLogin(:userName)",nativeQuery = true)
-	public Map<String,Object> findByemail(@Param("userName") String email);
+	@Query(value = "call GetAccountLogin(:phone)",nativeQuery = true)
+	public Map<String,Object> findByPhone(@Param("phone") String phone);
+	
 }

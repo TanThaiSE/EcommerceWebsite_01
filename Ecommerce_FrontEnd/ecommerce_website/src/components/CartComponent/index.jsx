@@ -122,9 +122,8 @@ const CartComponent = () => {
       let prepareToDelete = listProducts.filter((item) => item?.isChecked === true);
       for(const element of prepareToDelete){
         await apiCart.fetchDeleteCart(element.id);
-        console.log('element',element);
       }
-      let newCart = listProducts.filter((item) => item?.isChecked === false);
+      let newCart = listProducts.filter((item) => item?.isChecked !== true);
       setListProducts(newCart);
     }
     else {

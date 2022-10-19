@@ -31,7 +31,7 @@ public class LoginServiceImp implements LoginService{
 			Authentication authen = authenticationManager
 					.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(authen);
-			Map<String, Object> acc = accountsServiceImp.findByemail(loginRequest.getUserName());
+			Map<String, Object> acc = accountsServiceImp.findByPhone(loginRequest.getUserName());
 			String jwtToken = jwtProvider.generateToken((String) acc.get("id"));
 			LoginResponseDto loginResponseDto=new LoginResponseDto(loginRequest.getUserName(), jwtToken);
 			return loginResponseDto;

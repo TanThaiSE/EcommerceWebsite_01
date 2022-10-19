@@ -13,9 +13,9 @@ public class AccountsServiceImp implements AccountsService{
 	AccountsRepository accountsRepository;
 
 	@Override
-	public Map<String,Object> findByemail(String email) {
+	public Map<String,Object> findByPhone(String phone) {
 		
-		return accountsRepository.findByemail(email);
+		return accountsRepository.findByPhone(phone);
 	}
 	
 }

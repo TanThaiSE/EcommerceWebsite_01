@@ -54,9 +54,15 @@ public class OrderDetail {
 	
 	@OneToMany(mappedBy = "orderDetail")
 	private Set<Rating> ratings;
+	
+	@Column(name = "address")
+	private String address;
+	
 	public String getId() {
 		return id;
 	}
+	
+
 
 	public void setId(String id) {
 		this.id = id;
@@ -124,6 +130,14 @@ public class OrderDetail {
 
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 

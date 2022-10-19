@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,10 +17,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
+import com.nashtech.ecommerce_website.dto.request.LoginRequest;
+
+import com.nashtech.ecommerce_website.dto.request.OrderDetailRequest;
+
 import com.nashtech.ecommerce_website.dto.response.CartResponseDto;
 
 
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
+import com.nashtech.ecommerce_website.exceptions.NotFoundException;
+import com.nashtech.ecommerce_website.pojo.OrderDetailPojo;
 
 import com.nashtech.ecommerce_website.repository.CartsRepository;
 
@@ -46,11 +54,13 @@ public class CartsController {
 	public CartResponseDto updateQuantityProductInCart(@PathVariable("id") String id ,@RequestBody CartsRequestDto cartsRequestDto ) {
 		return cartsServiceImp.updateQuantityProductInCart(id,cartsRequestDto);
 	}
+		
 	
 	@DeleteMapping("/{idProduct}")
 	public SuccessResponse deleteProductInCart(@PathVariable("idProduct")String idProduct) {
 		return cartsServiceImp.deleteProductInCart(idProduct);
 	}
+	
 }
 
 /*viết unit test=>service, controller*/

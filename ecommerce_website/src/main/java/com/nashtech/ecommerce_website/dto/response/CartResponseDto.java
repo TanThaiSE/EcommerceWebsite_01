@@ -5,7 +5,7 @@ public class CartResponseDto {
 	private String productId;
 	private int quantity;
 	private int price;
-	private String accountId;
+//	private String accountId;
 	private String sizeId;
 	private String colorId;
 	private String sizeName;
@@ -54,12 +54,12 @@ public class CartResponseDto {
 	public void setProductId(String productId) {
 		this.productId = productId;
 	}
-	public String getAccountId() {
-		return accountId;
-	}
-	public void setAccountId(String accountId) {
-		this.accountId = accountId;
-	}
+//	public String getAccountId() {
+//		return accountId;
+//	}
+//	public void setAccountId(String accountId) {
+//		this.accountId = accountId;
+//	}
 	public String getSizeId() {
 		return sizeId;
 	}
@@ -79,12 +79,6 @@ public class CartResponseDto {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	@Override
-	public String toString() {
-		return "CartResponseDto [id=" + id + ", productId=" + productId + ", quantity=" + quantity + ", price=" + price
-				+ ", accountId=" + accountId + ", sizeId=" + sizeId + ", colorId=" + colorId + ", sizeName=" + sizeName
-				+ ", colorName=" + colorName + ", imgName=" + imgName + "]";
-	}
-	
+
 
 }

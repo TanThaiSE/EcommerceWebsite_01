@@ -41,6 +41,9 @@ public class Accounts {
 	@OneToOne(mappedBy = "accountOrderDetails")
 	private OrderDetail orderDetails;
 	
+	@Column(name = "phone")
+	private String phone;
+	
 	public String getId() {
 		return id;
 	}
@@ -79,6 +82,14 @@ public class Accounts {
 
 	public void setIsBlocked(int isBlocked) {
 		this.isBlocked = isBlocked;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 	
 	

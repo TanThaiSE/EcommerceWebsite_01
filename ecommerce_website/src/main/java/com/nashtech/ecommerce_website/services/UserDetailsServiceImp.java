@@ -21,7 +21,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		List<SimpleGrantedAuthority> roles = new ArrayList<SimpleGrantedAuthority>();
 		try {
-			Map<String, Object> acc = accountsServiceImp.findByemail(username);
+			Map<String, Object> acc = accountsServiceImp.findByPhone(username);
 			if (!acc.isEmpty() && acc != null) {
 				SimpleGrantedAuthority role = new SimpleGrantedAuthority((String) acc.get("roles"));
 				roles.add(role);
