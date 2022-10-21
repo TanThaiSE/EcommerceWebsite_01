@@ -25,4 +25,8 @@ public class OrderDetailController {
 		return orderDetailServiceImp.addToOrderDetail(orderDetailRequest);
 	}
 	
+	@GetMapping("")
+	public SuccessResponse getAllProductInOrderDetail() {
+		return orderDetailServiceImp.getAllProductInOrderDetail();
+	}
 }

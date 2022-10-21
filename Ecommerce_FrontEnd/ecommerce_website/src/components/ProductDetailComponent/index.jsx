@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { apiCart, apiProduct } from '../../api';
 import './index.css';
+import StarRatings from 'react-star-ratings';
 const ProductDetailComponent = ({ idProduct }) => {
   const [productDetail, setProductDetail] = useState({});
   const [attributeProduct, setAttributeProduct] = useState({
@@ -14,6 +15,8 @@ const ProductDetailComponent = ({ idProduct }) => {
     activeColor: '',
     activeSize: '',
   });
+  const [rating,setRating]=useState(0);
+
   const fetchDetailProduct = async (idProduct) => {
     await apiProduct.fetchGetDetailProduct(idProduct)
       .then((res) => {
@@ -231,7 +234,15 @@ const ProductDetailComponent = ({ idProduct }) => {
         </div>
 
         <div className='review-product'>
-          UPDATING!!
+            Đánh giá sản phẩm
+            <StarRatings 
+                rating={rating}
+                starRatedColor='#ffce3d'
+                numberOfStars={5}
+                starDimension="16px"
+                starSpacing="2px"
+                changeRating={handleChangeRating}
+        />
         </div>
       </>)
     }
@@ -240,6 +251,9 @@ const ProductDetailComponent = ({ idProduct }) => {
     }
   }
 
+  const handleChangeRating=(rating)=>{
+    setRating(rating);
+  }
   useEffect(() => {
     fetchDetailProduct(idProduct);
   }, []);

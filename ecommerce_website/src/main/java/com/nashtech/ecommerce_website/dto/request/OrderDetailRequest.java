@@ -7,13 +7,11 @@ import com.nashtech.ecommerce_website.pojo.OrderDetailPojo;
 public class OrderDetailRequest {
 	private List<OrderDetailPojo> orderDetails;
 	private String address;
-	private String deliveryId;
 	private String paymentId;
 	
-	public OrderDetailRequest(List<OrderDetailPojo> orderDetails, String address, String deliveryId, String paymentId) {
+	public OrderDetailRequest(List<OrderDetailPojo> orderDetails, String address, String paymentId) {
 		this.orderDetails = orderDetails;
 		this.address = address;
-		this.deliveryId = deliveryId;
 		this.paymentId = paymentId;
 	}
 	public List<OrderDetailPojo> getOrderDetails() {
@@ -27,12 +25,6 @@ public class OrderDetailRequest {
 	}
 	public void setAddress(String address) {
 		this.address = address;
-	}
-	public String getDeliveryId() {
-		return deliveryId;
-	}
-	public void setDeliveryId(String deliveryId) {
-		this.deliveryId = deliveryId;
 	}
 	public String getPaymentId() {
 		return paymentId;

@@ -7,4 +7,6 @@ import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 
 public interface OrderDetailService {
 	public SuccessResponse addToOrderDetail(OrderDetailRequest orderDetailRequest);
+	
+	public SuccessResponse getAllProductInOrderDetail();
 }

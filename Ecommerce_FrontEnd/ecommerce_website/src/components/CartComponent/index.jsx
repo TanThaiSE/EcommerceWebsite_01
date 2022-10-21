@@ -120,9 +120,7 @@ const CartComponent = () => {
     let isNotEmpty = listProducts.some((item) => item?.isChecked === true);
     if (isNotEmpty) {
       let prepareToDelete = listProducts.filter((item) => item?.isChecked === true);
-      for(const element of prepareToDelete){
-        await apiCart.fetchDeleteCart(element.id);
-      }
+      await apiCart.fetchDeleteMultipleProduct({prepareToDelete}).then((res)=>{console.log(res.data)}).catch((err)=>{console.log(err);});
       let newCart = listProducts.filter((item) => item?.isChecked !== true);
       setListProducts(newCart);
     }

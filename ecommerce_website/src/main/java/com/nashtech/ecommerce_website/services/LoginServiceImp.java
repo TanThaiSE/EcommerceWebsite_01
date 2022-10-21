@@ -33,7 +33,7 @@ public class LoginServiceImp implements LoginService{
 			SecurityContextHolder.getContext().setAuthentication(authen);
 			Map<String, Object> acc = accountsServiceImp.findByPhone(loginRequest.getUserName());
 			String jwtToken = jwtProvider.generateToken((String) acc.get("id"));
-			LoginResponseDto loginResponseDto=new LoginResponseDto(loginRequest.getUserName(), jwtToken);
+			LoginResponseDto loginResponseDto=new LoginResponseDto((String)acc.get("email"), jwtToken);
 			return loginResponseDto;
 		} catch (Exception e) {
 			throw new NotFoundException("Cannot found account");

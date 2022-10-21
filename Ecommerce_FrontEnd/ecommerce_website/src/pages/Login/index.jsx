@@ -11,7 +11,8 @@ import { apiLogin } from '../../api';
 import { getLogin, setLogin } from '../../utils/localStorage';
 import { useNavigate } from 'react-router-dom';
 const schema = yup.object().shape({
-  userName: yup.string().email("Email không hợp lệ").required("Vui lòng điền vào mục này"),
+  // userName: yup.string().email("Email không hợp lệ").required("Vui lòng điền vào mục này"),
+  userName:yup.number("Số điện thoại không hợp lệ").required("Vui lòng điền vào mục này"),
   password: yup.string().required("Vui lòng điền vào mục này")
 });
 
@@ -23,13 +24,8 @@ const Login = () => {
   const fetchLogin = async (data) => {
     apiLogin.fetchLogin(data)
       .then((res) => {
-        if (res.data.type === 1) {//oke
-          setLogin.saveLogin(res.data.token,res.data.id,res.data.username);
-          navigate("/");
-        }
-        else if (res.data.type === -1) {//failed
-          console.log('failed');
-        }
+        setLogin.saveLogin(res.data.token,res.data.userName);
+        navigate("/");
       })
       .catch((err) => {
         console.log('fetchLogin', err);

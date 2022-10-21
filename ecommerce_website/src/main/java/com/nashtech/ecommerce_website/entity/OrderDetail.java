@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -22,10 +23,7 @@ public class OrderDetail {
 	@Column(name="quantity")
 	private int quantity;
 	
-	@ManyToOne
-	@JoinColumn(name="delivery_id")
-	private DeliveryStatus deliveryStatusOrdersDetails;
-	
+
 	@ManyToOne
 	@JoinColumn(name="payment_id")
 	private Payments paymentsOrdersDetails;
@@ -52,12 +50,28 @@ public class OrderDetail {
 	@OneToMany(mappedBy = "oDetail")
 	private Set<Orders> orders;
 	
-	@OneToMany(mappedBy = "orderDetail")
-	private Set<Rating> ratings;
+	@OneToOne(mappedBy = "orderDetailRating")
+	private Rating ratings;
 	
 	@Column(name = "address")
 	private String address;
 	
+	@Column(name="total_price")
+	private int totalPrice;
+	
+	
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
+
+
 	public String getId() {
 		return id;
 	}
@@ -76,13 +90,6 @@ public class OrderDetail {
 		this.quantity = quantity;
 	}
 
-	public DeliveryStatus getDeliveryStatusOrdersDetails() {
-		return deliveryStatusOrdersDetails;
-	}
-
-	public void setDeliveryStatusOrdersDetails(DeliveryStatus deliveryStatusOrdersDetails) {
-		this.deliveryStatusOrdersDetails = deliveryStatusOrdersDetails;
-	}
 
 	public Payments getPaymentsOrdersDetails() {
 		return paymentsOrdersDetails;

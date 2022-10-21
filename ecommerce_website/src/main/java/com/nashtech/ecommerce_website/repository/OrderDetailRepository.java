@@ -1,6 +1,7 @@
 package com.nashtech.ecommerce_website.repository;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -16,6 +17,8 @@ import com.nashtech.ecommerce_website.pojo.OrderDetailPojo;
 public interface OrderDetailRepository extends JpaRepository<OrderDetail,String>{
 	@Modifying
 	@Transactional
-	@Query(value = "call AddToOrderDetail(:#{#c.id},:#{#c.quantity},:deliveryId,:paymentId,:accountId,:#{#c.colorId},:#{#c.sizeId},:#{#c.price},:orderDate,:address)",nativeQuery = true)
-	public void addToOrderDetail(@Param("c") OrderDetailPojo OrderDetailPojo,@Param("deliveryId") String deliveryId,@Param("paymentId") String paymentId,@Param("accountId") String accountId,@Param("orderDate") Date orderDate,@Param("address") String address);
+	@Query(value = "call AddToOrderDetail(:#{#c.id},:#{#c.quantity},:paymentId,:accountId,:#{#c.colorId},:#{#c.sizeId},:#{#c.price},:orderDate,:address,:#{#c.totalPrice})",nativeQuery = true)
+	public void addToOrderDetail(@Param("c") OrderDetailPojo OrderDetailPojo,@Param("paymentId") String paymentId,@Param("accountId") String accountId,@Param("orderDate") Date orderDate,@Param("address") String address);
+	
+	
 }

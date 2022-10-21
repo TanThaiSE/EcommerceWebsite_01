@@ -10,7 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+import com.nashtech.ecommerce_website.dto.request.CartsDeleteResponse;
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.dto.response.CartResponseDto;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
@@ -95,6 +95,7 @@ public class CartsServiceImp implements CartsService {
 		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
 		try {
 			Optional<Carts> c = cartsRepository.findByIdAndAccountCart_Id(id, accountId);
+			System.out.println(c.get());
 			if (c.isEmpty()) {
 				throw new NotFoundException("Not found product in cart");
 			} else {
@@ -103,10 +104,25 @@ public class CartsServiceImp implements CartsService {
 				return successResponse;
 			}
 		} catch (Exception e) {
-			throw new SqlException("Cannot delete product in cart");
+			throw new SqlException("Cannot delete product in cart "+e.getMessage());
 		}
 	}
 
-
+	@Override
+	public SuccessResponse deleteMutipleProductInCart(CartsDeleteResponse listProductCart) {
+		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
+		List<CartsRequestDto> lstProduct=listProductCart.getPrepareToDelete();
+		if(lstProduct.size()>0) {
+			for(CartsRequestDto c:lstProduct) {
+				cartsRepository.deleteById(c.getId());
+			}
+			SuccessResponse successResponse = new SuccessResponse("200", "delete product success", null);
+			return successResponse;
+		}
+		else {
+			throw new NotFoundException("Not found product in cart");
+		}
+		
 	}
-
+	
+}

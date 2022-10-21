@@ -16,11 +16,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.nashtech.ecommerce_website.dto.request.CartsDeleteResponse;
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.dto.request.LoginRequest;
 
 import com.nashtech.ecommerce_website.dto.request.OrderDetailRequest;
-
+import com.nashtech.ecommerce_website.dto.request.Test;
 import com.nashtech.ecommerce_website.dto.response.CartResponseDto;
 
 
@@ -56,11 +57,15 @@ public class CartsController {
 	}
 		
 	
-	@DeleteMapping("/{idProduct}")
-	public SuccessResponse deleteProductInCart(@PathVariable("idProduct")String idProduct) {
-		return cartsServiceImp.deleteProductInCart(idProduct);
+	@DeleteMapping("/{idCart}")
+	public SuccessResponse deleteProductInCart(@PathVariable("idCart")String id) {
+		return cartsServiceImp.deleteProductInCart(id);
 	}
 	
+	@DeleteMapping("")
+	public SuccessResponse deleteMutipleProductInCart(@RequestBody CartsDeleteResponse c) {
+		return cartsServiceImp.deleteMutipleProductInCart(c);
+	}
 }
 
 /*viết unit test=>service, controller*/

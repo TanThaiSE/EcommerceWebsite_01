@@ -1,5 +1,4 @@
-export const saveLogin=(token,userId,userName)=>{
+export const saveLogin=(token,userName)=>{
     localStorage.setItem("token",token);
-    localStorage.setItem("userId",userId);
     localStorage.setItem("userName",userName);
 }

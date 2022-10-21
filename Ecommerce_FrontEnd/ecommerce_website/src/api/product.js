@@ -11,3 +11,8 @@ export const fetchGetDetailProduct = async (idProduct) => {
         return result;
     });
 };
+export const fetchUpdateQuantityProduct = async (data) => {
+    return axios.put(`/product`,data).then((result) => {
+        return result;
+    });
+};

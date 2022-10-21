@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 @Entity(name="rating")
 public class Rating {
@@ -15,9 +16,12 @@ public class Rating {
 	@Column(name="point_rate")
 	private int pointRate;
 	
-	@ManyToOne
+	@Column(name="comment")
+	private String comment;
+	
+	@OneToOne
 	@JoinColumn(name="order_detail_id")
-	private OrderDetail orderDetail;
+	private OrderDetail orderDetailRating;
 
 	public String getId() {
 		return id;
@@ -35,12 +39,21 @@ public class Rating {
 		this.pointRate = pointRate;
 	}
 
-	public OrderDetail getOrderDetail() {
-		return orderDetail;
+
+	public OrderDetail getOrderDetailRating() {
+		return orderDetailRating;
 	}
 
-	public void setOrderDetail(OrderDetail orderDetail) {
-		this.orderDetail = orderDetail;
+	public void setOrderDetailRating(OrderDetail orderDetailRating) {
+		this.orderDetailRating = orderDetailRating;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
 	}
 	
 	

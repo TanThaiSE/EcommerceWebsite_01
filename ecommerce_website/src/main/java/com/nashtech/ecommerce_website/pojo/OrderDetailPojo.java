@@ -9,23 +9,35 @@ public class OrderDetailPojo {
 	private int price;
 	private String sizeId;
 	private String colorId;
+	private int totalPrice;
 
 
 	public OrderDetailPojo(String id, String productId, int quantity, int price, String sizeId,
-			String colorId) {
+			String colorId,int totalPrice) {
 		this.id = id;
 		this.productId = productId;
 		this.quantity = quantity;
 		this.price = price;
 		this.sizeId = sizeId;
 		this.colorId = colorId;
+		this.totalPrice=totalPrice;
 	}
+	
 	public String getId() {
 		return id;
 	}
 	public void setId(String id) {
 		this.id = id;
 	}
+	
+	public int getTotalPrice() {
+		return totalPrice;
+	}
+
+	public void setTotalPrice(int totalPrice) {
+		this.totalPrice = totalPrice;
+	}
+
 	public String getProductId() {
 		return productId;
 	}

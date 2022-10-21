@@ -49,3 +49,9 @@ export const fetchDeleteCart = async (idCart) => {
         return result;
     });
 };
+
+export const fetchDeleteMultipleProduct = async (data1) => {
+    return axios.delete(`/cart`,{data:data1}).then((result) => {
+        return result;
+    });
+};
