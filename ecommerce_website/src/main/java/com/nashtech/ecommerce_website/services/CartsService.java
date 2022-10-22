@@ -12,7 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
-import com.nashtech.ecommerce_website.dto.request.CartsDeleteResponse;
+import com.nashtech.ecommerce_website.dto.request.CartsDeleteRequest;
+
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.dto.response.CartResponseDto;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
@@ -28,5 +29,5 @@ public interface CartsService{
 	public List<CartResponseDto> getAllProductInCartByAccountId();
 	public CartResponseDto updateQuantityProductInCart(String id,CartsRequestDto cartsRequestDto);
 	public SuccessResponse deleteProductInCart(String id);
-	public SuccessResponse deleteMutipleProductInCart(CartsDeleteResponse listProductCart);
+	public SuccessResponse deleteMutipleProductInCart(CartsDeleteRequest listProductCart);
 }

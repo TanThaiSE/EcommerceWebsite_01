@@ -1,5 +1,7 @@
 package com.nashtech.ecommerce_website.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.dto.request.OrderDetailRequest;
+import com.nashtech.ecommerce_website.dto.response.OrderDetailResponse;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.services.OrderDetailServiceImp;
 
@@ -26,7 +29,7 @@ public class OrderDetailController {
 	}
 	
 	@GetMapping("")
-	public SuccessResponse getAllProductInOrderDetail() {
+	public List<OrderDetailResponse> getAllProductInOrderDetail() {
 		return orderDetailServiceImp.getAllProductInOrderDetail();
 	}
 }

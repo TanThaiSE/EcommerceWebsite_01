@@ -16,7 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nashtech.ecommerce_website.dto.request.CartsDeleteResponse;
+import com.nashtech.ecommerce_website.dto.request.CartsDeleteRequest;
+
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.dto.request.LoginRequest;
 
@@ -63,7 +64,7 @@ public class CartsController {
 	}
 	
 	@DeleteMapping("")
-	public SuccessResponse deleteMutipleProductInCart(@RequestBody CartsDeleteResponse c) {
+	public SuccessResponse deleteMutipleProductInCart(@RequestBody CartsDeleteRequest c) {
 		return cartsServiceImp.deleteMutipleProductInCart(c);
 	}
 }

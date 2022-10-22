@@ -1,5 +1,6 @@
 package com.nashtech.ecommerce_website.services;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.dto.request.OrderDetailRequest;
 import com.nashtech.ecommerce_website.dto.response.CartResponseDto;
+import com.nashtech.ecommerce_website.dto.response.OrderDetailResponse;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.entity.OrderDetail;
 import com.nashtech.ecommerce_website.exceptions.NotFoundException;
@@ -68,12 +70,19 @@ public class OrderDetailServiceImp implements OrderDetailService {
 	}
 
 	@Override
-	public SuccessResponse getAllProductInOrderDetail() {
+	public List<OrderDetailResponse> getAllProductInOrderDetail() {
 		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
-		List<OrderDetail> x=orderDetailRepository.findAllByAccountOrderDetails_Id(accountId);
-		SuccessResponse result = new SuccessResponse("201", "add product to order detail success",x);
-		// TODO Auto-generated method stub
-		return result;
+		List<Map<String, Object>> product=orderDetailRepository.getAllOrderDeTail(accountId);
+		if (product.size()==0 || product == null) {
+			throw new NotFoundException("Not found product in order");
+		}
+		else {
+			List<OrderDetailResponse> lst=new ArrayList<OrderDetailResponse>();
+			for(Map<String, Object> o:product) {
+				lst.add(modelMapper.map(o, OrderDetailResponse.class));
+			}
+			return lst;
+		}
 	}
 
 }

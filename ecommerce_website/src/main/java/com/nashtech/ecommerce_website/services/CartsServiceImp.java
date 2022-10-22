@@ -10,7 +10,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.nashtech.ecommerce_website.dto.request.CartsDeleteResponse;
+import com.nashtech.ecommerce_website.dto.request.CartsDeleteRequest;
+
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.dto.response.CartResponseDto;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
@@ -59,7 +60,7 @@ public class CartsServiceImp implements CartsService {
 	public List<CartResponseDto> getAllProductInCartByAccountId() {
 		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
 		List<Map<String, Object>> getProduct = cartsRepository.getAllProductInCartByAccountId(accountId);
-		if (getProduct.isEmpty() || getProduct == null) {
+		if (getProduct.size()==0 || getProduct == null) {
 			throw new NotFoundException("Not found product in cart");
 		} else {
 			List<CartResponseDto> lst = new ArrayList<CartResponseDto>();
@@ -109,7 +110,7 @@ public class CartsServiceImp implements CartsService {
 	}
 
 	@Override
-	public SuccessResponse deleteMutipleProductInCart(CartsDeleteResponse listProductCart) {
+	public SuccessResponse deleteMutipleProductInCart(CartsDeleteRequest listProductCart) {
 		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
 		List<CartsRequestDto> lstProduct=listProductCart.getPrepareToDelete();
 		if(lstProduct.size()>0) {

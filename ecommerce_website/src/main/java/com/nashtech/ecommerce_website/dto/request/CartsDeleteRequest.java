@@ -2,7 +2,7 @@ package com.nashtech.ecommerce_website.dto.request;
 
 import java.util.List;
 
-public class CartsDeleteResponse {
+public class CartsDeleteRequest {
 	List<CartsRequestDto> prepareToDelete;
 
 	public List<CartsRequestDto> getPrepareToDelete() {
@@ -13,9 +13,7 @@ public class CartsDeleteResponse {
 		this.prepareToDelete = prepareToDelete;
 	}
 
-	public CartsDeleteResponse(List<CartsRequestDto> prepareToDelete,String k) {
-		super();
+	public CartsDeleteRequest(List<CartsRequestDto> prepareToDelete,String k) {
 		this.prepareToDelete = prepareToDelete;
 	}
-	
 }
