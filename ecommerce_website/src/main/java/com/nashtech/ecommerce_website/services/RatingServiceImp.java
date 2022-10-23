@@ -24,11 +24,12 @@ public class RatingServiceImp implements RatingService {
 			try {
 				String idRating = UUID.randomUUID().toString();
 				ratingAddRequest.setId(idRating);
+				System.out.println(ratingAddRequest.toString());
 				ratingRepository.addRatingToProduct(ratingAddRequest);
 				SuccessResponse result = new SuccessResponse("201", "add rating success", ratingAddRequest);
 				return result;
 			} catch (Exception e) {
-				throw new SqlException("cannot add rating");
+				throw new SqlException("cannot add rating"+e.getMessage());
 			}
 		}
 		throw new ItemExistException("product is rated");

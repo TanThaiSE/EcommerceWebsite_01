@@ -6,6 +6,10 @@ public class RatingAddRequest {
 	private int pointRate;
 	private String comment;
 	
+	public RatingAddRequest() {
+
+	}
+	
 	public RatingAddRequest(String id, String orderDetailId, int pointRate, String comment) {
 		this.id = id;
 		this.orderDetailId = orderDetailId;
@@ -35,6 +39,12 @@ public class RatingAddRequest {
 	}
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	@Override
+	public String toString() {
+		return "RatingAddRequest [id=" + id + ", orderDetailId=" + orderDetailId + ", pointRate=" + pointRate
+				+ ", comment=" + comment + "]";
 	}
 	
 }

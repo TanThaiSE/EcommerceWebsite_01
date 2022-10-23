@@ -3,4 +3,5 @@ import * as apiProduct from './product';
 import * as apiLogin from './login';
 import * as apiCart from './cart';
 import * as apiOrderDetail from './orderDetail';
-export { apiCategory, apiProduct, apiLogin, apiCart,apiOrderDetail };
+import * as apiRating from './rating';
+export { apiCategory, apiProduct, apiLogin, apiCart, apiOrderDetail, apiRating };

@@ -14,7 +14,7 @@ const Register = () => {
             <div className="colm-form-register">
               <div className="form-container-register">
                 <p className='title-register'>Đăng ký</p>
-                <input type="text" placeholder="Email address or phone number" />
+                <input type="text" placeholder="Phone number" />
                 <input type="password" placeholder="Password" />
                 <input type="password" placeholder="Repeat Password" />
                 <button className="btn-login">Login</button>

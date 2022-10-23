@@ -6,18 +6,28 @@ public class OrderDetailResponse {
 	private int price;
 	private int totalPrice;
 	private String productId;
-	private String nameProduct;
+	private String productName;
 	private String ratingId;
+	private String imgName;
+	private String sizeName;
+	private String colorName;
 	
-	public OrderDetailResponse(String id, int quantity, int price, int totalPrice, String productId, String nameProduct,
-			String ratingId) {
+	
+	public OrderDetailResponse() {
+
+	}
+	public OrderDetailResponse(String id, int quantity, int price, int totalPrice, String productId, String productName,
+			String ratingId, String imgName, String sizeName, String colorName) {
 		this.id = id;
 		this.quantity = quantity;
 		this.price = price;
 		this.totalPrice = totalPrice;
 		this.productId = productId;
-		this.nameProduct = nameProduct;
+		this.productName = productName;
 		this.ratingId = ratingId;
+		this.imgName = imgName;
+		this.sizeName = sizeName;
+		this.colorName = colorName;
 	}
 	public String getId() {
 		return id;
@@ -49,11 +59,11 @@ public class OrderDetailResponse {
 	public void setProductId(String productId) {
 		this.productId = productId;
 	}
-	public String getNameProduct() {
-		return nameProduct;
+	public String getProductName() {
+		return productName;
 	}
-	public void setNameProduct(String nameProduct) {
-		this.nameProduct = nameProduct;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 	public String getRatingId() {
 		return ratingId;
@@ -61,5 +71,25 @@ public class OrderDetailResponse {
 	public void setRatingId(String ratingId) {
 		this.ratingId = ratingId;
 	}
+	public String getImgName() {
+		return imgName;
+	}
+	public void setImgName(String imgName) {
+		this.imgName = imgName;
+	}
+	public String getSizeName() {
+		return sizeName;
+	}
+	public void setSizeName(String sizeName) {
+		this.sizeName = sizeName;
+	}
+	public String getColorName() {
+		return colorName;
+	}
+	public void setColorName(String colorName) {
+		this.colorName = colorName;
+	}
+	
+
 	
 }

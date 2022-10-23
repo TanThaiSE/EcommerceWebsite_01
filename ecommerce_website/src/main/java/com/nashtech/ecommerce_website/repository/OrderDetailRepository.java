@@ -21,6 +21,6 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetail,String>
 	@Query(value = "call AddToOrderDetail(:#{#c.id},:#{#c.quantity},:paymentId,:accountId,:#{#c.colorId},:#{#c.sizeId},:#{#c.price},:orderDate,:address,:#{#c.totalPrice})",nativeQuery = true)
 	public void addToOrderDetail(@Param("c") OrderDetailPojo OrderDetailPojo,@Param("paymentId") String paymentId,@Param("accountId") String accountId,@Param("orderDate") Date orderDate,@Param("address") String address);
 	
-	@Query(value = "call GetAllOrderDeTail(:accountId)")
+	@Query(value = "call GetAllOrderDeTail(:accountId)",nativeQuery = true)
 	public List<Map<String,Object>> getAllOrderDeTail(@Param("accountId")String accountId);
 }

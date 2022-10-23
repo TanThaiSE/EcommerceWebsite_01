@@ -46,8 +46,8 @@ const NavBarInfo = () => {
                                                 {getLogin.getUserName()}
                                             </a>
                                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                                <li><Link className="dropdown-item" href="#">Tài khoản của tôi</Link></li>
-                                                <li><Link className="dropdown-item" href="#">Đơn mua</Link></li>
+                                                <li><Link className="dropdown-item" to={`/user/account/profile`}>Tài khoản của tôi</Link></li>
+                                                <li><Link className="dropdown-item" to={`/user/purchase`}>Đơn mua</Link></li>
                                                 <li><button className="dropdown-item" onClick={()=>{logOut();}}>Đăng xuất</button></li>
                                             </ul>
                                         </li>

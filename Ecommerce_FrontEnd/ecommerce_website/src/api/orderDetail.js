@@ -5,3 +5,9 @@ export const fetchAddToOrderDetail = async (data) => {
         return result;
     });
 };
+
+export const fetchGetAllProductInOrderDetail=async ()=>{
+    return axios.get(`/orderdetail`).then((result) => {
+        return result;
+    });
+}
