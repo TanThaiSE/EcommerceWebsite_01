@@ -1,28 +1,91 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './index.css';
 import NavBarCommon from '../../components/NavBarComon';
+import { Link } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import { apiProfile, apiRegister } from '../../api';
+import { useNavigate } from 'react-router-dom';
+
+const schema = yup.object().shape({
+  
+  phone: yup.string().required("Vui lòng điền vào mục này").matches(/^[0-9]+$/, "Số điện thoại không hợp lệ"),
+  email: yup.string().email("Email không hợp lệ").required("Vui lòng điền vào mục này"),
+  password: yup.string().required("Vui lòng điền vào mục này")
+  .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$@!%&*?])[A-Za-z\d#$@!%&*?]{8,}$/,"Phải ít nhất 8 ký tự,1 ký tự Hoa,1 ký tự thường,1 số, 1 ký tự đặc biệt"),
+  repeatPassword:yup.string().required("Vui lòng điền vào mục này")
+  .oneOf([yup.ref('password'), null],"Mật khẩu phải khớp nhau")
+  .required("Vui lòng điền vào mục này"),
+  
+});
 
 const Register = () => {
+  const navigate = useNavigate();
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema)
+  });
+  const fetchRegister = async (data) => {
+    await apiRegister.fetchRegister(data)
+    .then(async (res)=>{
+      if(res.data.code==="201"){
+        await apiProfile.fetchAddProfile({accountId:res.data.dataResponse.id}).then((res1)=>{
+          console.log('fetchAddProfile',res1);
+        })
+        .catch((err1)=>{
+          console.log(err1);
+        }) 
+      }
+    })
+    .catch((err)=>{
+      console.log(err);
+    })
+  }
+  const onSubmitLogin = (data) => {
+    fetchRegister(data);
+  }
+
+  // useEffect(() => {
+  //   if (getLogin.getToken() !== null) {
+  //     navigate('/');
+  //   }
+  // }, []);
+
   return (
     <>
       <NavBarCommon title={`Đăng ký`} colors={'black'} />
-      <div className="loginBackground">
-        <div className="container bg-login">
+      <div className="registerBackground">
+        <div className="container bg-register" style={{ backgroundImage: "url('https://res.cloudinary.com/dwolphrup/image/upload/v1665237930/cart_4_srrov7.jpg')" }}>
+          <div className="colm-form">
+            <div className="form-container">
+              <p className='title-login'>Đăng nhập</p>
+              <form onSubmit={handleSubmit(onSubmitLogin)}>
 
-            <div className="colm-form-register">
-              <div className="form-container-register">
-                <p className='title-register'>Đăng ký</p>
-                <input type="text" placeholder="Phone number" />
-                <input type="password" placeholder="Password" />
-                <input type="password" placeholder="Repeat Password" />
-                <button className="btn-login">Login</button>
-                <a href="#">Forgotten password?</a>
-                <button className="btn-new">Create new Account</button>
+                <input type="text" placeholder="Số điện thoại" {...register("phone")} />
+                {errors.phone?.message && <span className='content-error'>{errors.phone?.message}</span>}
+
+                <input type="text" placeholder="Địa chỉ email" {...register("email")} />
+                {errors.email?.message && <span className='content-error'>{errors.email?.message}</span>}
+
+                <input type="password" placeholder="Mật khẩu" {...register("password")} />
+                {errors.password?.message && <span className='content-error'>{errors.password?.message}</span>}
+
+                <input type="password" placeholder="Nhập lại mật khẩu" {...register("repeatPassword")} />
+                {errors.repeatPassword?.message && <span className='content-error'>{errors.repeatPassword?.message}</span>}
+
+                <button className="btn-login" type='submit'>Đăng nhập</button>
+              </form>
+              <div className='d-flex btn-forget'>
+                <Link to={"/forgotpassword"} className='link-forgot'>Quên mật khẩu</Link>
+              </div>
+              <div className="d-flex btn-new">
+                <p>Bạn đã có tài khoản?</p>
+                <Link to={"/login"} className='link-regis'>Đăng nhập</Link>
               </div>
             </div>
-
+          </div>
         </div>
       </div>
     </>

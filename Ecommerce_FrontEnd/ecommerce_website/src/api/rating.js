@@ -5,3 +5,9 @@ export const fetchAddRating = async (data) => {
         return result;
     });
 };
+
+export const fetchGetRatingAndComment = async (idProduct) => {
+    return axios.get(`/rating/${idProduct}`).then((result) => {
+        return result;
+    });
+};

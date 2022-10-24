@@ -1,21 +1,27 @@
 package com.nashtech.ecommerce_website.dto.request;
 
+import java.util.Date;
+
 public class RatingAddRequest {
 	private String id;
 	private String orderDetailId;
 	private int pointRate;
 	private String comment;
-	
+	private Date ratingDate;
 	public RatingAddRequest() {
 
 	}
 	
-	public RatingAddRequest(String id, String orderDetailId, int pointRate, String comment) {
+
+	public RatingAddRequest(String id, String orderDetailId, int pointRate, String comment, Date ratingDate) {
 		this.id = id;
 		this.orderDetailId = orderDetailId;
 		this.pointRate = pointRate;
 		this.comment = comment;
+		this.ratingDate = ratingDate;
 	}
+
+
 	public String getId() {
 		return id;
 	}
@@ -41,10 +47,13 @@ public class RatingAddRequest {
 		this.comment = comment;
 	}
 
-	@Override
-	public String toString() {
-		return "RatingAddRequest [id=" + id + ", orderDetailId=" + orderDetailId + ", pointRate=" + pointRate
-				+ ", comment=" + comment + "]";
+	public Date getRatingDate() {
+		return ratingDate;
 	}
+	public void setRatingDate(Date ratingDate) {
+		this.ratingDate = ratingDate;
+	}
+
+
 	
 }

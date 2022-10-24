@@ -1,12 +1,139 @@
 @import url('/src/utils/DefineVariable.css');
 
-.loginBackground{
+.registerBackground{
+    background-color: var(--bgcommon);
+    height: 608px;
+}
+.bg-register{
+    height: 608px;
+    background-size: contain;
+}
+.colm-form {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.colm-form .form-container {
+    background-color: var(--bgwhite);
+    border: none;
+    margin-bottom: 30px;
+    padding: 20px;
+    max-width: 400px;
+    margin-top: 70px;
+}
+
+.colm-form .form-container input, .colm-form .form-container .btn-login {
+    width: 100%;
+    margin: 5px 0;
+    height: 45px;
+    vertical-align: middle;
+    font-size: 16px;
+}
+
+.colm-form .form-container input {
+    border: 1px solid #dddfe2;
+    color: #1d2129;
+    padding: 0 8px;
+    outline: none;
+}
+
+.colm-form .form-container input:focus {
+    border-color: var(--bgcommon);
+}
+
+.colm-form .form-container .btn-login {
+    background-color: var(--bgcommon);
+    border: none;
+    font-size: 20px;
+    padding: 0 16px;
+    color: var(--bgwhite);
+    font-weight: 700;
+}
+
+.colm-form .form-container a {
+    display: block;
+    color:  var(--bgcommon);
+    font-size: 14px;
+    text-decoration: none;
+    padding: 10px 0 20px;
+    border-bottom: 1px solid var(--colorform);
+}
+
+.colm-form .form-container a:hover {
+    text-decoration: underline;
+}
+
+.colm-form p {
+    font-size: 14px;
+}
+
+.colm-form p a {
+    text-decoration: none;
+    color: #1c1e21;
+    font-weight: 600;
+}
+
+.colm-form p a:hover {
+    text-decoration: underline;
+}
+
+.btn-forget{
+    justify-content: space-between;
+}
+.btn-forget p{
+    color:var(--colorBlue);
+}
+
+
+.btn-new {
+    justify-content: center;
+}
+.btn-new p{
+    color:var(--colorBlue);
+}
+.link-regis{
+    border: none !important;
+    padding:0 !important; 
+    margin-left: 9px;
+}
+.link-regis:hover{
+    text-decoration: none !important;
+}
+
+.link-forgot{
+    border: none !important;
+    padding:0 !important; 
+    color:var(--colorBlue) !important; 
+    margin-bottom: 20px;
+}
+
+.link-forgot:hover{
+    text-decoration: none !important;
+}
+.title-login{
+    max-width: 8.5rem;
+    font-size: 1.30rem !important;
+    color: var(--colorback);
+    text-align: left;
+}
+.content-error{
+    color:var(--colorErrorValid); 
+    font-size: 0.75rem;
+}
+
+
+
+
+
+
+/* 
+.registerBackground{
     background-color: var(--bgcommon);
 }
-.bg-login{
+.bg-register{
     background-image: url('https://cf.shopee.vn/file/000d7f7e293e29de23ddefbaa0e80436');
-    /* background-repeat: no-repeat; */
     height: 482px;
+    
 }
 .colm-form-register {
     text-align: center;
@@ -40,7 +167,7 @@
 
 .colm-form-register .form-container-register input:focus {
     border-color: var(--bgcommon);
-    /* box-shadow: 0 0 0 2px #e7f3ff; */
+
 }
 
 .colm-form-register .form-container-register .btn-login {
@@ -93,4 +220,4 @@
 }
 .title-register{
     text-align: left;
-}
+} */

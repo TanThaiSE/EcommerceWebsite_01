@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { apiCart, apiProduct } from '../../api';
+import { apiCart, apiProduct, apiRating } from '../../api';
 import './index.css';
 import StarRatings from 'react-star-ratings';
 const ProductDetailComponent = ({ idProduct }) => {
   const [productDetail, setProductDetail] = useState({});
+  const [listComment,setListComment]=useState([]);
   const [attributeProduct, setAttributeProduct] = useState({
     productId: idProduct,
     colorId: null,
@@ -15,7 +16,7 @@ const ProductDetailComponent = ({ idProduct }) => {
     activeColor: '',
     activeSize: '',
   });
-  const [rating,setRating]=useState(0);
+ 
 
   const fetchDetailProduct = async (idProduct) => {
     await apiProduct.fetchGetDetailProduct(idProduct)
@@ -24,6 +25,10 @@ const ProductDetailComponent = ({ idProduct }) => {
       })
       .catch((err) => { console.log('fetchDetailProduct failed', err) });
   };
+
+  const fetchGetListComment=async(idProduct)=>{
+      apiRating.fetchGetRatingAndComment(idProduct).then((res)=>{setListComment(res.data)}).catch((err)=>console.log(err))
+  }
 
   const fetchAddToCart = async (product) => {
     await apiCart.fetchAddCart(product)
@@ -158,7 +163,15 @@ const ProductDetailComponent = ({ idProduct }) => {
               <div className='d-flex'>
                 <div>
                   <span>{productDetail?.detailProduct?.rate}</span>
-                  <span>so sao</span>
+                <StarRatings 
+                rating={productDetail?.detailProduct?.rate?(productDetail?.detailProduct?.rate):(0)}
+                starRatedColor='#ffce3d'
+                numberOfStars={5}
+                starDimension="16px"
+                starSpacing="2px"
+              />
+
+                  
                 </div>
                 <div>
                   Đã bán: {productDetail?.detailProduct?.number_buy}
@@ -231,18 +244,7 @@ const ProductDetailComponent = ({ idProduct }) => {
             {/* danger */}
             {productDetail?.detailProduct?.descriptionProduct}
           </div>
-        </div>
-
-        <div className='review-product'>
-            Đánh giá sản phẩm
-            <StarRatings 
-                rating={rating}
-                starRatedColor='#ffce3d'
-                numberOfStars={5}
-                starDimension="16px"
-                starSpacing="2px"
-                changeRating={handleChangeRating}
-        />
+          <div>ĐÁNH GIÁ SẢN PHẨM</div>
         </div>
       </>)
     }
@@ -251,11 +253,34 @@ const ProductDetailComponent = ({ idProduct }) => {
     }
   }
 
-  const handleChangeRating=(rating)=>{
-    setRating(rating);
+  const displayRating=(listComment)=>{
+    if(listComment.length>0){
+      return listComment.map((item,index)=>{
+        return (
+          <div key={`rating-${index}`}>
+            <p>{item?.name?(item?.name):('Unknown')}</p>
+            <StarRatings 
+                rating={item?.pointRate}
+                starRatedColor='#ffce3d'
+                numberOfStars={5}
+                starDimension="16px"
+                starSpacing="2px"
+              />
+            <p>{item.ratingDate}</p>
+            <p>{item.comments}</p>
+          </div>
+        )
+      })
+    }
+    else{
+      return (<></>);
+    }
+
   }
+
   useEffect(() => {
     fetchDetailProduct(idProduct);
+    fetchGetListComment(idProduct);
   }, []);
 
   return (
@@ -263,7 +288,7 @@ const ProductDetailComponent = ({ idProduct }) => {
     <>
       <div className="container">
         {displayDetailProduct(productDetail)}
-
+        {listComment.length>0?(displayRating(listComment)):(<></>)}
       </div>
     </>
   )

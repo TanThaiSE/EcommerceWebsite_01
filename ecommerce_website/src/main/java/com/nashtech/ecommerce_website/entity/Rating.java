@@ -1,11 +1,15 @@
 package com.nashtech.ecommerce_website.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity(name="rating")
 public class Rating {
@@ -23,6 +27,10 @@ public class Rating {
 	@JoinColumn(name="order_detail_id")
 	private OrderDetail orderDetailRating;
 
+	@Column(name = "rating_date")
+	@Temporal(value=TemporalType.TIMESTAMP)
+	private Date ratingDate;
+	
 	public String getId() {
 		return id;
 	}
@@ -54,6 +62,14 @@ public class Rating {
 
 	public void setComment(String comment) {
 		this.comment = comment;
+	}
+
+	public Date getRatingDate() {
+		return ratingDate;
+	}
+
+	public void setRatingDate(Date ratingDate) {
+		this.ratingDate = ratingDate;
 	}
 	
 	
