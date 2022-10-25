@@ -25,7 +25,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
 			if (!acc.isEmpty() && acc != null) {
 				SimpleGrantedAuthority role = new SimpleGrantedAuthority((String) acc.get("roles"));
 				roles.add(role);
-				User user = new User((String) acc.get("email"), (String) acc.get("password"), roles);
+				User user = new User((String) acc.get("phone"), (String) acc.get("password"), roles);
 				return user;
 			}
 		} catch (Exception e) {

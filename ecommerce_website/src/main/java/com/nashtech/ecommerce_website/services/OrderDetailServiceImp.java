@@ -4,21 +4,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
-
+import javax.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.dto.request.OrderDetailRequest;
-import com.nashtech.ecommerce_website.dto.response.CartResponseDto;
 import com.nashtech.ecommerce_website.dto.response.OrderDetailResponse;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
-import com.nashtech.ecommerce_website.entity.OrderDetail;
 import com.nashtech.ecommerce_website.exceptions.NotFoundException;
 import com.nashtech.ecommerce_website.exceptions.SqlException;
+import com.nashtech.ecommerce_website.helper.JwtAuthFilter;
+import com.nashtech.ecommerce_website.helper.JwtProvider;
 import com.nashtech.ecommerce_website.pojo.OrderDetailPojo;
 import com.nashtech.ecommerce_website.pojo.OrdersPojo;
 import com.nashtech.ecommerce_website.repository.CartsRepository;
@@ -39,11 +37,20 @@ public class OrderDetailServiceImp implements OrderDetailService {
 	@Autowired
 	OrderDetailRepository orderDetailRepository;
 	
+	@Autowired
+	HttpServletRequest httpServletRequest;
+	
+	@Autowired 
+	JwtAuthFilter jwtAuthFilter;
+	
+	@Autowired
+	JwtProvider jwtProvider;
 	private ModelMapper modelMapper = new ModelMapper();
 
 	@Override
 	public SuccessResponse addToOrderDetail(OrderDetailRequest orderDetailRequest) {
-		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
+		String token=jwtAuthFilter.getJwtToken(httpServletRequest);
+		String accountId=jwtProvider.decodeToken(token).getId();
 		List<OrderDetailPojo> lstOrederDetail = orderDetailRequest.getOrderDetails();
 		if (lstOrederDetail.size() > 0) {
 			for (OrderDetailPojo o : lstOrederDetail) {
@@ -71,7 +78,8 @@ public class OrderDetailServiceImp implements OrderDetailService {
 
 	@Override
 	public List<OrderDetailResponse> getAllProductInOrderDetail() {
-		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
+		String token=jwtAuthFilter.getJwtToken(httpServletRequest);
+		String accountId=jwtProvider.decodeToken(token).getId();
 		List<Map<String, Object>> product=orderDetailRepository.getAllOrderDeTail(accountId);
 		if (product.size()==0 || product == null) {
 			throw new NotFoundException("Not found product in order");

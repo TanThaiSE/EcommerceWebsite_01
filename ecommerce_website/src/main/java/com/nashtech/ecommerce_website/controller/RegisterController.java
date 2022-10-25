@@ -13,12 +13,12 @@ import com.nashtech.ecommerce_website.services.AccountsServiceImp;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/signup")
 public class RegisterController {
 	@Autowired
 	AccountsServiceImp accountsServiceImp;
 	
-	@PostMapping("/signup")
+	@PostMapping("")
 	public SuccessResponse signup(@RequestBody RegisterRequest registerRequest) {
 		return accountsServiceImp.AddToAccount(registerRequest);
 	}

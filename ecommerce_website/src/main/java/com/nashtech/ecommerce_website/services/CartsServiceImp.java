@@ -1,35 +1,46 @@
 package com.nashtech.ecommerce_website.services;
 
+//import java.net.http.HttpHeaders;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-
+import javax.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.nashtech.ecommerce_website.dto.request.CartsDeleteRequest;
-
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.dto.response.CartResponseDto;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.entity.Carts;
 import com.nashtech.ecommerce_website.exceptions.NotFoundException;
 import com.nashtech.ecommerce_website.exceptions.SqlException;
-import com.nashtech.ecommerce_website.pojo.OrderDetailPojo;
+import com.nashtech.ecommerce_website.helper.JwtAuthFilter;
+import com.nashtech.ecommerce_website.helper.JwtProvider;
 import com.nashtech.ecommerce_website.repository.CartsRepository;
 
 @Service
 public class CartsServiceImp implements CartsService {
 	@Autowired
 	CartsRepository cartsRepository;
+	
+	@Autowired
+	HttpServletRequest httpServletRequest;
+	
+	@Autowired 
+	JwtAuthFilter jwtAuthFilter;
+	
+	@Autowired
+	JwtProvider jwtProvider;
+	
 	private ModelMapper modelMapper = new ModelMapper();
 
 	@Override
 	public SuccessResponse addToCart(CartsRequestDto cartsRequestDto) {
-		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
+		String token=jwtAuthFilter.getJwtToken(httpServletRequest);
+		String accountId=jwtProvider.decodeToken(token).getId();
 		Map<String, Object> isValidValue = cartsRepository.findProductWithSizeAndColor(cartsRequestDto);
 		if (isValidValue == null || isValidValue.isEmpty()) {
 			throw new NotFoundException("Values are not correct");
@@ -58,7 +69,8 @@ public class CartsServiceImp implements CartsService {
 
 	@Override
 	public List<CartResponseDto> getAllProductInCartByAccountId() {
-		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
+		String token=jwtAuthFilter.getJwtToken(httpServletRequest);
+		String accountId=jwtProvider.decodeToken(token).getId();
 		List<Map<String, Object>> getProduct = cartsRepository.getAllProductInCartByAccountId(accountId);
 		if (getProduct.size()==0 || getProduct == null) {
 			throw new NotFoundException("Not found product in cart");
@@ -74,7 +86,8 @@ public class CartsServiceImp implements CartsService {
 
 	@Override
 	public CartResponseDto updateQuantityProductInCart(String id, CartsRequestDto cartsRequestDto) {
-		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
+		String token=jwtAuthFilter.getJwtToken(httpServletRequest);
+		String accountId=jwtProvider.decodeToken(token).getId();
 		try {
 			int isUpdate = cartsRepository.updateQuantityCart(id, cartsRequestDto, accountId);
 			if (isUpdate == 1) {
@@ -93,7 +106,8 @@ public class CartsServiceImp implements CartsService {
 
 	@Override
 	public SuccessResponse deleteProductInCart(String id) {
-		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
+		String token=jwtAuthFilter.getJwtToken(httpServletRequest);
+		String accountId=jwtProvider.decodeToken(token).getId();
 		try {
 			Optional<Carts> c = cartsRepository.findByIdAndAccountCart_Id(id, accountId);
 			System.out.println(c.get());
@@ -111,7 +125,8 @@ public class CartsServiceImp implements CartsService {
 
 	@Override
 	public SuccessResponse deleteMutipleProductInCart(CartsDeleteRequest listProductCart) {
-		String accountId = "94288321-4c0a-404f-a0a9-c40ab7095602";
+		String token=jwtAuthFilter.getJwtToken(httpServletRequest);
+		String accountId=jwtProvider.decodeToken(token).getId();
 		List<CartsRequestDto> lstProduct=listProductCart.getPrepareToDelete();
 		if(lstProduct.size()>0) {
 			for(CartsRequestDto c:lstProduct) {

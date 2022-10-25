@@ -13,6 +13,7 @@ import com.nashtech.ecommerce_website.dto.request.LoginRequest;
 import com.nashtech.ecommerce_website.dto.response.LoginResponseDto;
 import com.nashtech.ecommerce_website.exceptions.NotFoundException;
 import com.nashtech.ecommerce_website.helper.JwtProvider;
+import com.nashtech.ecommerce_website.pojo.LoginPojo;
 
 @Service
 public class LoginServiceImp implements LoginService{
@@ -32,7 +33,7 @@ public class LoginServiceImp implements LoginService{
 					.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUserName(), loginRequest.getPassword()));
 			SecurityContextHolder.getContext().setAuthentication(authen);
 			Map<String, Object> acc = accountsServiceImp.findByPhone(loginRequest.getUserName());
-			String jwtToken = jwtProvider.generateToken((String) acc.get("id"));
+			String jwtToken=jwtProvider.generateToken(new LoginPojo((String) acc.get("id"), (String) acc.get("phone")));
 			LoginResponseDto loginResponseDto=new LoginResponseDto((String)acc.get("email"), jwtToken);
 			return loginResponseDto;
 		} catch (Exception e) {

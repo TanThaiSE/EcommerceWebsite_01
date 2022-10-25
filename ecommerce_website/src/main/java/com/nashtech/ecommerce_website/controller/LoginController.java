@@ -14,12 +14,12 @@ import com.nashtech.ecommerce_website.services.LoginServiceImp;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/login")
 public class LoginController {
 	@Autowired
 	LoginServiceImp loginServiceImp;
 	
-	@PostMapping("/login")
+	@PostMapping("")
 	public LoginResponseDto login(@RequestBody LoginRequest loginRequest) {
 		return loginServiceImp.login(loginRequest);
 	}

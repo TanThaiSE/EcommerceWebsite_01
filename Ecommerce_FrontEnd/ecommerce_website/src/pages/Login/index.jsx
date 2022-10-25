@@ -12,7 +12,7 @@ import { getLogin, setLogin } from '../../utils/localStorage';
 import { useNavigate } from 'react-router-dom';
 const schema = yup.object().shape({
   // userName: yup.string().email("Email không hợp lệ").required("Vui lòng điền vào mục này"),
-  userName:yup.number("Số điện thoại không hợp lệ").required("Vui lòng điền vào mục này"),
+  userName:yup.string().matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,'Số điện thoại không hợp lệ').required("Vui lòng điền vào mục này"),
   password: yup.string().required("Vui lòng điền vào mục này")
 });
 

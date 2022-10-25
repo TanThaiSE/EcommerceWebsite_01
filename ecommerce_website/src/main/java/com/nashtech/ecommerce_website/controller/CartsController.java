@@ -35,9 +35,10 @@ import com.nashtech.ecommerce_website.repository.CartsRepository;
 import com.nashtech.ecommerce_website.services.CartsService;
 import com.nashtech.ecommerce_website.services.CartsServiceImp;
 
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping("/api/v1/cart")
+@CrossOrigin(origins = "*")
 public class CartsController {
 	@Autowired
 	CartsServiceImp cartsServiceImp;

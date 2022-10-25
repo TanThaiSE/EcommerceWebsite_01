@@ -1,7 +1,7 @@
 import axios from "./config";
-
+import { getAuthor } from "../utils/localStorage";
 export const fetchAddRating = async (data) => {
-    return axios.post(`/rating`, data).then((result) => {
+    return axios.post(`/rating`, data, { headers: getAuthor.getAuthorization() }).then((result) => {
         return result;
     });
 };
