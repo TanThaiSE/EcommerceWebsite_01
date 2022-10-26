@@ -1,5 +1,7 @@
 package com.nashtech.ecommerce_website.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +22,7 @@ public class LoginController {
 	LoginServiceImp loginServiceImp;
 	
 	@PostMapping("")
-	public LoginResponseDto login(@RequestBody LoginRequest loginRequest) {
+	public LoginResponseDto login(@Valid @RequestBody LoginRequest loginRequest) {
 		return loginServiceImp.login(loginRequest);
 	}
 }

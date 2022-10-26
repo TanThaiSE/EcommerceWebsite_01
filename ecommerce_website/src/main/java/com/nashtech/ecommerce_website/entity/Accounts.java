@@ -38,8 +38,11 @@ public class Accounts {
 	@OneToOne(mappedBy = "accountsProfiles")
 	private Profiles profiles;
 	
-	@OneToMany(mappedBy = "accountOrderDetails")
-	private Set<OrderDetail> orderDetails;
+//	@OneToMany(mappedBy = "accountOrderDetails")
+//	private Set<OrderDetail> orderDetails;
+	
+	@OneToMany(mappedBy = "accountOrder")
+	private Set<Orders> orders;
 	
 	@Column(name = "phone")
 	private String phone;

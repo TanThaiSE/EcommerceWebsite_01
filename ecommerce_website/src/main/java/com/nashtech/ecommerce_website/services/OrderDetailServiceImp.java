@@ -60,10 +60,10 @@ public class OrderDetailServiceImp implements OrderDetailService {
 					throw new NotFoundException("Values are not correct");
 				}
 				try {
-					orderDetailRepository.addToOrderDetail(o,orderDetailRequest.getPaymentId(), accountId, new Date(),orderDetailRequest.getAddress());
+					orderDetailRepository.addToOrderDetail(o,orderDetailRequest.getPaymentId(), new Date(),orderDetailRequest.getAddress());
 					String idOrder=UUID.randomUUID().toString();
 					OrdersPojo ordersPojo=new OrdersPojo(idOrder, o.getId(),o.getProductId());
-					ordersRepository.addToOrders(ordersPojo);					
+					ordersRepository.addToOrders(ordersPojo,accountId);					
 					
 				} catch (Exception e) {
 					throw new SqlException("Cannot insert product to order detail: "+e.getMessage());

@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.nashtech.ecommerce_website.dto.request.CartUpdateQuantityRequest;
 import com.nashtech.ecommerce_website.dto.request.CartsDeleteRequest;
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.dto.response.CartResponseDto;
@@ -19,6 +21,7 @@ import com.nashtech.ecommerce_website.exceptions.NotFoundException;
 import com.nashtech.ecommerce_website.exceptions.SqlException;
 import com.nashtech.ecommerce_website.helper.JwtAuthFilter;
 import com.nashtech.ecommerce_website.helper.JwtProvider;
+import com.nashtech.ecommerce_website.pojo.CartDeletePojo;
 import com.nashtech.ecommerce_website.repository.CartsRepository;
 
 @Service
@@ -85,13 +88,13 @@ public class CartsServiceImp implements CartsService {
 	}
 
 	@Override
-	public CartResponseDto updateQuantityProductInCart(String id, CartsRequestDto cartsRequestDto) {
+	public CartResponseDto updateQuantityProductInCart(String id, CartUpdateQuantityRequest cartUpdateQuantityRequest) {
 		String token=jwtAuthFilter.getJwtToken(httpServletRequest);
 		String accountId=jwtProvider.decodeToken(token).getId();
 		try {
-			int isUpdate = cartsRepository.updateQuantityCart(id, cartsRequestDto, accountId);
+			int isUpdate = cartsRepository.updateQuantityCart(id, cartUpdateQuantityRequest, accountId);
 			if (isUpdate == 1) {
-				CartResponseDto cartResponseDto = modelMapper.map(cartsRequestDto, CartResponseDto.class);
+				CartResponseDto cartResponseDto = modelMapper.map(cartUpdateQuantityRequest, CartResponseDto.class);
 				cartResponseDto.setId(id);
 				return cartResponseDto;
 			} else {
@@ -103,7 +106,7 @@ public class CartsServiceImp implements CartsService {
 
 		}
 	}
-
+	
 	@Override
 	public SuccessResponse deleteProductInCart(String id) {
 		String token=jwtAuthFilter.getJwtToken(httpServletRequest);
@@ -125,11 +128,9 @@ public class CartsServiceImp implements CartsService {
 
 	@Override
 	public SuccessResponse deleteMutipleProductInCart(CartsDeleteRequest listProductCart) {
-		String token=jwtAuthFilter.getJwtToken(httpServletRequest);
-		String accountId=jwtProvider.decodeToken(token).getId();
-		List<CartsRequestDto> lstProduct=listProductCart.getPrepareToDelete();
+		List<CartDeletePojo> lstProduct=listProductCart.getPrepareToDelete();
 		if(lstProduct.size()>0) {
-			for(CartsRequestDto c:lstProduct) {
+			for(CartDeletePojo c:lstProduct) {
 				cartsRepository.deleteById(c.getId());
 			}
 			SuccessResponse successResponse = new SuccessResponse("200", "delete product success", null);

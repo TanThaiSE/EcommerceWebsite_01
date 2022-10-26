@@ -8,4 +8,13 @@ public interface DetailProductPojo {
 	 Integer getNumber_buy(); 
 	 String getDescriptionProduct(); 
 	 String getNameProduct(); 
+	 
+	 void setId(String id);
+	 void setDetail(String detail);
+	 void setPrice(int price);
+	 void setRate(float rate);
+	 void setNumber_buy(int number_buy);
+	 void setDescriptionProduct(String descriptionProduct);
+	 void setNameProduct(String nameProduct);
+	 
 }

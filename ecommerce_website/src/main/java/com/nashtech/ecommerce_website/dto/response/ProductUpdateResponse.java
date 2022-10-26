@@ -2,7 +2,12 @@ package com.nashtech.ecommerce_website.dto.response;
 
 import java.util.Date;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+
 public class ProductUpdateResponse {
+	
+	@NotBlank(message = "productId is required")
 	private String productId;
 	private String nameProduct;
 	private String detail;
@@ -11,6 +16,7 @@ public class ProductUpdateResponse {
 	private Date createdDate;
 	private Date updatedDate;
 	private float rate;
+	@Min(value = 1,message = "Quantity should be at least is 1")
 	private int quantity;
 	
 	public ProductUpdateResponse(String productId, String nameProduct, String detail, String description, int price,

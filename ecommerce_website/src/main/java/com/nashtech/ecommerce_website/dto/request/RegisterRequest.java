@@ -1,11 +1,24 @@
 package com.nashtech.ecommerce_website.dto.request;
 
+
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+
 public class RegisterRequest {	
 	private String id;
+	
+	@Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",message = "Email is not valid")
+	@NotBlank(message = "Email is required")
 	private String email;
+	
+	@Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&*?])[A-Za-z\\d#$@!%&*?]{8,}$",message = "Must be at least 8 characters, 1 uppercase, 1 lowercase, 1 number, 1 special character")
+	@NotBlank(message = "Password is required")
 	private String password;
 	private String roleId;
 	private int isBlocked;
+	
+	@Pattern(regexp = "^[0-9]+$",message = "Phone is not valid")
+	@NotBlank(message = "Phone is required")
 	private String phone;
 	
 	public RegisterRequest() {

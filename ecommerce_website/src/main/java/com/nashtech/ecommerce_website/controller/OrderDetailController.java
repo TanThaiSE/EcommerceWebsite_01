@@ -3,7 +3,10 @@ package com.nashtech.ecommerce_website.controller;
 import java.util.List;
 import java.util.Map;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,11 +27,13 @@ public class OrderDetailController {
 	@Autowired
 	OrderDetailServiceImp orderDetailServiceImp;
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@PostMapping("")
-	public SuccessResponse addToOrderDetail(@RequestBody OrderDetailRequest orderDetailRequest ){
+	public SuccessResponse addToOrderDetail(@Valid @RequestBody OrderDetailRequest orderDetailRequest ){
 		return orderDetailServiceImp.addToOrderDetail(orderDetailRequest);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_USER')")
 	@GetMapping("")
 	public List<OrderDetailResponse> getAllProductInOrderDetail() {
 		return orderDetailServiceImp.getAllProductInOrderDetail();

@@ -1,17 +1,10 @@
 package com.nashtech.ecommerce_website.services;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.nashtech.ecommerce_website.dto.request.ProductRequest;
-import com.nashtech.ecommerce_website.dto.response.CartResponseDto;
 import com.nashtech.ecommerce_website.dto.response.ProductDetailResponseDto;
-
 import com.nashtech.ecommerce_website.dto.response.ProductUpdateResponse;
 import com.nashtech.ecommerce_website.exceptions.NotFoundException;
 import com.nashtech.ecommerce_website.exceptions.SqlException;
@@ -26,7 +19,12 @@ public class ProductsServiceImp implements ProductsService {
 	@Autowired
 	ProductsRepository productsRepository;
 
-	private ModelMapper modelMapper = new ModelMapper();
+
+
+
+	public ProductsServiceImp(ProductsRepository productsRepository) {
+		this.productsRepository = productsRepository;
+	}
 
 	@Override
 	public ProductDetailResponseDto getDetailProduct(String productId) {

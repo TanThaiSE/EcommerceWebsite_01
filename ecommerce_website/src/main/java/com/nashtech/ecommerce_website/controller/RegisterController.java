@@ -1,5 +1,7 @@
 package com.nashtech.ecommerce_website.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +21,7 @@ public class RegisterController {
 	AccountsServiceImp accountsServiceImp;
 	
 	@PostMapping("")
-	public SuccessResponse signup(@RequestBody RegisterRequest registerRequest) {
+	public SuccessResponse signup(@Valid @RequestBody RegisterRequest registerRequest) {
 		return accountsServiceImp.AddToAccount(registerRequest);
 	}
 	

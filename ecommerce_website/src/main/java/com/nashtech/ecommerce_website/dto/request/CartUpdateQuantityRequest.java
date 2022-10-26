@@ -1,25 +1,16 @@
 package com.nashtech.ecommerce_website.dto.request;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 
-public class CartsRequestDto {
+public class CartUpdateQuantityRequest {
 	private String id;
-	
-	@NotBlank(message = "productId is required")
 	private String productId;
 	
 	@Min(value = 1,message = "Quantity should be a positive number")
 	private int quantity;
-	@Min(value = 1,message = "Price should be a positive number")
 	private int price;
-	
 	private String accountId;
-	
-	@NotBlank(message = "sizeId is required")
 	private String sizeId;
-		
-	@NotBlank(message = "colorId is required")
 	private String colorId;
 	
 

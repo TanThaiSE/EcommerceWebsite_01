@@ -2,10 +2,21 @@ package com.nashtech.ecommerce_website.dto.request;
 
 import java.util.Date;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class RatingAddRequest {
 	private String id;
+	
+	@NotBlank(message = "orderDetailId is required")
 	private String orderDetailId;
+	@Min(value = 1,message = "pointRate must be at least 1")
+	@Max(value=5,message = "pointRate must be maximum is 5")
 	private int pointRate;
+	
+	@NotNull(message = "comment cannot null")
 	private String comment;
 	private Date ratingDate;
 	public RatingAddRequest() {

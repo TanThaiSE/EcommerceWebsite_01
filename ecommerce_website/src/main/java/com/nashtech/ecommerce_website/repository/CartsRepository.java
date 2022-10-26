@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
+import com.nashtech.ecommerce_website.dto.request.CartUpdateQuantityRequest;
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.entity.Carts;
 
@@ -25,7 +27,7 @@ public interface CartsRepository extends JpaRepository<Carts, String>{
 	@Modifying(clearAutomatically = true)
 	@Transactional
 	@Query(value="call UpdateQuantityProductInCart(:id,:#{#c.quantity},:accountId)",nativeQuery = true)
-	public int updateQuantityCart(@Param("id") String id,@Param("c") CartsRequestDto cartsUpdateRequest,@Param("accountId") String accountId);
+	public int updateQuantityCart(@Param("id") String id,@Param("c") CartUpdateQuantityRequest cartsUpdateRequest,@Param("accountId") String accountId);
 	
 	@Query(value = "call GetAllProductInCartByAccountId(:accountId)",nativeQuery = true)
 	public List<Map<String,Object>> getAllProductInCartByAccountId(@Param("accountId")String accountId);

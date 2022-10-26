@@ -15,6 +15,6 @@ import com.nashtech.ecommerce_website.pojo.OrdersPojo;
 public interface OrdersRepository extends JpaRepository<Orders,String>{
 	@Modifying
 	@Transactional
-	@Query(value = "call AddToOrders(:#{#c.id},:#{#c.orderDetailId},:#{#c.productId})",nativeQuery = true)
-	public void addToOrders(@Param("c") OrdersPojo ordersPojo);
+	@Query(value = "call AddToOrders(:#{#c.id},:#{#c.orderDetailId},:#{#c.productId},:accountId)",nativeQuery = true)
+	public void addToOrders(@Param("c") OrdersPojo ordersPojo,@Param("accountId")String accountId);
 }

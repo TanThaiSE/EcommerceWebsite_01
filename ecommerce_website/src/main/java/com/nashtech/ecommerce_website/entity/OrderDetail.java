@@ -29,10 +29,6 @@ public class OrderDetail {
 	private Payments paymentsOrdersDetails;
 	
 	@ManyToOne
-	@JoinColumn(name="account_id")
-	private Accounts accountOrderDetails;
-	
-	@ManyToOne
 	@JoinColumn(name="color_id")
 	private Colors colorOrderDetails;
 	
@@ -99,13 +95,13 @@ public class OrderDetail {
 		this.paymentsOrdersDetails = paymentsOrdersDetails;
 	}
 
-	public Accounts getAccountOrderDetails() {
-		return accountOrderDetails;
-	}
-
-	public void setAccountOrderDetails(Accounts accountOrderDetails) {
-		this.accountOrderDetails = accountOrderDetails;
-	}
+//	public Accounts getAccountOrderDetails() {
+//		return accountOrderDetails;
+//	}
+//
+//	public void setAccountOrderDetails(Accounts accountOrderDetails) {
+//		this.accountOrderDetails = accountOrderDetails;
+//	}
 
 	public Colors getColorOrderDetails() {
 		return colorOrderDetails;

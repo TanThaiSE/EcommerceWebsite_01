@@ -1,8 +1,12 @@
 package com.nashtech.ecommerce_website.pojo;
 
+import javax.validation.constraints.NotBlank;
+
 public class OrdersPojo {
 	private String id;
+	@NotBlank(message = "orderDetailId is required")
 	private String orderDetailId;
+	@NotBlank(message = "productId is required")
 	private String productId;
 	
 	public OrdersPojo(String id, String orderDetailId, String productId) {
