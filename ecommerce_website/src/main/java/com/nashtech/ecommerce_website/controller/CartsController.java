@@ -55,8 +55,8 @@ public class CartsController {
 	
 	@PreAuthorize("hasRole('ROLE_USER')")
 	@DeleteMapping("")
-	public SuccessResponse deleteMutipleProductInCart(@Valid @RequestBody CartsDeleteRequest c) {
-		return cartsServiceImp.deleteMutipleProductInCart(c);
+	public SuccessResponse deleteMutipleProductInCart(@Valid @RequestBody CartsDeleteRequest cartsDeleteRequest) {
+		return cartsServiceImp.deleteMutipleProductInCart(cartsDeleteRequest);
 	}
 }
 

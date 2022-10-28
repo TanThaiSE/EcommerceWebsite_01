@@ -44,26 +44,22 @@ public class ProductsServiceImp implements ProductsService {
 
 	@Override
 	public ListUpdateProductPojo updateNumberBuyProduct(ListUpdateProductPojo productRequest) {
-		if (productRequest.getPrepareToUpdate().size() > 0) 
+		for (ProductUpdateResponse p : productRequest.getPrepareToUpdate()) 
 		{
-			for (ProductUpdateResponse p : productRequest.getPrepareToUpdate()) 
+			Optional<DetailProductPojo> detailProduct = productsRepository.getDetailProduct(p.getProductId());
+			if (detailProduct.isEmpty())
 			{
-				Optional<DetailProductPojo> detailProduct = productsRepository.getDetailProduct(p.getProductId());
-				if (detailProduct.isEmpty())
-				{
-					throw new NotFoundException("Not found detailproduct");
-				}
-				DetailProductPojo detailProductPojo = detailProduct.get();
-				try {
-					int isUpdate = productsRepository.updateNumberBuyProduct(p.getProductId(),p.getQuantity() + detailProductPojo.getNumber_buy());
-				} catch (Exception e) {
-					// TODO: handle exception
-					throw new SqlException("Cannot update quantity product in cart");
-				}
-
+				throw new NotFoundException("Not found detailproduct");
 			}
-			return productRequest;
-		} 
-		throw new NotFoundException("Not found list product");
+			DetailProductPojo detailProductPojo = detailProduct.get();
+			try {
+				int isUpdate = productsRepository.updateNumberBuyProduct(p.getProductId(),p.getQuantity() + detailProductPojo.getNumber_buy());
+			} catch (Exception e) {
+				// TODO: handle exception
+				throw new SqlException("Cannot update quantity product in cart");
+			}
+
+		}
+		return productRequest;
 	}
 }

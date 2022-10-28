@@ -8,5 +8,5 @@ import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 public interface AccountsService{
 	public Map<String,Object> findByPhone(String phone);
 
-	public SuccessResponse AddToAccount(RegisterRequest registerRequest); 
+	public SuccessResponse addToAccount(RegisterRequest registerRequest); 
 }

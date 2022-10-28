@@ -40,26 +40,25 @@ public class RatingServiceImp implements RatingService {
 				throw new SqlException("cannot add rating"+e.getMessage());
 			}
 		}
-		throw new ItemExistException("product is rated");
+		else {
+			throw new ItemExistException("product is rated");
+		}
+		
 
 	}
 
 	@Override
 	public List<RateResponse> getRatingAndCommentProduct(String productId) {
-		try {
-			List<Map<String,Object>> lst=ratingRepository.getRatingAndCommentProduct(productId);
-			if(lst.size()>0) {
-				List<RateResponse> lstRateRes=new ArrayList<>();
-				for(Map<String,Object> o:lst) {
-					lstRateRes.add(modelMapper.map(o, RateResponse.class));
-				}
-				return lstRateRes;
+		List<Map<String,Object>> lst=ratingRepository.getRatingAndCommentProduct(productId);
+		if(lst.size()>0) {
+			List<RateResponse> lstRateRes=new ArrayList<>();
+			for(Map<String,Object> o:lst) {
+				lstRateRes.add(modelMapper.map(o, RateResponse.class));
 			}
-			else {
-				throw new NotFoundException("Cannot found rate and product:");
-			}
-		} catch (Exception e) {
-			throw new SqlException("Cannot get comment and rating: "+e.getMessage());
+			return lstRateRes;
+		}
+		else {
+			throw new NotFoundException("Cannot found rate and product:");
 		}
 		
 	}

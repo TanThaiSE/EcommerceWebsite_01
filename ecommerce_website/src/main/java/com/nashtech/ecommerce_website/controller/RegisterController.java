@@ -22,7 +22,7 @@ public class RegisterController {
 	
 	@PostMapping("")
 	public SuccessResponse signup(@Valid @RequestBody RegisterRequest registerRequest) {
-		return accountsServiceImp.AddToAccount(registerRequest);
+		return accountsServiceImp.addToAccount(registerRequest);
 	}
 	
 }

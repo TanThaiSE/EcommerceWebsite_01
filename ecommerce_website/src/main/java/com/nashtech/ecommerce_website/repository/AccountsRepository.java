@@ -23,7 +23,7 @@ public interface AccountsRepository extends JpaRepository<Accounts,String>  {
 	@Modifying
 	@Transactional
 	@Query(value = "call registerAccount(:#{#c.id},:#{#c.email},:#{#c.password},:#{#c.roleId},:#{#c.isBlocked},:#{#c.phone})",nativeQuery = true)
-	public void registerAccount(@Param("c") RegisterRequest registerRequest);
+	public int registerAccount(@Param("c") RegisterRequest registerRequest);
 	
 	public List<Accounts> findByEmailOrPhone(String email,String phone);
 }

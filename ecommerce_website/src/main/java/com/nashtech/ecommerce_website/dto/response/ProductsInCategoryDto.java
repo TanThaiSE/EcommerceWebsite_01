@@ -7,4 +7,12 @@ public interface ProductsInCategoryDto {
 	Integer getNumber_buy();
 	String getNameProduct();
 	String getNameImg();
+	
+	void setId(String id);
+	void setPrice(int price);
+	void setRate(float rate);
+	void setNumber_buy(int numberBuy);
+	void setNameProduct(String nameProduct);
+	void setNameImg(String nameImg);
+	
 }

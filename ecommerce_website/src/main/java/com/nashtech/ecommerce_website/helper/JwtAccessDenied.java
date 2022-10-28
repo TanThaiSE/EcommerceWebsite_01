@@ -23,7 +23,7 @@ public class JwtAccessDenied implements AccessDeniedHandler {
 		// TODO Auto-generated method stub
 		response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 		response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-		AuthenResponse authenResponse = new AuthenResponse(HttpServletResponse.SC_UNAUTHORIZED, "Access Denied",
+		AuthenResponse authenResponse = new AuthenResponse(403, "Access Denied",
 				accessDeniedException.getMessage(), request.getServletPath());
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.writeValue(response.getOutputStream(), authenResponse);

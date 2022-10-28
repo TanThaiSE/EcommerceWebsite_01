@@ -37,7 +37,7 @@ public class LoginServiceImp implements LoginService{
 			LoginResponseDto loginResponseDto=new LoginResponseDto((String)acc.get("email"), jwtToken);
 			return loginResponseDto;
 		} catch (Exception e) {
-			throw new NotFoundException("Cannot found account");
+			throw new NotFoundException("Invalid username or password");
 		}
 	}
 
