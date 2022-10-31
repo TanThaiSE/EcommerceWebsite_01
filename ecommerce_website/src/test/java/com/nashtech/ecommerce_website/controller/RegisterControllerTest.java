@@ -3,6 +3,9 @@ package com.nashtech.ecommerce_website.controller;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import java.util.Date;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -28,7 +31,7 @@ public class RegisterControllerTest {
 
 	@Test
 	public void signup_ShouldReturnSuccessResponse_WhenGetSuccess() throws Exception {
-		RegisterRequest registerRequest = new RegisterRequest("1", "abc@gmail.com", "123456789bCC!", "1", 0, "0222255");
+		RegisterRequest registerRequest = new RegisterRequest("1", "abc@gmail.com", "123456789bCC!", "1", 0, "0222255",new Date());
 		SuccessResponse expected = new SuccessResponse("201", "add account success", registerRequest);
 		when(accountsServiceImp.addToAccount(registerRequest)).thenReturn(expected);
 		mockMvc.perform(post("/api/v1/signup").contentType(MediaType.APPLICATION_JSON)
@@ -39,7 +42,7 @@ public class RegisterControllerTest {
 	@Test
 	public void signup_ShouldReturnExisted_WhenRegisterDuplicated() throws Exception {
 		RegisterRequest registerRequest = new RegisterRequest("100", "abc@gmail.com", "123456789bCC!", "1", 0,
-				"0222255");
+				"0222255",new Date());
 		SuccessResponse expected = new SuccessResponse("302", "account is existed", registerRequest);
 		when(accountsServiceImp.addToAccount(registerRequest)).thenReturn(expected);
 

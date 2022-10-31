@@ -1,6 +1,8 @@
 package com.nashtech.ecommerce_website.dto.request;
 
 
+import java.util.Date;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
@@ -21,18 +23,30 @@ public class RegisterRequest {
 	@NotBlank(message = "Phone is required")
 	private String phone;
 	
+	private Date createdDate;
+	
 	public RegisterRequest() {
 
 	}
 	
-	public RegisterRequest(String id, String email, String password, String roleId, int isBlocked, String phone) {
+	public RegisterRequest(String id, String email, String password, String roleId, int isBlocked, String phone,Date createdDate) {
 		this.id = id;
 		this.email = email;
 		this.password = password;
 		this.roleId = roleId;
 		this.isBlocked = isBlocked;
 		this.phone = phone;
+		this.createdDate=createdDate;
 	}
+	
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
 	public String getId() {
 		return id;
 	}

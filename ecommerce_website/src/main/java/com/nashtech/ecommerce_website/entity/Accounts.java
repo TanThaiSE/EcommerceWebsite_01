@@ -1,6 +1,7 @@
 package com.nashtech.ecommerce_website.entity;
 
 
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @Entity(name="account")
@@ -38,15 +41,26 @@ public class Accounts {
 	@OneToOne(mappedBy = "accountsProfiles")
 	private Profiles profiles;
 	
-//	@OneToMany(mappedBy = "accountOrderDetails")
-//	private Set<OrderDetail> orderDetails;
-	
 	@OneToMany(mappedBy = "accountOrder")
 	private Set<Orders> orders;
 	
 	@Column(name = "phone")
 	private String phone;
 	
+	@Column(name = "created_date")
+	@Temporal(value=TemporalType.TIMESTAMP)
+	
+	private Date createdDate;
+	
+	
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
+
 	public String getId() {
 		return id;
 	}

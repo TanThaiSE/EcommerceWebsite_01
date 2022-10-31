@@ -37,5 +37,5 @@ public interface ProductsRepository extends JpaRepository<Products,String> {
 	@Transactional
 	@Query(value="call UpdateNumberBuyProduct(:id,:quantity)",nativeQuery = true)
 	public int updateNumberBuyProduct(@Param("id") String id,@Param("quantity") int quantity);	
-	
+
 }

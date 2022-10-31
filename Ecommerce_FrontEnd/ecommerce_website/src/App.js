@@ -9,7 +9,7 @@ import ProductDetail from "./pages/ProductDetail";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Purchase from "./pages/Purchase";
-import DashBoard from "./pages/DashBoard";
+import Account from "./pages/Account";
 function App() {
   return (
     <Routes>
@@ -21,7 +21,7 @@ function App() {
       <Route path="/register" element={<Register/>} />
       <Route path="/checkout" element={<Checkout/>}/>
       <Route path="/user/purchase" element={<Purchase/>}/> 
-      <Route path="/dashboard" element={<DashBoard/>}/>
+      <Route path="/manage-account" element={<Account/>}/>
       <Route path="/*" element={<ErrorPage/>} />
     </Routes>
   );

@@ -59,7 +59,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 		.antMatchers("/api/v1/profile/**").permitAll()
 		.antMatchers(HttpMethod.GET,"/api/v1/rating/**").permitAll()
 		.antMatchers("/api/v1/signup/**").permitAll()
+		.antMatchers("/api/v1/admin/**").permitAll()
 		.anyRequest().authenticated().and().addFilterBefore(jwtAuthFilter(),UsernamePasswordAuthenticationFilter.class);
+		//getprodfile->admin
+		//phaan quyen het trong nayf 
 	}
 	
 	@Bean

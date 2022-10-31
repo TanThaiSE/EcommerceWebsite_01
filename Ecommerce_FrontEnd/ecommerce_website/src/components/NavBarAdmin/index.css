@@ -1,0 +1,36 @@
+@import url('/src/utils/DefineVariable.css');
+
+.brand-admin{
+    padding-top: 23px;
+}
+
+.nav-brand{
+    margin-left: 23px;
+}
+.tab-manager{
+    margin-top: 45px;
+    margin-left: 14px;
+}
+
+.tab-manager .link-navigate{
+    text-decoration: none;
+    color: var(--colorback);
+}
+.navbar-employees:hover{
+    color: var(--colorPrice);
+}
+.navbar-categories:hover{
+    color: var(--colorPrice);
+}
+.navbar-products:hover{
+    color: var(--colorPrice);
+}
+.employees p{
+    margin-bottom: 26px;
+}
+.categories p{
+    margin-bottom: 26px;
+}
+.products p{
+    margin-bottom: 26px;
+}

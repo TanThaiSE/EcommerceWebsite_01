@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.nashtech.ecommerce_website.dto.response.ProductsInCategoryDto;
 import com.nashtech.ecommerce_website.entity.Categorys;
@@ -26,8 +27,8 @@ public class CategorysController {
 	}
 	
 	@GetMapping("/{idCategory}/product")
-	public List<ProductsInCategoryDto> getProductsByCategoryId(@PathVariable("idCategory") String idCategory){
-		return categorysServiceImp.getAllProductByCategory(idCategory);
+	public List<ProductsInCategoryDto> getProductsByCategoryId(@PathVariable("idCategory") String idCategory,@RequestParam(name = "page",defaultValue = "0") int page,@RequestParam(name = "offset",defaultValue = "1") int offset){
+		return categorysServiceImp.getAllProductByCategory(idCategory,page,offset);
 	}
 
 }

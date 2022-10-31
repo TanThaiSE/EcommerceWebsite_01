@@ -12,6 +12,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
+import com.nashtech.ecommerce_website.dto.request.NewAccountRequest;
 import com.nashtech.ecommerce_website.dto.request.RegisterRequest;
 import com.nashtech.ecommerce_website.entity.Accounts;
 
@@ -22,8 +23,19 @@ public interface AccountsRepository extends JpaRepository<Accounts,String>  {
 	
 	@Modifying
 	@Transactional
-	@Query(value = "call registerAccount(:#{#c.id},:#{#c.email},:#{#c.password},:#{#c.roleId},:#{#c.isBlocked},:#{#c.phone})",nativeQuery = true)
+	@Query(value = "call registerAccount(:#{#c.id},:#{#c.email},:#{#c.password},:#{#c.roleId},:#{#c.isBlocked},:#{#c.phone},:#{#c.createdDate})",nativeQuery = true)
 	public int registerAccount(@Param("c") RegisterRequest registerRequest);
 	
 	public List<Accounts> findByEmailOrPhone(String email,String phone);
+	
+	@Modifying(clearAutomatically = true)
+	@Transactional
+	@Query(value="call updateBlocked(:accountId,:isBlocked)",nativeQuery = true)
+	public int updateBlocked(@Param("accountId") String accountId,@Param("isBlocked") int isBlocked);
+	
+	@Modifying
+	@Transactional
+	@Query(value = "call registerAccount(:#{#c.idAccount},:#{#c.email},:#{#c.password},:#{#c.roleId},:#{#c.isBlocked},:#{#c.phone},:#{#c.createdDate})",nativeQuery = true)
+	public int addNewAccount(@Param("c") NewAccountRequest registerRequest);
+	
 }

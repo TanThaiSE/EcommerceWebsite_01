@@ -68,11 +68,11 @@ public class AccountsServiceImpTest {
 	
 	@Test
 	public void addToAccount_ShouldReturnSuccessResponse_WhenDataValid() {
-		RegisterRequest init=new RegisterRequest("1", "abc@gmail.com", "123", "1", 0, "12345");
+		RegisterRequest init=new RegisterRequest("1", "abc@gmail.com", "123", "1", 0, "12345",new Date());
 		List<Accounts> isExistAccount=new ArrayList<Accounts>();
 		when(accountsRepository.findByEmailOrPhone(init.getEmail(),init.getPhone())).thenReturn(isExistAccount);
 		assertEquals(isExistAccount.size(), 0);
-		RegisterRequest expected=new RegisterRequest("1", "abc@gmail.com", "123", "1", 0, "12345");
+		RegisterRequest expected=new RegisterRequest("1", "abc@gmail.com", "123", "1", 0, "12345",new Date());
 		when(accountsRepository.registerAccount(expected)).thenReturn(1);
 		assertThat(expected).isEqualToComparingFieldByField(init);
 	}

@@ -1,0 +1,6 @@
+.navbarMainInfo-admin{
+    padding-top: 23px;
+}
+.navbarDropdown::after {
+    display: none;
+}
