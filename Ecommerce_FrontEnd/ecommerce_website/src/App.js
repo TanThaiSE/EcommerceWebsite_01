@@ -10,6 +10,8 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Purchase from "./pages/Purchase";
 import Account from "./pages/Account";
+import Categories from "./pages/Category";
+
 function App() {
   return (
     <Routes>
@@ -22,6 +24,7 @@ function App() {
       <Route path="/checkout" element={<Checkout/>}/>
       <Route path="/user/purchase" element={<Purchase/>}/> 
       <Route path="/manage-account" element={<Account/>}/>
+      <Route path="/manage-category" element={<Categories/>}/>
       <Route path="/*" element={<ErrorPage/>} />
     </Routes>
   );

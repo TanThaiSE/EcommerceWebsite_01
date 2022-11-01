@@ -16,7 +16,7 @@ import com.nashtech.ecommerce_website.dto.request.ProfileRequest;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.services.ProfileServiceImp;
 
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping("/api/v1/profile")
 public class ProfileController {

@@ -12,7 +12,7 @@ import com.nashtech.ecommerce_website.dto.request.RegisterRequest;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.services.AccountsServiceImp;
 
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping("/api/v1/signup")
 public class RegisterController {

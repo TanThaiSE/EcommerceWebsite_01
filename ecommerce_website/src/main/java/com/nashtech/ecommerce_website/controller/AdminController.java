@@ -20,7 +20,6 @@ import com.nashtech.ecommerce_website.services.ProfileServiceImp;
 
 @RestController
 @RequestMapping("/api/v1/admin")
-@CrossOrigin(origins = "*")
 public class AdminController {
 	@Autowired
 	AccountsServiceImp accountsServiceImp;
@@ -35,8 +34,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("/users")
-	public SuccessResponse getAllUsers(@RequestParam(name = "page",defaultValue = "0") int page){
-		return profileServiceImp.getAllUsers(page);
+	public SuccessResponse getAllUsers(@RequestParam(name = "page",defaultValue = "0") int page,@RequestParam(name = "offset",defaultValue = "1") int offset){
+		return profileServiceImp.getAllUsers(page,offset);
 	}
 	
 	@PutMapping("/{idAccount}/access-rights")

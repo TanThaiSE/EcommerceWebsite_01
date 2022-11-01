@@ -61,13 +61,13 @@ public class CategorysControllerTest {
 		pCategoryDto.setNameImg("abc.jpg");
 		List<ProductsInCategoryDto> lst=new ArrayList<>();
 		lst.add(pCategoryDto);
-		when(categorysServiceImp.getAllProductByCategory("1")).thenReturn(lst);
+		when(categorysServiceImp.getAllProductByCategory("1",0,1)).thenReturn(lst);
 		mockMvc.perform(get("/api/v1/category/{idCategory}/product","1")).andExpect(status().isOk());
 	}
 	
 	@Test
 	public void getProductsByCategoryId_ShouldReturnNotFound_WhenNotFoundData() throws Exception {
-		when(categorysServiceImp.getAllProductByCategory("10")).thenThrow(NotFoundException.class);
+		when(categorysServiceImp.getAllProductByCategory("10",0,1)).thenThrow(NotFoundException.class);
 		mockMvc.perform(get("/api/v1/category/{idCategory}/product","10")).andExpect(status().isNotFound());
 	}
 }

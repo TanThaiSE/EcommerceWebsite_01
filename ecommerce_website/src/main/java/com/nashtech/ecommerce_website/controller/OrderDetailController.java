@@ -20,7 +20,7 @@ import com.nashtech.ecommerce_website.dto.response.OrderDetailResponse;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.services.OrderDetailServiceImp;
 
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping("/api/v1/orderdetail")
 public class OrderDetailController {

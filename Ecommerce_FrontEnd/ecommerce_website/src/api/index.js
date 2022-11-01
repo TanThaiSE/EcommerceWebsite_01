@@ -6,4 +6,5 @@ import * as apiOrderDetail from './orderDetail';
 import * as apiRating from './rating';
 import * as apiRegister from './register';
 import * as apiProfile from './profile';
-export { apiCategory, apiProduct, apiLogin, apiCart, apiOrderDetail, apiRating, apiRegister, apiProfile };
+import * as apiAdmin from './admin';
+export { apiCategory, apiProduct, apiLogin, apiCart, apiOrderDetail, apiRating, apiRegister, apiProfile, apiAdmin };

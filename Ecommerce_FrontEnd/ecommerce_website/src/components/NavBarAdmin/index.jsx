@@ -17,7 +17,7 @@ const NavBarAdmin = () => {
                     </Link>
                 </div>
                 <div className="categories">
-                    <Link to="/" className='link-navigate navbar-categories'>
+                    <Link to="/manage-category" className='link-navigate navbar-categories'>
                         <p>Categories</p>
                     </Link>
                 </div>

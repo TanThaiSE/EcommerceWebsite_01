@@ -35,9 +35,8 @@ public class CategorysServiceImp implements CategorysService{
 	}
 
 	@Override
-	public List<ProductsInCategoryDto> getAllProductByCategory(String categoryId,int limit,int offset) {
-		Pageable pageable=PageRequest.of(3,1);
-//		List<ProductsInCategoryDto> products=categorysRepository.getAllProductByCategory(categoryId,pageable);
+	public List<ProductsInCategoryDto> getAllProductByCategory(String categoryId,int page,int pageSize) {
+		Pageable pageable=PageRequest.of(page,pageSize);
 		Page<ProductsInCategoryDto> products=categorysRepository.getAllProductByCategory(categoryId,pageable);
 		if(products==null||products.isEmpty()) {
 			throw new NotFoundException("Cannot found products in category");

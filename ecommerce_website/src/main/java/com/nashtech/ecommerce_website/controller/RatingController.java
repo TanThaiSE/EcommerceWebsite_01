@@ -18,8 +18,7 @@ import com.nashtech.ecommerce_website.dto.request.RatingAddRequest;
 import com.nashtech.ecommerce_website.dto.response.RateResponse;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.services.RatingServiceImp;
-//cors-> general all api. config trong adapter
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping("/api/v1/rating")
 public class RatingController {

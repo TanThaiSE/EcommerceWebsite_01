@@ -12,7 +12,7 @@ import com.nashtech.ecommerce_website.dto.response.ProductDetailResponseDto;
 import com.nashtech.ecommerce_website.pojo.ListUpdateProductPojo;
 import com.nashtech.ecommerce_website.services.ProductsServiceImp;
 
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping("/api/v1/product")
 public class ProductsController {

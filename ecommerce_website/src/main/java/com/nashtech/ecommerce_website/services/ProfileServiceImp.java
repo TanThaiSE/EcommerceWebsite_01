@@ -29,9 +29,6 @@ public class ProfileServiceImp implements ProfileService{
 	@Autowired
 	AccountsRepository accountsRepository;
 	
-	private int pageSize=5;
-	
-	
 	@Override
 	public SuccessResponse addToProfile(ProfileRequest profileRequest) {
 		try {
@@ -52,12 +49,12 @@ public class ProfileServiceImp implements ProfileService{
 
 
 	@Override
-	public SuccessResponse getAllUsers(int page) {
-		Pageable pageable=PageRequest.of(page, pageSize);
+	public SuccessResponse getAllUsers(int page,int offset) {
+		Pageable pageable=PageRequest.of(page, offset);
 		Page<Profiles> lstProfiles=profileRepository.findAllByOrderByAccountsProfiles_CreatedDateDesc(pageable);
 		if(lstProfiles.getContent().size()>0) {
 			Map<String,Object> res=new HashMap<>();
-			res.put("data", lstProfiles.getContent());
+			res.put("listUser", lstProfiles.getContent());
 			res.put("totalPage",lstProfiles.getTotalPages());
 			return new SuccessResponse("302","get all users success",res);
 		}
@@ -72,7 +69,7 @@ public class ProfileServiceImp implements ProfileService{
 		if(detail.isEmpty()) {
 			throw new NotFoundException("Not found account");
 		}
-		return new SuccessResponse("302","get all users success",detail.get());
+		return new SuccessResponse("202","get detail users success",detail.get());
 	}
 
 

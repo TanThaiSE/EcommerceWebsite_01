@@ -14,7 +14,7 @@ import com.nashtech.ecommerce_website.dto.response.LoginResponseDto;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.services.LoginServiceImp;
 
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping("/api/v1/login")
 public class LoginController {

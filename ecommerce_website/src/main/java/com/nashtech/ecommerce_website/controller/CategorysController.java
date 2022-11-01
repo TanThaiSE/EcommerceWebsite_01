@@ -14,7 +14,7 @@ import com.nashtech.ecommerce_website.entity.Categorys;
 import com.nashtech.ecommerce_website.services.CategorysService;
 import com.nashtech.ecommerce_website.services.CategorysServiceImp;
 
-@CrossOrigin(origins = "*")
+
 @RestController
 @RequestMapping("/api/v1/category")
 public class CategorysController {

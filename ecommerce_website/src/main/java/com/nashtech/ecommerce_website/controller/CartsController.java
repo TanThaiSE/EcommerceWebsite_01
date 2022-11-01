@@ -24,7 +24,6 @@ import com.nashtech.ecommerce_website.services.CartsServiceImp;
 
 @RestController
 @RequestMapping("/api/v1/cart")
-@CrossOrigin(origins = "*")
 public class CartsController {
 	@Autowired
 	CartsServiceImp cartsServiceImp;
