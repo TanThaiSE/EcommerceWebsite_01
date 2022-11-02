@@ -56,7 +56,7 @@ public class ProfileServiceImp implements ProfileService{
 			Map<String,Object> res=new HashMap<>();
 			res.put("listUser", lstProfiles.getContent());
 			res.put("totalPage",lstProfiles.getTotalPages());
-			return new SuccessResponse("302","get all users success",res);
+			return new SuccessResponse("200","get all users success",res);
 		}
 		throw new NotFoundException("Not found users");
 	}

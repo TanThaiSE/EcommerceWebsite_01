@@ -101,6 +101,7 @@ const handleBlocked=(item)=>{
   }, [pageCount, itemOffset]);
   return (
     <div>
+      <h1>Manage Account</h1>
       <div className='d-flex justify-content-end mt-5'>
         <label className='mb-3'>Items per Page</label>
         <select className="form-select" value={itemOffset} onChange={handleChangeSelect} style={{ width: '15%',textAlign:'center', marginLeft:'20px' }}>

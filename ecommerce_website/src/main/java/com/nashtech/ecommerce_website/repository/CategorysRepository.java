@@ -15,7 +15,7 @@ import com.nashtech.ecommerce_website.entity.Categorys;
 
 @Repository
 public interface CategorysRepository extends JpaRepository<Categorys,String> {
-	public List<Categorys> findAll();
+	public Page<Categorys> findAll(Pageable pageable);
 //	@Query(value = "call GetAllProductByCategory(:categoryId)",nativeQuery = true)
 //	public List<ProductsInCategoryDto> getAllProductByCategory(@Param("categoryId") String categoryId);
 

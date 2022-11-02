@@ -43,6 +43,11 @@ public class AdminController {
 		return profileServiceImp.updateBlockedUsers(idAccount);
 	}
 	
+	@GetMapping("/category")
+	public SuccessResponse getAllCategories(@RequestParam(name = "page",defaultValue = "0") int page,@RequestParam(name = "offset",defaultValue = "1") int offset) {
+		return categorysServiceImp.getAllCategories(page, offset);
+	}
+	
 	@PostMapping("/category")
 	public SuccessResponse createNewCategory(@RequestBody CategoryCreateRequest categoryCreateRequest) {
 		return categorysServiceImp.createNewCategory(categoryCreateRequest);
@@ -52,5 +57,6 @@ public class AdminController {
 	public SuccessResponse updateCategory(@RequestBody CategoryCreateRequest categoryCreateRequest) {
 		return categorysServiceImp.updateCategory(categoryCreateRequest);
 	}
+	
 	
 }

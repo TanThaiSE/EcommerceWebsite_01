@@ -1,6 +1,8 @@
 package com.nashtech.ecommerce_website.services;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -27,11 +29,12 @@ public class CategorysServiceImp implements CategorysService{
 
 	@Override
 	public List<Categorys> getAllCategory() {
-		List<Categorys> category=categorysRepository.findAll();
-		if(category==null||category.isEmpty()) {
+		Pageable pageable=Pageable.unpaged();
+		Page<Categorys> category=categorysRepository.findAll(pageable);
+		if(category.getContent().size()<=0) {
 			throw new NotFoundException("Cannot found category");
 		}
-		return category;
+		return category.getContent();
 	}
 
 	@Override
@@ -62,6 +65,19 @@ public class CategorysServiceImp implements CategorysService{
 		categorysRepository.updateCategory(categoryCreateRequest);
 		SuccessResponse successResponse=new SuccessResponse("201","Update category success",categoryCreateRequest);
 		return successResponse;
+	}
+
+	@Override
+	public SuccessResponse getAllCategories(int page, int pageSize) {
+		Pageable pageable=PageRequest.of(page,pageSize);
+		Page<Categorys> categories=categorysRepository.findAll(pageable);
+		if(categories.getContent().size()>0) {
+			Map<String,Object> res=new HashMap<>();
+			res.put("listCategories", categories.getContent());
+			res.put("totalPage",categories.getTotalPages());
+			return new SuccessResponse("200","get all categories success",res);
+		}
+		throw new NotFoundException("Not found users");
 	}
 	
 }

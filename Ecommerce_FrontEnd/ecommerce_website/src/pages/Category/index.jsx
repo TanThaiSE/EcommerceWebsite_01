@@ -4,6 +4,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './index.css';
 import NavBarAdmin from '../../components/NavBarAdmin';
 import NavBarInfoAdmin from '../../components/NavBarInfoAdmin';
+import ManageCategory from '../../components/ManageCategory';
 
 const Categories = () => {
     return (
@@ -15,7 +16,7 @@ const Categories = () => {
                 <div className="col-md-10">
                     <NavBarInfoAdmin/>
                     <div>
-                        
+                        <ManageCategory/>
                     </div>
                 </div>
             </div>

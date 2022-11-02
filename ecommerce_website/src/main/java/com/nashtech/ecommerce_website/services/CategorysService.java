@@ -20,4 +20,5 @@ public interface CategorysService  {
 	public SuccessResponse createNewCategory(CategoryCreateRequest categoryCreateRequest);
 	public SuccessResponse updateCategory(CategoryCreateRequest categoryCreateRequest);
 	public List<ProductsInCategoryDto> getAllProductByCategory(String categoryId,int limit,int offset);
+	public SuccessResponse getAllCategories(int page,int offset);
 }

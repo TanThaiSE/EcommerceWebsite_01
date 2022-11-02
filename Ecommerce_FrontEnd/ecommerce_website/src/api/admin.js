@@ -13,3 +13,9 @@ export const fetchUpdateBlockedUser = async (idAccount) => {
         return result;
     });
 };
+
+export const fetchCategory = async (page,offset) => {
+    return axios.get(`/admin/category`,{params:{page:page,offset:offset }}).then((result) => {
+        return result;
+    });
+};
