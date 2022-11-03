@@ -19,3 +19,15 @@ export const fetchCategory = async (page,offset) => {
         return result;
     });
 };
+
+export const fetchUpdateCategory = async (data) => {
+    return axios.put(`/admin/category`,data).then((result) => {
+        return result;
+    });
+};
+
+export const fetchCreateCategory = async (data) => {
+    return axios.post(`/admin/category`,data).then((result) => {
+        return result;
+    });
+};

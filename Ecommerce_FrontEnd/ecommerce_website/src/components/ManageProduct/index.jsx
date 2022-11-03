@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 import { apiAdmin } from '../../api';
 import ModalInfoCategory from '../ModalInfoCategory';
 import { Link, useNavigate } from 'react-router-dom';
-const ManageCategory = () => {
+const ManageProduct = () => {
     const navigate = useNavigate();
     const [searchParams, setSearchParams] = useSearchParams();
     const [lstCategory, setLstCategory] = useState([]);
@@ -77,7 +77,7 @@ const ManageCategory = () => {
 
     return (
         <div>
-            <h1>Manage Category</h1>
+            <h1>Manage Product</h1>
             <div className='d-flex justify-content-between'>
             <div className='d-flex'>
                 <label className='mb-3'>Items per Page</label>
@@ -88,7 +88,7 @@ const ManageCategory = () => {
                 </select>
             </div>
             <div>
-                <button className='btn btn-success' onClick={()=>{navigate('/create-category')}}>Create Category</button>
+                <button className='btn btn-success' onClick={()=>{navigate('/create-category')}}>Create Product</button>
             </div>
             </div>
 
@@ -118,5 +118,5 @@ const ManageCategory = () => {
     )
 }
 
-export default ManageCategory;
+export default ManageProduct;
 

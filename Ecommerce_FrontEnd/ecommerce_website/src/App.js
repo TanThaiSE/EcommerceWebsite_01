@@ -11,6 +11,9 @@ import Checkout from "./pages/Checkout";
 import Purchase from "./pages/Purchase";
 import Account from "./pages/Account";
 import Categories from "./pages/Category";
+import CreateCategory from "./pages/CreateCategory";
+import ProductAdmin from "./pages/ProductAdmin";
+import CreateProduct from "./pages/CreateProduct";
 
 function App() {
   return (
@@ -25,6 +28,9 @@ function App() {
       <Route path="/user/purchase" element={<Purchase/>}/> 
       <Route path="/manage-account" element={<Account/>}/>
       <Route path="/manage-category" element={<Categories/>}/>
+      <Route path="/create-category" element={<CreateCategory/>}/>
+      <Route path="/manage-product" element={<ProductAdmin/>}/>
+      <Route path="/create-product" element={<CreateProduct/>}/>
       <Route path="/*" element={<ErrorPage/>} />
     </Routes>
   );

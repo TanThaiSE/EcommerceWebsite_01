@@ -1,0 +1,5 @@
+@import url('/src/utils/DefineVariable.css');
+.content-error{
+    color:var(--colorErrorValid); 
+    font-size: 0.75rem;
+}

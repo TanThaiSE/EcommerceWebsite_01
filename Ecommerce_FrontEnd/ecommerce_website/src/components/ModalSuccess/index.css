@@ -1,0 +1,14 @@
+/* Define variable css */
+@import url('/src/utils/DefineVariable.css');
+#titleModalSuccess{
+    color: var(--colorSuccessModal) !important;
+    font-size: 36px !important;
+    font-weight: bold !important;
+}
+#iconSuccess{
+    color: var(--colorSuccessModal) !important;
+    font-size: 77px !important;
+}
+#contentModalSuccess{
+    margin-top: 23px !important;
+}

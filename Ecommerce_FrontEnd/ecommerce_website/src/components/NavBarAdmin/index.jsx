@@ -22,7 +22,7 @@ const NavBarAdmin = () => {
                     </Link>
                 </div>
                 <div className="products">
-                    <Link to="/" className='link-navigate navbar-products'>
+                    <Link to="/manage-product" className='link-navigate navbar-products'>
                         <p>Products</p>
                     </Link>
                 </div>

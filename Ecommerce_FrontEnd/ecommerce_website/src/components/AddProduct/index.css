@@ -1,0 +1,23 @@
+@import url('/src/utils/DefineVariable.css');
+.containBtnCategory{
+    margin-top: 35px;
+}
+.createCategory,.backCreateCategory{
+    padding-right: 58px;
+    padding-left: 58px;
+}
+.createCategory{
+    margin-right: 27px;
+}
+
+.content-error{
+    color:var(--colorErrorValid); 
+    font-size: 0.75rem;
+}
+
+.dropzone{
+    border: 2px dotted gray;
+    background-color: azure;
+    height: 300px;
+    margin: 16px 32px;
+}
