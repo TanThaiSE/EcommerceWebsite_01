@@ -60,12 +60,13 @@ const AddCategory = () => {
                     {errors.image?.message && <span className='content-error'>{errors.image?.message}</span>}
                 </Form.Group>
                 <div className='d-flex containBtnCategory'>
-                    <button className='btn btn-success createCategory' type='submit'>
-                        Create
-                    </button>
                     <button className="btn btn-secondary backCreateCategory" onClick={() => navigate(-1)}>
                         Back
                     </button>
+                    <button className='btn btn-success createCategory' type='submit'>
+                        Create
+                    </button>
+
                 </div>
             </form>
             <ModalSuccess title={'New category is created'} handleCloseModal={handleCloseModal} showModal={showModal}/>

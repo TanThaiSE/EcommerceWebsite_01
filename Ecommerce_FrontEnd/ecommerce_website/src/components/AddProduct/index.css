@@ -16,8 +16,21 @@
 }
 
 .dropzone{
+    display: flex;
     border: 2px dotted gray;
-    background-color: azure;
+    background-color: var(--colorDropZone);
     height: 300px;
-    margin: 16px 32px;
+    align-items: center;
+    justify-content: center;
+}
+.selectedImages{
+    height: 200px;
+    width: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.priceProduct::-webkit-outer-spin-button,
+.priceProduct::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

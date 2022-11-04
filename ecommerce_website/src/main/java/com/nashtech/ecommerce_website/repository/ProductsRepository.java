@@ -1,10 +1,13 @@
 package com.nashtech.ecommerce_website.repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -13,6 +16,8 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
+import com.nashtech.ecommerce_website.dto.request.ProductCreateRequest;
+import com.nashtech.ecommerce_website.dto.request.RatingAddRequest;
 import com.nashtech.ecommerce_website.entity.Products;
 import com.nashtech.ecommerce_website.pojo.AttributeProductPojo;
 import com.nashtech.ecommerce_website.pojo.DetailProductPojo;
@@ -37,5 +42,11 @@ public interface ProductsRepository extends JpaRepository<Products,String> {
 	@Transactional
 	@Query(value="call UpdateNumberBuyProduct(:id,:quantity)",nativeQuery = true)
 	public int updateNumberBuyProduct(@Param("id") String id,@Param("quantity") int quantity);	
+
+	@Modifying
+	@Transactional
+	@Query(value="call AddNewProduct(:productId,:#{#c.name},:#{#c.detail},:#{#c.description},:#{#c.price},:#{#c.createdDate},:#{#c.updateDate},:#{#c.rate},:#{#c.numberBuy},:#{#c.categoryId})",nativeQuery = true)
+	public int createNewProduct(@Param("productId")String productId,@Param("c") ProductCreateRequest productCreate);
+	
 
 }

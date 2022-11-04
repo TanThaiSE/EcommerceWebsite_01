@@ -68,10 +68,10 @@ const ModalInfoCategory = ({ detailCategory, handleCloseModal, showModal,handleW
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleCloseModal}>
-                        Back
+                        Cancel
                     </Button>
                     <Button variant="primary" type='submit'>
-                        Edit
+                        OK
                     </Button>
                 </Modal.Footer>
             </form>

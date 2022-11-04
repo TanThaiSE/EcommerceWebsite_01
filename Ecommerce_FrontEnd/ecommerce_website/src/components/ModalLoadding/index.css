@@ -1,0 +1,6 @@
+/* Define variable css */
+@import url('/src/utils/DefineVariable.css');
+
+#contentModalSuccess{
+    margin-top: 23px !important;
+}

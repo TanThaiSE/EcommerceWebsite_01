@@ -78,18 +78,21 @@ const ManageCategory = () => {
     return (
         <div>
             <h1>Manage Category</h1>
-            <div className='d-flex justify-content-between'>
-            <div className='d-flex'>
-                <label className='mb-3'>Items per Page</label>
-                <select className="form-select" value={itemOffset} onChange={handleChangeSelect} style={{ width: '35%', textAlign: 'center', marginLeft: '20px' }}>
-                    <option defaultValue={4}>4</option>
-                    <option value={8}>8</option>
-                    <option value={16}>16</option>
-                </select>
-            </div>
-            <div>
-                <button className='btn btn-success' onClick={()=>{navigate('/create-category')}}>Create Category</button>
-            </div>
+            <div className='d-flex justify-content-between mt-5 mb-3'>
+
+                <div>
+                    <button className='btn btn-success' onClick={() => { navigate('/create-category') }}>Create Category</button>
+                </div>
+
+                <div className='d-flex' >
+                    <label className='mb-3'>Items per Page</label>
+                    <select className="form-select" value={itemOffset} onChange={handleChangeSelect} style={{ width: '35%', textAlign: 'center', marginLeft: '20px' }}>
+                        <option defaultValue={4}>4</option>
+                        <option value={8}>8</option>
+                        <option value={16}>16</option>
+                    </select>
+                </div>
+
             </div>
 
 
