@@ -49,7 +49,10 @@ const ManagerAccount = () => {
         console.log(err);
       });
   }
-  const fetchUpdateBlockedUser = (idCustomer, id) => {
+  
+    const fetchUpdateBlockedUser = (account) => {
+    let idCustomer=account.accountsProfiles.id;
+    let id=account.id;
     apiAdmin.fetchUpdateBlockedUser(idCustomer)
       .then((res) => {
         if (res.data.code === '202') {

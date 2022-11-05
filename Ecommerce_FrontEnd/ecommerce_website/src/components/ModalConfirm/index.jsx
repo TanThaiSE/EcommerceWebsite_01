@@ -13,7 +13,7 @@ const ModalConfirm = ({ title,handleCloseModal,showModal,handleWork,item }) => {
                 <Button variant="secondary" onClick={handleCloseModal}>
                     Back
                 </Button>
-                <Button variant="primary" onClick={()=>{handleWork(item.accountsProfiles.id,item.id)}}>
+                <Button variant="primary" onClick={()=>{handleWork(item)}}>
                     Confirm
                 </Button>
             </Modal.Footer>

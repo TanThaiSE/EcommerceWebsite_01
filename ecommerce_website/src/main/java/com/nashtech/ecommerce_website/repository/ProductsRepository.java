@@ -9,6 +9,8 @@ import javax.transaction.Transactional;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +20,7 @@ import org.springframework.stereotype.Repository;
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.dto.request.ProductCreateRequest;
 import com.nashtech.ecommerce_website.dto.request.RatingAddRequest;
+import com.nashtech.ecommerce_website.dto.response.ProductsInCategoryDto;
 import com.nashtech.ecommerce_website.entity.Products;
 import com.nashtech.ecommerce_website.pojo.AttributeProductPojo;
 import com.nashtech.ecommerce_website.pojo.DetailProductPojo;
@@ -48,5 +51,13 @@ public interface ProductsRepository extends JpaRepository<Products,String> {
 	@Query(value="call AddNewProduct(:productId,:#{#c.name},:#{#c.detail},:#{#c.description},:#{#c.price},:#{#c.createdDate},:#{#c.updateDate},:#{#c.rate},:#{#c.numberBuy},:#{#c.categoryId})",nativeQuery = true)
 	public int createNewProduct(@Param("productId")String productId,@Param("c") ProductCreateRequest productCreate);
 	
-
+	@Query(value = " SELECT p.id,  p.name as nameProduct,  p.price,  p.rate,  p.number_buy ,p.status_product as statusProduct,  imgp.name_image as nameImg FROM product as p INNER JOIN image imgp ON p.id=imgp.product_id WHERE imgp.index_image=0 and p.name like :keySearch",
+	countQuery = "SELECT COUNT(p.id),  p.name as nameProduct,  p.price,  p.rate,  p.number_buy ,p.status_product as statusProduct,  imgp.name_image as nameImg FROM product as p INNER JOIN image imgp ON p.id=imgp.product_id WHERE imgp.index_image=0 and p.name like :keySearch",
+	nativeQuery = true)
+	public Page<ProductsInCategoryDto> getAllProduct(@Param("keySearch")String keySearch,Pageable pageable);
+	
+	@Modifying(clearAutomatically = true)
+	@Transactional
+	@Query(value="call UpdateStatusProduct(:id,:statusProduct)",nativeQuery = true)
+	public int updateStatusProduct(@Param("id") String id,@Param("statusProduct") int statusProduct);	
 }

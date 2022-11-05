@@ -25,3 +25,23 @@
 .modal-backdrop{
     background-color:var(--colorBlackModal) !important;
 }
+
+.containIconSearchManager{
+    width: 35px;
+}
+#iconSearchManager{
+    margin-top: 12px;
+    margin-left: 9px;
+
+}
+.manager-img{
+    width: 190px;
+    height: 190px;
+}
+.managerDetailProduct{
+    text-decoration: none;
+    color:var(--colorback);
+}
+.managerDetailProduct:hover{
+    color: var(--bgcommon);
+}

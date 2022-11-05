@@ -30,8 +30,8 @@ public interface CategorysRepository extends JpaRepository<Categorys,String> {
 	@Query(value = "call updateCategory(:#{#c.id},:#{#c.name},:#{#c.image})",nativeQuery = true)
 	public int updateCategory(@Param("c") CategoryCreateRequest categoryCreateRequest);
 	
-	@Query(value = " SELECT p.id,  p.name as nameProduct,  p.price,  p.rate,  p.number_buy ,  imgp.name_image as nameImg FROM product as p INNER JOIN image imgp ON p.id=imgp.product_id WHERE p.category_id=:categoryId and imgp.index_image=0",
-	countQuery = "SELECT COUNT(p.id),  p.name as nameProduct,  p.price,  p.rate,  p.number_buy ,  imgp.name_image as nameImg FROM product as p INNER JOIN image imgp ON p.id=imgp.product_id WHERE p.category_id=:categoryId and imgp.index_image=0",
+	@Query(value = " SELECT p.id,  p.name as nameProduct,  p.price,  p.rate,  p.number_buy ,p.status_product as statusProduct,  imgp.name_image as nameImg FROM product as p INNER JOIN image imgp ON p.id=imgp.product_id WHERE p.category_id=:categoryId and imgp.index_image=0",
+	countQuery = "SELECT COUNT(p.id),  p.name as nameProduct,  p.price,  p.rate,  p.number_buy ,p.status_product as statusProduct,  imgp.name_image as nameImg FROM product as p INNER JOIN image imgp ON p.id=imgp.product_id WHERE p.category_id=:categoryId and imgp.index_image=0",
 	nativeQuery = true)
 	public Page<ProductsInCategoryDto> getAllProductByCategory(@Param("categoryId") String categoryId,Pageable pageable);
 	

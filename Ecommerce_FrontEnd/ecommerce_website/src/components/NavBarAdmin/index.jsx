@@ -11,11 +11,7 @@ const NavBarAdmin = () => {
                 </Link>
             </div>
             <div className="tab-manager">
-                <div className="employees">
-                    <Link to="/manage-account" className='link-navigate navbar-employees'>
-                        <p>Employees</p>
-                    </Link>
-                </div>
+
                 <div className="categories">
                     <Link to="/manage-category" className='link-navigate navbar-categories'>
                         <p>Categories</p>
@@ -24,6 +20,11 @@ const NavBarAdmin = () => {
                 <div className="products">
                     <Link to="/manage-product" className='link-navigate navbar-products'>
                         <p>Products</p>
+                    </Link>
+                </div>
+                <div className="employees">
+                    <Link to="/manage-account" className='link-navigate navbar-employees'>
+                        <p>Customers</p>
                     </Link>
                 </div>
             </div>

@@ -66,7 +66,18 @@ public class Products {
 	@OneToMany(mappedBy = "productsImages")
 	private Set<Images> images;
 	
+	@Column(name="status_product")
+	private int statusProduct;
 	
+	
+	public int getStatusProduct() {
+		return statusProduct;
+	}
+
+	public void setStatusProduct(int statusProduct) {
+		this.statusProduct = statusProduct;
+	}
+
 	public String getId() {
 		return id;
 	}

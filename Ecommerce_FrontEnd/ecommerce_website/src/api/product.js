@@ -16,3 +16,9 @@ export const fetchUpdateQuantityProduct = async (data) => {
         return result;
     });
 };
+
+export const fetchGetEntireProduct = async (searchKey,page,offset) => {
+    return axios.get(`/product`,{params:{searchKey:searchKey,page:page,offset:offset }}).then((result) => {
+        return result;
+    });
+};

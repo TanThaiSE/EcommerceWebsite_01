@@ -96,10 +96,10 @@ public class AdminController {
 //		return null;
 //	}
 	
-//	@PutMapping("/{idProduct}/status-product")
-//	public SuccessResponse updateStatusProduct(@PathVariable("idProduct")String idAccount) {
-//		return null;
-//	}
+	@PutMapping("/product/{idProduct}/status-product")
+	public SuccessResponse updateStatusProduct(@PathVariable("idProduct")String idProduct) {
+		return productsServiceImp.updateStatusProduct(idProduct);
+	}
 	
 	@GetMapping("/size")
 	public SuccessResponse getAllSize() {

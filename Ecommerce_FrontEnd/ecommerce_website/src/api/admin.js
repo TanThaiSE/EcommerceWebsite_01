@@ -37,6 +37,12 @@ export const fetchCreateProduct = async (data) => {
     });
 };
 
+export const fetchUpdateStatusProduct = async (idProduct) => {
+    return axios.put(`/admin/product/${idProduct}/status-product`).then((result) => {
+        return result;
+    });
+};
+
 export const fetchGetSize = async () => {
     return axios.get(`/admin/size`).then((result) => {
         return result;

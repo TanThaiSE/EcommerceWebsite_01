@@ -7,6 +7,7 @@ public interface ProductsInCategoryDto {
 	Integer getNumber_buy();
 	String getNameProduct();
 	String getNameImg();
+	Integer getStatusProduct();
 	
 	void setId(String id);
 	void setPrice(int price);
@@ -14,5 +15,5 @@ public interface ProductsInCategoryDto {
 	void setNumber_buy(int numberBuy);
 	void setNameProduct(String nameProduct);
 	void setNameImg(String nameImg);
-	
+	void setStatusProduct(Integer statusProduct);
 }

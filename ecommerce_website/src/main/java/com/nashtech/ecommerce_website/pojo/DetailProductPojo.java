@@ -8,6 +8,7 @@ public interface DetailProductPojo {
 	 Integer getNumber_buy(); 
 	 String getDescriptionProduct(); 
 	 String getNameProduct(); 
+	 Integer getStatusProduct();
 	 
 	 void setId(String id);
 	 void setDetail(String detail);
@@ -16,5 +17,5 @@ public interface DetailProductPojo {
 	 void setNumber_buy(int number_buy);
 	 void setDescriptionProduct(String descriptionProduct);
 	 void setNameProduct(String nameProduct);
-	 
+	 void setStatusProduct(int statusProduct);
 }
