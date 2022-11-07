@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import com.nashtech.ecommerce_website.dto.response.ProductsInCategoryDto;
+import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.entity.Categorys;
 
 import com.nashtech.ecommerce_website.services.CategorysService;
@@ -27,8 +28,8 @@ public class CategorysController {
 	}
 	
 	@GetMapping("/{idCategory}/product")
-	public List<ProductsInCategoryDto> getProductsByCategoryId(@PathVariable("idCategory") String idCategory,@RequestParam(name = "page",defaultValue = "0") int page,@RequestParam(name = "offset",defaultValue = "1") int offset){
-		return categorysServiceImp.getAllProductByCategory(idCategory,page,offset);
+	public SuccessResponse getProductsByCategoryId(@RequestParam(name = "sortPrice",defaultValue = "desc") String sortPrice,@PathVariable("idCategory") String idCategory,@RequestParam(name = "page",defaultValue = "0") int page,@RequestParam(name = "offset",defaultValue = "1") int offset){
+		return categorysServiceImp.getAllProductByCategory(idCategory,page,offset,sortPrice);
 	}
 
 }

@@ -29,5 +29,15 @@ public class ImageServiceImp implements ImageService {
 			throw new SqlException("Cannot insert image product");
 		}
 	}
+
+	@Override
+	public SuccessResponse deleteImageByProductId(String productId) {
+		try {
+			imagesRepository.deleteAllByProductsImages_Id(productId);
+			return new SuccessResponse("202","delete color product success", productId);
+		} catch (Exception e) {
+			throw new SqlException("Cannot delete image product");
+		}
+	}
 	
 }

@@ -3,6 +3,7 @@ package com.nashtech.ecommerce_website.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +18,7 @@ import com.nashtech.ecommerce_website.dto.request.CategoryCreateRequest;
 import com.nashtech.ecommerce_website.dto.request.ImageAddRequest;
 import com.nashtech.ecommerce_website.dto.request.NewAccountRequest;
 import com.nashtech.ecommerce_website.dto.request.ProductCreateRequest;
+import com.nashtech.ecommerce_website.dto.request.ProductUpdateRequest;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.services.AccountsServiceImp;
 import com.nashtech.ecommerce_website.services.CategorysServiceImp;
@@ -91,10 +93,10 @@ public class AdminController {
 		return productsServiceImp.createNewProduct(productCreate);
 	}
 	
-//	@PutMapping("/product")
-//	public SuccessResponse updateProduct(@RequestBody) {
-//		return null;
-//	}
+	@PutMapping("/product")
+	public SuccessResponse updateProduct(@Valid @RequestBody ProductUpdateRequest productUpdateRequest) {
+		return productsServiceImp.updateProduct(productUpdateRequest);
+	}
 	
 	@PutMapping("/product/{idProduct}/status-product")
 	public SuccessResponse updateStatusProduct(@PathVariable("idProduct")String idProduct) {
@@ -109,6 +111,11 @@ public class AdminController {
 	public SuccessResponse createSizeForProduct(@Valid @RequestBody AttributeAddRequest addRequest) {
 		return sizeProductServiceImp.createSizeProduct(addRequest);
 	}
+	@DeleteMapping("/{idProduct}/size")
+	public SuccessResponse deleteSizeProduct(@PathVariable("idProduct")String idProduct) {
+		return sizeProductServiceImp.deleteSizeProductByProductId(idProduct);
+	}
+	
 	@GetMapping("/color")
 	public SuccessResponse getAllColor() {
 		return colorServiceImp.getAllColor();
@@ -117,8 +124,18 @@ public class AdminController {
 	public SuccessResponse createColorForProduct(@Valid @RequestBody AttributeAddRequest addRequest) {
 		return colorProductServiceImp.createColorProduct(addRequest);
 	}
+	@DeleteMapping("/{idProduct}/color")
+	public SuccessResponse deleteColorProduct(@PathVariable("idProduct")String idProduct) {
+		return colorProductServiceImp.deleteColorProductByProductId(idProduct);
+	}
+	
 	@PostMapping("/image")
 	public SuccessResponse createImageForProduct(@Valid @RequestBody ImageAddRequest imageAddRequest) {
 		return imageServiceImp.createImageProduct(imageAddRequest);
+	}
+	
+	@DeleteMapping("/{idProduct}/image")
+	public SuccessResponse deleteImageProduct(@PathVariable("idProduct")String idProduct) {
+		return imageServiceImp.deleteImageByProductId(idProduct);
 	}
 }

@@ -14,7 +14,7 @@ const Category = () => {
   const displayListCategory = (lstCategories) => {
     if (lstCategories.length !== 0) {
       return lstCategories.map((item, index) => {
-        return ( 
+        return (
           <div className="col-2" key={index} >
             <CategoryItem cateItem={item} />
           </div>
@@ -32,11 +32,13 @@ const Category = () => {
 
   return (
     <div className='container'>
-      Category
+      <div className='nameCategory'>
+        <p>DANH MỤC</p> 
+      </div>
+    
       <div className='row'>
         {displayListCategory(lstCategories)}
       </div>
-
     </div>
   )
 }

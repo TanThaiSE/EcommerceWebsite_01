@@ -14,8 +14,10 @@ const CartComponent = () => {
         setListProducts(res.data);
       })
       .catch((err) => {
+        console.log(err);
         if (err.response.data.code === "404") {
           //not found data
+          console.log(err);
           setIsEmptyCart(true);
         }
       })
@@ -233,7 +235,7 @@ const CartComponent = () => {
           <input type='checkbox' />
         </div>
         <div className="col-md-4">
-          <button onClick={() => { handleDeleteMultipleChoice() }}>Xóa</button>
+          <button onClick={() => { handleDeleteMultipleChoice() }} className='btnDeleteProduct'>Xóa</button>
         </div>
         <div className="col-md-2">
           <p>Tổng thanh toán</p>
@@ -242,7 +244,7 @@ const CartComponent = () => {
           {displayMoney(listProducts)}
         </div>
         <div className="col-md-2">
-          <button onClick={() => { handleCheckout() }}>Mua hàng</button>
+          <button onClick={() => { handleCheckout() }} className='btnBuyProduct'>Mua hàng</button>
         </div>
       </div>
     </div>

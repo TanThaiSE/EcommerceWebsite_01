@@ -9,7 +9,7 @@ const Checkout = () => {
   return (
     <div>
         <NavBarInfo/>
-        <NavBarCommon title={`Giỏ Hàng`}/>
+        <NavBarCommon title={`Thanh Toán`}/>
         <CheckoutComponent/>
     </div>
   )

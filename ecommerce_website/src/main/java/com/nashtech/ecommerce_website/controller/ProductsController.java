@@ -37,7 +37,7 @@ public class ProductsController {
 	
 
 	@GetMapping("")
-	public SuccessResponse getAllProduct(@RequestParam(name = "searchKey",defaultValue = "") String searchKey,@RequestParam(name = "page",defaultValue = "0") int page,@RequestParam(name = "offset",defaultValue = "1") int offset){
-		return productsServiceImp.getAllProductCouldBeSearch(searchKey, page, offset);
+	public SuccessResponse getAllProduct(@RequestParam(name = "searchKey",defaultValue = "") String searchKey,@RequestParam(name = "sortPrice",defaultValue = "desc") String sortPrice,@RequestParam(name = "page",defaultValue = "0") int page,@RequestParam(name = "offset",defaultValue = "1") int offset){
+		return productsServiceImp.getAllProductCouldBeSearch(searchKey,sortPrice, page, offset);
 	}
 }

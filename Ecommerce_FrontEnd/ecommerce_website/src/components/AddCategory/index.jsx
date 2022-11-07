@@ -69,7 +69,7 @@ const AddCategory = () => {
 
                 </div>
             </form>
-            <ModalSuccess title={'New category is created'} handleCloseModal={handleCloseModal} showModal={showModal}/>
+            <ModalSuccess  headers={"Success"} title={'New category is created'} handleCloseModal={handleCloseModal} showModal={showModal}/>
         </div>
     )
 }

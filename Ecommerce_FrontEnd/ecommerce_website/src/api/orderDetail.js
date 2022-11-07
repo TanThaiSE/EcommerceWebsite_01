@@ -1,4 +1,4 @@
-import { getAuthor } from "../utils/localStorage";
+import { getAuthor } from "../utils/cookieStorage";
 import axios from "./config";
 
 export const fetchAddToOrderDetail = async (data) => {

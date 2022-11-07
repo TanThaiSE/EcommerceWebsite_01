@@ -1,0 +1,12 @@
+/* Define variable css */
+@import url('/src/utils/DefineVariable.css');
+.nameCategory{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+.nameCategory p{
+    font-size: 1rem;
+    color: var(--colorNameCategory);
+    font-weight: 500;
+    margin-left: 32px;
+}

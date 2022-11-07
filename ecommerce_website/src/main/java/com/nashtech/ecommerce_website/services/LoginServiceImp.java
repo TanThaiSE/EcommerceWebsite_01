@@ -34,7 +34,7 @@ public class LoginServiceImp implements LoginService{
 			SecurityContextHolder.getContext().setAuthentication(authen);
 			Map<String, Object> acc = accountsServiceImp.findByPhone(loginRequest.getUserName());
 			String jwtToken=jwtProvider.generateToken(new LoginPojo((String) acc.get("id"), (String) acc.get("phone")));
-			LoginResponseDto loginResponseDto=new LoginResponseDto((String)acc.get("email"), jwtToken);
+			LoginResponseDto loginResponseDto=new LoginResponseDto((String)acc.get("id"),(String)acc.get("email"),(String)acc.get("role_id"),(String)acc.get("roles") ,jwtToken);
 			return loginResponseDto;
 		} catch (Exception e) {
 			throw new NotFoundException("Invalid username or password");

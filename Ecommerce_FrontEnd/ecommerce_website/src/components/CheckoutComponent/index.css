@@ -53,3 +53,37 @@
 .btn-remove-product:hover{
     color: var(--colorPrice);
 }
+.nameAddress{
+    font-size: 1.125rem;
+    color: var(--colorPrice);
+    margin-bottom: 20px;
+    text-transform: capitalize;
+    flex: 1 1 auto;
+}
+.fullname{
+    font-weight: bold;
+}
+.paymentMethod{
+    width: 200px;
+    font-size: 18px;
+    color: var(--colorback);
+}
+
+.btnOrder{
+    background: var(--colorPrice);
+    color: var(--bgwhite);
+    padding-bottom: 9px;
+    padding-top: 9px;
+    padding-right: 46px;
+    padding-left: 46px;
+    margin-top: 40px;
+    margin-left: 260px;
+}
+.selectPayment{
+    width: 61%;
+    margin-left: 260px;
+}
+.addressReceive{
+    width: 100%;
+    border: none;
+}

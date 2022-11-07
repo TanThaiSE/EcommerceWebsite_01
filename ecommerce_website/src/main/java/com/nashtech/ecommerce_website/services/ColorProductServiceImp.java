@@ -33,6 +33,16 @@ public class ColorProductServiceImp implements ColorProductService{
 
 	}
 
+	@Override
+	public SuccessResponse deleteColorProductByProductId(String productId) {
+		try {
+			colorProductRepository.deleteAllByProductsColorsProducts_Id(productId);
+			return new SuccessResponse("202","delete color product success", productId);
+		} catch (Exception e) {
+			throw new SqlException("Cannot delete color product");
+		}
+	}
+
 
 	
 

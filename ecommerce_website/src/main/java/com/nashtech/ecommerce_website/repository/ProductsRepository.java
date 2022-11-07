@@ -19,6 +19,7 @@ import org.springframework.stereotype.Repository;
 
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.dto.request.ProductCreateRequest;
+import com.nashtech.ecommerce_website.dto.request.ProductUpdateRequest;
 import com.nashtech.ecommerce_website.dto.request.RatingAddRequest;
 import com.nashtech.ecommerce_website.dto.response.ProductsInCategoryDto;
 import com.nashtech.ecommerce_website.entity.Products;
@@ -60,4 +61,9 @@ public interface ProductsRepository extends JpaRepository<Products,String> {
 	@Transactional
 	@Query(value="call UpdateStatusProduct(:id,:statusProduct)",nativeQuery = true)
 	public int updateStatusProduct(@Param("id") String id,@Param("statusProduct") int statusProduct);	
+	
+	@Modifying(clearAutomatically = true)
+	@Transactional
+	@Query(value="call UpdateProduct(:#{#c.id},:#{#c.name},:#{#c.detail},:#{#c.description},:#{#c.price},:#{#c.updateDate},:#{#c.categoryId})",nativeQuery = true)
+	public int updateProduct(@Param("c") ProductUpdateRequest productUpdateRequest);	
 }

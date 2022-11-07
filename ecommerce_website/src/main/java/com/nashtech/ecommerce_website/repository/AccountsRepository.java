@@ -27,7 +27,7 @@ public interface AccountsRepository extends JpaRepository<Accounts,String>  {
 	public int registerAccount(@Param("c") RegisterRequest registerRequest);
 	
 	public List<Accounts> findByEmailOrPhone(String email,String phone);
-	
+
 	@Modifying(clearAutomatically = true)
 	@Transactional
 	@Query(value="call updateBlocked(:accountId,:isBlocked)",nativeQuery = true)

@@ -6,4 +6,5 @@ import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 
 public interface ColorProductService {
 	public SuccessResponse createColorProduct(AttributeAddRequest addRequest);
+	public SuccessResponse deleteColorProductByProductId(String productId);
 }

@@ -1,5 +1,7 @@
 package com.nashtech.ecommerce_website.pojo;
 
+import java.util.Date;
+
 public interface DetailProductPojo {
 	 String getId();
 	 String getDetail();
@@ -9,7 +11,10 @@ public interface DetailProductPojo {
 	 String getDescriptionProduct(); 
 	 String getNameProduct(); 
 	 Integer getStatusProduct();
-	 
+	 String getCategoryId();
+	 String getCategoryName();
+	 Date getCreatedDate();
+	 Date getUpdatedDate();
 	 void setId(String id);
 	 void setDetail(String detail);
 	 void setPrice(int price);
@@ -18,4 +23,8 @@ public interface DetailProductPojo {
 	 void setDescriptionProduct(String descriptionProduct);
 	 void setNameProduct(String nameProduct);
 	 void setStatusProduct(int statusProduct);
+	 void setCategoryId(String categoryId);
+	 void setCategoryName(String categoryName);
+	 void setCreatedDate(Date createdDate);
+	 void setUpdatedDate(Date updatedDate);
 }

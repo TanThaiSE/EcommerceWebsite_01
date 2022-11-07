@@ -1,11 +1,11 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGlobe } from '@fortawesome/free-solid-svg-icons';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
-import { getLogin } from '../../utils/localStorage';
-import { clearLogin } from '../../utils/localStorage';
+import { getLogin } from '../../utils/cookieStorage';
+import { clearLogin } from '../../utils/cookieStorage';
 const NavBarInfo = () => {
     const navigate = useNavigate();
     const logOut=()=>{
@@ -31,7 +31,7 @@ const NavBarInfo = () => {
 
 
 
-                                {getLogin.getToken() === null ? (
+                                {getLogin.getToken() === undefined ? (
                                     <>
                                         <li className="nav-item">
                                             <Link className="nav-link text-white" to="/register">Đăng ký</Link>

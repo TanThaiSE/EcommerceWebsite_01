@@ -1,0 +1,36 @@
+@import url('/src/utils/DefineVariable.css');
+.containBtnCategory{
+    margin-top: 35px;
+}
+.createCategory,.backCreateCategory{
+    padding-right: 58px;
+    padding-left: 58px;
+}
+.createCategory{
+    margin-right: 27px;
+}
+
+.content-error{
+    color:var(--colorErrorValid); 
+    font-size: 0.75rem;
+}
+
+.dropzone{
+    display: flex;
+    border: 2px dotted gray;
+    background-color: var(--colorDropZone);
+    height: 300px;
+    align-items: center;
+    justify-content: center;
+}
+.selectedImages{
+    height: 200px;
+    width: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.priceProduct::-webkit-outer-spin-button,
+.priceProduct::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

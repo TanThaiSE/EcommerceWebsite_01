@@ -5,4 +5,5 @@ import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 
 public interface SizeProductService {
 	public SuccessResponse createSizeProduct(AttributeAddRequest addRequest);
+	public SuccessResponse deleteSizeProductByProductId(String productId);
 }

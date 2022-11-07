@@ -8,4 +8,5 @@ import * as apiRegister from './register';
 import * as apiProfile from './profile';
 import * as apiAdmin from './admin';
 import * as apiUploadImage from './uploadImage';
-export { apiCategory, apiProduct, apiLogin, apiCart, apiOrderDetail, apiRating, apiRegister, apiProfile, apiAdmin,apiUploadImage };
+import * as apiPayment from './payment';
+export { apiCategory, apiProduct, apiLogin, apiCart, apiOrderDetail, apiRating, apiRegister, apiProfile, apiAdmin,apiUploadImage,apiPayment };

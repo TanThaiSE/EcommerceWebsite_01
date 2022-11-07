@@ -33,11 +33,11 @@ const ModalReviewProduct = ({ idOrder, handleCloseModal, showModal,handleComment
     return (
         <Modal show={showModal} onHide={handleCloseModal}>
             <Modal.Header closeButton>
-                <Modal.Title>Modal heading {idOrder}</Modal.Title>
+                <Modal.Title>Đánh giá sản phẩm</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div>
-                    Chất lượng sản phẩm
+                    <span className='nameQuality'>Chất lượng sản phẩm</span>
                     <StarRatings
                         rating={rating}
                         starRatedColor='#ffce3d'
@@ -48,7 +48,7 @@ const ModalReviewProduct = ({ idOrder, handleCloseModal, showModal,handleComment
                     />
                 </div>
                 <div>
-                    Bình luận
+                    <p className='mt-2 mb-2'>Bình luận</p>
                     <textarea cols="30" rows="10" onChange={handleWriteComment} placeholder='Hãy chia sẽ những góp ý của bạn về sản phẩm này'></textarea>
                 </div>
             </Modal.Body>
@@ -56,7 +56,7 @@ const ModalReviewProduct = ({ idOrder, handleCloseModal, showModal,handleComment
                 <Button variant="secondary" onClick={handleCloseModal}>
                     Trở lại
                 </Button>
-                <Button variant="primary" onClick={handleReview}>
+                <Button variant="primary" onClick={handleReview} className='completeReview'>
                     Hoàn thành
                 </Button>
             </Modal.Footer>

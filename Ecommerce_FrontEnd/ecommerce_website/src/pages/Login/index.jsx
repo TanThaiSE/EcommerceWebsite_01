@@ -8,8 +8,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { apiLogin } from '../../api';
-import { getLogin, setLogin } from '../../utils/localStorage';
+import { getLogin, setLogin } from '../../utils/cookieStorage';
 import { useNavigate } from 'react-router-dom';
+import ModalFailed from '../../components/ModalFailed';
 const schema = yup.object().shape({
   // userName: yup.string().email("Email không hợp lệ").required("Vui lòng điền vào mục này"),
   userName:yup.string().matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,'Số điện thoại không hợp lệ').required("Vui lòng điền vào mục này"),
@@ -21,22 +22,26 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
+  const [showModal, setShowModal] = useState(false);
   const fetchLogin = async (data) => {
     apiLogin.fetchLogin(data)
       .then((res) => {
-        setLogin.saveLogin(res.data.token,res.data.userName);
+        setLogin.saveLogin(res.data);
         navigate("/");
       })
       .catch((err) => {
-        console.log('fetchLogin', err);
+        handleShowModal();
+        setTimeout(() => { handleCloseModal(); }, 3000);
       })
   }
+  const handleShowModal = () => { setShowModal(true); }
+  const handleCloseModal = () => { setShowModal(false); }
   const onSubmitLogin = (data) => {
     fetchLogin(data);
   }
 
   useEffect(() => {
-    if(getLogin.getToken()!==null){
+    if(getLogin.getToken()!==undefined){
       navigate('/');
     }
   }, []);
@@ -64,6 +69,7 @@ const Login = () => {
                 <p>Bạn chưa có tài khoản?</p>
                 <Link to={"/register"} className='link-regis'>Đăng ký</Link>
               </div>
+              <ModalFailed  headers={"Thất bại"} title={'Tên đăng nhập hoặc mật khẩu không đúng'} handleCloseModal={handleCloseModal} showModal={showModal} />
             </div>
           </div>
         </div>

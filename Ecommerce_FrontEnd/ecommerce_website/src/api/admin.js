@@ -1,4 +1,4 @@
-import { getAuthor } from "../utils/localStorage";
+import { getAuthor } from "../utils/cookieStorage";
 import axios from "./config";
 
 //co autho
@@ -43,6 +43,12 @@ export const fetchUpdateStatusProduct = async (idProduct) => {
     });
 };
 
+export const fetchUpdateProduct = async (data) => {
+    return axios.put(`/admin/product`,data).then((result) => {
+        return result;
+    });
+};
+
 export const fetchGetSize = async () => {
     return axios.get(`/admin/size`).then((result) => {
         return result;
@@ -53,6 +59,13 @@ export const fetchCreateSizeProduct = async (data) => {
         return result;
     });
 };
+
+export const fetchDeleteSizeProduct = async (idProduct) => {
+    return axios.delete(`/admin/${idProduct}/size`).then((result) => {
+        return result;
+    });
+};
+
 export const fetchGetColor = async () => {
     return axios.get(`/admin/color`).then((result) => {
         return result;
@@ -65,8 +78,20 @@ export const fetchCreateColorProduct = async (data) => {
     });
 };
 
+export const fetchDeleteColorProduct = async (idProduct) => {
+    return axios.delete(`/admin/${idProduct}/color`).then((result) => {
+        return result;
+    });
+};
+
 export const fetchCreateImageProduct = async (data) => {
     return axios.post(`/admin/image`,data).then((result) => {
+        return result;
+    });
+};
+
+export const fetchDeleteImageProduct = async (idProduct) => {
+    return axios.delete(`/admin/${idProduct}/image`).then((result) => {
         return result;
     });
 };

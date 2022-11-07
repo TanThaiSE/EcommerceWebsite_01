@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.nashtech.ecommerce_website.dto.request.ProductCreateRequest;
+import com.nashtech.ecommerce_website.dto.request.ProductUpdateRequest;
 import com.nashtech.ecommerce_website.dto.response.ProductDetailResponseDto;
 import com.nashtech.ecommerce_website.dto.response.ProductUpdateResponse;
 import com.nashtech.ecommerce_website.dto.response.ProductsInCategoryDto;
@@ -101,15 +103,21 @@ public class ProductsServiceImp implements ProductsService {
 	}
 
 	@Override
-	public SuccessResponse getAllProductCouldBeSearch(String searchKey, int page,int pageSize) {
+	public SuccessResponse getAllProductCouldBeSearch(String searchKey,String sortPrice, int page,int pageSize) {
 		String keySearch="";
+		Pageable pageable;
 		if(searchKey.isEmpty()) {
 			keySearch="%%";
 		}
 		else {
-			keySearch=searchKey;
+			keySearch="%"+searchKey+"%";
 		}
-		Pageable pageable=PageRequest.of(page,pageSize);
+		if(sortPrice.equals("desc")) {
+			pageable=PageRequest.of(page,pageSize,Sort.by("price").descending());
+		}
+		else{
+			pageable=PageRequest.of(page,pageSize,Sort.by("price").ascending());
+		}
 		Page<ProductsInCategoryDto> products=productsRepository.getAllProduct(keySearch, pageable);
 		if(products==null||products.isEmpty()) {
 			throw new NotFoundException("Cannot found products");
@@ -117,7 +125,7 @@ public class ProductsServiceImp implements ProductsService {
 		Map<String,Object> res=new HashMap<>();
 		res.put("listProduct", products.getContent());
 		res.put("totalPage",products.getTotalPages());
-		return new SuccessResponse("200","get all categories success",res);
+		return new SuccessResponse("200","get all products success",res);
 	}
 
 	@Override
@@ -129,7 +137,18 @@ public class ProductsServiceImp implements ProductsService {
 		int oldStatus=detailProduct.get().getStatusProduct();
 		int newStatus= (oldStatus==0?1:0);
 		productsRepository.updateStatusProduct(productId, newStatus);
-		return new SuccessResponse("202","update user success",detailProduct.get());
+		return new SuccessResponse("202","update status product success",detailProduct.get());
+	}
+
+	@Override
+	public SuccessResponse updateProduct(ProductUpdateRequest productUpdateRequest) {
+		Optional<DetailProductPojo> detailProduct = productsRepository.getDetailProduct(productUpdateRequest.getId());
+		if (detailProduct.isEmpty()) {
+			throw new NotFoundException("Not found information product");
+		}
+		productUpdateRequest.setUpdateDate(new Date());
+		productsRepository.updateProduct(productUpdateRequest);
+		return new SuccessResponse("202","update product success",detailProduct.get());
 	}
 	
 	

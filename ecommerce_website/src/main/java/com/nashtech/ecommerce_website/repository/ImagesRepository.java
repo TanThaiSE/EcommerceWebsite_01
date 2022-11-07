@@ -20,5 +20,8 @@ public interface ImagesRepository extends JpaRepository<Images,String> {
 	@Query(value="call AddNewImage(:#{#c.id},:#{#c.nameImage},:#{#c.indexImage},:#{#c.productId})",nativeQuery = true)
 	public int createNewImage(@Param("c") ImageAddProductPojo imageAddProduct);
 	
+	@Modifying(clearAutomatically = true)
+	@Transactional
+	public void deleteAllByProductsImages_Id(String productId);
 	
 }

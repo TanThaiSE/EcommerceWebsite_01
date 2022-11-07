@@ -53,8 +53,34 @@
 .btn-remove-product:hover{
     color: var(--colorPrice);
 }
+.priceOrigin{
+    color: var(--colorPrice);
+}
 .total-price{
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    color: var(--colorPrice);
+}
+.btnReviewProducts{
+    background-color: var(--colorPrice);
+    border-color: var(--colorErrorValid);
+    color: var(--bgwhite);
+    padding: 1px 25px 4px 25px;
+
+}
+.total-price-name{
+    color: var(--colorNameCategory);
+    margin-right: 24px;
+}
+.buy-again{
+    text-decoration: none;
+    background-color: var(--colorPrice);
+    border-color: var(--colorErrorValid);
+    color: var(--bgwhite);
+    padding: 3px 29px 5px 33px;
+}
+.buy-again:hover{
+    background-color:var(--colorPrice) ;
+    color: var(--bgwhite);
 }

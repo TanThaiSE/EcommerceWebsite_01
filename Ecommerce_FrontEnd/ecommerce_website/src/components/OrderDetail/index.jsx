@@ -42,7 +42,7 @@ const OrderDetail = () => {
         if (listProducts.length > 0) {
             return listProducts.map((item, index) => {
                 return (
-                    <div className="row mt-2 mb-5" key={`listProducts-${index}`}>
+                    <div className="row mt-5 mb-5" key={`listProducts-${index}`}>
                         <div className="col-md-10">
                             <div className="content d-flex" >
                                 <div className="content-img">
@@ -56,19 +56,19 @@ const OrderDetail = () => {
                             </div>
                         </div>
                         <div className="col-md-2 d-flex align-items-center justify-content-around">
-                            <div>{item.price}</div>
+                            <div className='priceOrigin'>{item.price}</div>
                         </div>
                         <div className='total-price'>
-                            Tổng số tiền: {item.totalPrice}
+                            <span className='total-price-name'>Tổng số tiền:</span> {item.totalPrice}
                         </div>
                         {item?.ratingId ? (<>
                             <div className='total-price'>
-                                <Link to={`/productdetail/${item.productId}`}>Mua lại</Link>
+                                <Link to={`/productdetail/${item.productId}`} className='buy-again mt-3'>Mua lại</Link>
                             </div>
                         </>) :
                             (<>
                                 <div className='total-price'>
-                                    <button onClick={() => { handleShowReview(item.id) }}>Đánh giá</button>
+                                    <button onClick={() => { handleShowReview(item.id) }} className='btnReviewProducts mt-3'>Đánh giá</button>
                                 </div>
 
                             </>)}

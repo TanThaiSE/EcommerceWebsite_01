@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.nashtech.ecommerce_website.dto.request.CategoryCreateRequest;
@@ -38,13 +39,22 @@ public class CategorysServiceImp implements CategorysService{
 	}
 
 	@Override
-	public List<ProductsInCategoryDto> getAllProductByCategory(String categoryId,int page,int pageSize) {
-		Pageable pageable=PageRequest.of(page,pageSize);
+	public SuccessResponse getAllProductByCategory(String categoryId,int page,int pageSize,String sortPrice) {
+		Pageable pageable;
+		if(sortPrice.equals("desc")) {
+			pageable=PageRequest.of(page,pageSize,Sort.by("price").descending());
+		}
+		else{
+			pageable=PageRequest.of(page,pageSize,Sort.by("price").ascending());
+		}
 		Page<ProductsInCategoryDto> products=categorysRepository.getAllProductByCategory(categoryId,pageable);
 		if(products==null||products.isEmpty()) {
 			throw new NotFoundException("Cannot found products in category");
 		}
-		return products.getContent();
+		Map<String,Object> res=new HashMap<>();
+		res.put("listProduct", products.getContent());
+		res.put("totalPage",products.getTotalPages());
+		return new SuccessResponse("200","get all categories success",res);
 	}
 
 	@Override

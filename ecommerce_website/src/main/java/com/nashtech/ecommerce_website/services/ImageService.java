@@ -6,4 +6,5 @@ import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 
 public interface ImageService {
 	public SuccessResponse createImageProduct(ImageAddRequest imageAddRequest);
+	public SuccessResponse deleteImageByProductId(String productId);
 }

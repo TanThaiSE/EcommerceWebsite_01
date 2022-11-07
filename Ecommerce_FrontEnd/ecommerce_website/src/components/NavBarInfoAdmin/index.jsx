@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './index.css';
 import { useNavigate } from 'react-router-dom';
-import { getLogin } from '../../utils/localStorage';
-import { clearLogin } from '../../utils/localStorage';
+import { getLogin } from '../../utils/cookieStorage';
+import { clearLogin } from '../../utils/cookieStorage';
 const NavBarInfoAdmin = () => {
     const navigate = useNavigate();
     const logOut = () => {

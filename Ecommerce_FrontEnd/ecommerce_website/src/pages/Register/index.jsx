@@ -9,6 +9,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { apiProfile, apiRegister } from '../../api';
 import { useNavigate } from 'react-router-dom';
+import ModalFailed from '../../components/ModalFailed';
+import ModalSuccess from '../../components/ModalSuccess';
 
 const schema = yup.object().shape({
   
@@ -27,16 +29,29 @@ const Register = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
     resolver: yupResolver(schema)
   });
+  const [showModal, setShowModal] = useState(false);
+  const [showModalFailed, setShowModalFailed] = useState(false);
+  const handleShowModal = () => { setShowModal(true); }
+  const handleCloseModal = () => { setShowModal(false); }
+
+  const handleShowModalFailed = () => { setShowModalFailed(true); }
+  const handleCloseModalFailed = () => { setShowModalFailed(false); }
+
   const fetchRegister = async (data) => {
     await apiRegister.fetchRegister(data)
     .then(async (res)=>{
       if(res.data.code==="201"){
         await apiProfile.fetchAddProfile({accountId:res.data.dataResponse.id}).then((res1)=>{
-          console.log('fetchAddProfile',res1);
+          handleShowModal();
+          setTimeout(() => { handleCloseModal();navigate(`/login`) }, 1000);
         })
         .catch((err1)=>{
           console.log(err1);
         }) 
+      }
+      else if(res.data.code==="302"){
+        handleShowModalFailed();
+        setTimeout(() => { handleCloseModalFailed(); }, 3000);
       }
     })
     .catch((err)=>{
@@ -75,7 +90,7 @@ const Register = () => {
                 <input type="password" placeholder="Nhập lại mật khẩu" {...register("repeatPassword")} />
                 {errors.repeatPassword?.message && <span className='content-error'>{errors.repeatPassword?.message}</span>}
 
-                <button className="btn-login" type='submit'>Đăng nhập</button>
+                <button className="btn-login" type='submit'>Đăng ký</button>
               </form>
               <div className='d-flex btn-forget'>
                 <Link to={"/forgotpassword"} className='link-forgot'>Quên mật khẩu</Link>
@@ -84,6 +99,8 @@ const Register = () => {
                 <p>Bạn đã có tài khoản?</p>
                 <Link to={"/login"} className='link-regis'>Đăng nhập</Link>
               </div>
+              <ModalSuccess headers={"Thành công"} title={'Đăng ký thành công'} handleCloseModal={handleCloseModal} showModal={showModal} />
+              <ModalFailed  headers={"Thất bại"} title={'Số điện thoại hoặc email đã tồn tại'} handleCloseModal={handleCloseModalFailed} showModal={showModalFailed} />
             </div>
           </div>
         </div>

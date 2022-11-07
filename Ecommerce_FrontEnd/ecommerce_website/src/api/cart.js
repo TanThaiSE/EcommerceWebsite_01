@@ -1,4 +1,4 @@
-import { getAuthor } from "../utils/localStorage";
+import { getAuthor, getLogin } from "../utils/cookieStorage";
 import axios from "./config";
 
 export const fetchGetCart = async () => {
@@ -26,7 +26,8 @@ export const fetchDeleteCart = async (idCart) => {
 };
 
 export const fetchDeleteMultipleProduct = async (data1) => {
-    return axios.delete(`/cart`, { data: data1 }, { headers: getAuthor.getAuthorization() }).then((result) => {
+    return axios.delete(`/cart`, { data: data1, headers: getAuthor.getAuthorization() }).then((result) => {
         return result;
     });
 };
+

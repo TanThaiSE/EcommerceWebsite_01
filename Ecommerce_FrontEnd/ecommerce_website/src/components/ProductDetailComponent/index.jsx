@@ -2,9 +2,14 @@ import React, { useEffect, useState } from 'react'
 import { apiCart, apiProduct, apiRating } from '../../api';
 import './index.css';
 import StarRatings from 'react-star-ratings';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import moment from 'moment';
+import ModalSuccess from '../ModalSuccess';
 const ProductDetailComponent = ({ idProduct }) => {
   const [productDetail, setProductDetail] = useState({});
-  const [listComment,setListComment]=useState([]);
+  const [listComment, setListComment] = useState([]);
   const [attributeProduct, setAttributeProduct] = useState({
     productId: idProduct,
     colorId: null,
@@ -16,39 +21,39 @@ const ProductDetailComponent = ({ idProduct }) => {
     activeColor: '',
     activeSize: '',
   });
- 
-
+  const [displayImage, setDisplayImage] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const settings = {
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 3
+  };
   const fetchDetailProduct = async (idProduct) => {
     await apiProduct.fetchGetDetailProduct(idProduct)
       .then((res) => {
+        setDisplayImage(res.data.imageProduct[0].name_image);
         setProductDetail(res.data);
       })
       .catch((err) => { console.log('fetchDetailProduct failed', err) });
   };
 
-  const fetchGetListComment=async(idProduct)=>{
-      apiRating.fetchGetRatingAndComment(idProduct).then((res)=>{setListComment(res.data)}).catch((err)=>console.log(err))
+  const fetchGetListComment = async (idProduct) => {
+    apiRating.fetchGetRatingAndComment(idProduct).then((res) => { setListComment(res.data) }).catch((err) => console.log(err))
   }
 
   const fetchAddToCart = async (product) => {
     await apiCart.fetchAddCart(product)
-      .then(async(res) => {
-        if (res.data.code === "201") {
-          //handle add product to cart success
-          console.log('handle add product to cart success',res.data);
-        }
+      .then(async (res) => {
+        if (res.data.code === "201") {}
         else if (res.data.code === "302") {
-          //handle update quantity product in cart
-          let dataUpdate={
+          let dataUpdate = {
             ...res.data.dataResponse,
-            quantity:Number(res.data.dataResponse.quantity)+Number(product.quantity)
+            quantity: Number(res.data.dataResponse.quantity) + Number(product.quantity)
           }
-          await apiCart.fetchUpdateCart(res.data.dataResponse.id,dataUpdate)
-          .then((res1)=>{
-            //handle update success
-            console.log('res1',res1.data);
-          })
-          .catch((err1)=>{console.log('fetchUpdateCart failed',err1);})
+          await apiCart.fetchUpdateCart(res.data.dataResponse.id, dataUpdate)
+            .then((res1) => {
+            })
+            .catch((err1) => { console.log('fetchUpdateCart failed', err1); })
         }
 
       })
@@ -131,6 +136,9 @@ const ProductDetailComponent = ({ idProduct }) => {
     }
   };
 
+  const handleMouseImage = (e) => {
+    setDisplayImage(e.target.src);
+  }
   const addProductToCart = () => {
     if (attributeProduct.colorId === null) {
       setFullFill(1);
@@ -141,37 +149,48 @@ const ProductDetailComponent = ({ idProduct }) => {
       return;
     }
     setFullFill(null);
+    handleShowModal();
     fetchAddToCart({
       ...attributeProduct,
       price: productDetail?.detailProduct?.price,
     });
+    setTimeout(() => { handleCloseModal(); }, 2000);
   };
-
+  const handleShowModal = () => { setShowModal(true); }
+  const handleCloseModal = () => { setShowModal(false); }
   const displayDetailProduct = (productDetail) => {
     if (Object.keys(productDetail).length !== 0) {
       return (<>
-        <div className="row">
+        <div className="row mt-5">
           <div className="col-md-5">
-            <img src="" alt="" />
-            <div className="row">
-              slide image
+            <img src={displayImage} alt={productDetail?.detailProduct?.nameProduct} style={{ width: '100%' }} />
+            <div className="row ml-3 mt-2">
+              <Slider {...settings}>
+                {productDetail.imageProduct.map((item, index) => {
+                  return (
+                    <div key={`imageSlide-${index}`}>
+                      <img src={item.name_image} alt={productDetail?.detailProduct?.nameProduct} style={{ width: '100px', height: '100px' }} onMouseEnter={handleMouseImage} />
+                    </div>
+                  )
+                })}
+              </Slider>
             </div>
           </div>
+          <div className="col-md-1"></div>
           <div className="col-md-6">
             <div className="head-product">
               <p className='head-product-name-product'>{productDetail?.detailProduct?.nameProduct}</p>
-              <div className='d-flex'>
-                <div>
-                  <span>{productDetail?.detailProduct?.rate}</span>
-                <StarRatings 
-                rating={productDetail?.detailProduct?.rate?(productDetail?.detailProduct?.rate):(0)}
-                starRatedColor='#ffce3d'
-                numberOfStars={5}
-                starDimension="16px"
-                starSpacing="2px"
-              />
-
-                  
+              <div className='d-flex' >
+                <div style={{ marginRight: '67px' }}>
+                  <span style={{ marginRight: '10px' }}>{productDetail?.detailProduct?.rate}</span>
+                  <StarRatings
+                    rating={productDetail?.detailProduct?.rate ? (productDetail?.detailProduct?.rate) : (0)}
+                    starRatedColor='#ffce3d'
+                    numberOfStars={5}
+                    starDimension="16px"
+                    starSpacing="2px"
+                    size={50}
+                  />
                 </div>
                 <div>
                   Đã bán: {productDetail?.detailProduct?.number_buy}
@@ -221,30 +240,25 @@ const ProductDetailComponent = ({ idProduct }) => {
                 <p className={fullFill === null ? ('choose-full-attribute-close') : ('choose-full-attribute-open')}>Vui lòng chọn Phân loại hàng</p>
 
               </div>
-
             </div>
-
-
             <div className="buy-product">
-              <button onClick={() => { addProductToCart() }}>THÊM VÀO GIỎ HÀNG</button>
+              <button onClick={() => { addProductToCart() }}>Thêm Vào Giỏ Hàng</button>
             </div>
-
-
-
           </div>
         </div>
 
         <div className='describe-product'>
           <div className="detail-product">
-            <p>CHI TIẾT SẢN PHẨM</p>
-            {/* danger */}
-            {productDetail?.detailProduct?.detail}
+            <p className="detail-product-title">CHI TIẾT SẢN PHẨM</p>
+            <div dangerouslySetInnerHTML={{ __html: productDetail?.detailProduct?.detail }} className='detail-product-content' />
           </div>
           <div className="description-product">
-            {/* danger */}
-            {productDetail?.detailProduct?.descriptionProduct}
+            <p className="description-product-title">MÔ TẢ SẢN PHẨM</p>
+            <div dangerouslySetInnerHTML={{ __html: productDetail?.detailProduct?.descriptionProduct }} className='description-product-content' />
           </div>
-          <div>ĐÁNH GIÁ SẢN PHẨM</div>
+          <div className="review-product">
+            <p className="review-product-title">ĐÁNH GIÁ SẢN PHẨM</p>
+          </div>
         </div>
       </>)
     }
@@ -253,26 +267,36 @@ const ProductDetailComponent = ({ idProduct }) => {
     }
   }
 
-  const displayRating=(listComment)=>{
-    if(listComment.length>0){
-      return listComment.map((item,index)=>{
+  const displayRating = (listComment) => {
+    if (listComment.length > 0) {
+      return listComment.map((item, index) => {
         return (
           <div key={`rating-${index}`}>
-            <p>{item?.name?(item?.name):('Unknown')}</p>
-            <StarRatings 
-                rating={item?.pointRate}
-                starRatedColor='#ffce3d'
-                numberOfStars={5}
-                starDimension="16px"
-                starSpacing="2px"
-              />
-            <p>{item.ratingDate}</p>
-            <p>{item.comments}</p>
+            <div className='d-flex'>
+              <div>
+                <img src={`https://i.pravatar.cc/69`} alt="" className='avatar-customer'/>
+              </div>
+              <div>
+                <span>{item?.name ? (item?.name) : ('Unknown')}</span>
+                <StarRatings
+                  rating={item?.pointRate}
+                  starRatedColor='#ffce3d'
+                  numberOfStars={5}
+                  starDimension="16px"
+                  starSpacing="2px"
+                />
+                <p>{moment(item.ratingDate).format("DD/MM/YYYY HH:MM:SS")}</p>
+                <p>{item.comments}</p>
+                
+              </div>
+              
+            </div>
+            <hr />
           </div>
         )
       })
     }
-    else{
+    else {
       return (<></>);
     }
 
@@ -288,8 +312,10 @@ const ProductDetailComponent = ({ idProduct }) => {
     <>
       <div className="container">
         {displayDetailProduct(productDetail)}
-        {listComment.length>0?(displayRating(listComment)):(<></>)}
+        {listComment.length > 0 ? (displayRating(listComment)) : (<></>)}
       </div>
+      <ModalSuccess  headers={"Success"} title={'Đã thêm vào giỏ hàng'} handleCloseModal={handleCloseModal} showModal={showModal}/>
+      
     </>
   )
 }

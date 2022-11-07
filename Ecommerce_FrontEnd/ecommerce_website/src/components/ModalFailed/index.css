@@ -1,0 +1,14 @@
+/* Define variable css */
+@import url('/src/utils/DefineVariable.css');
+#titleModalFailed{
+    color: var(--colorErrorValid) !important;
+    font-size: 36px !important;
+    font-weight: bold !important;
+}
+#iconFailed{
+    color: var(--colorErrorValid) !important;
+    font-size: 77px !important;
+}
+#contentModalFailed{
+    margin-top: 23px !important;
+}

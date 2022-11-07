@@ -8,3 +8,9 @@ textarea{
     line-height: 1.25rem;
     width: 100%;
 }
+.nameQuality{
+    margin-right: 20px;
+}
+.completeReview{
+    background-color: var(--colorPrice);
+}

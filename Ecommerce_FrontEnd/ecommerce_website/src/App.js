@@ -14,6 +14,7 @@ import Categories from "./pages/Category";
 import CreateCategory from "./pages/CreateCategory";
 import ProductAdmin from "./pages/ProductAdmin";
 import CreateProduct from "./pages/CreateProduct";
+import EditProduct from "./pages/EditProduct";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
       <Route path="/create-category" element={<CreateCategory/>}/>
       <Route path="/manage-product" element={<ProductAdmin/>}/>
       <Route path="/create-product" element={<CreateProduct/>}/>
+      <Route path='/manage-detail-product/:idProduct' element={<EditProduct/>}/>
       <Route path="/*" element={<ErrorPage/>} />
     </Routes>
   );

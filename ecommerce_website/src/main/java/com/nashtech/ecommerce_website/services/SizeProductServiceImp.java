@@ -30,5 +30,14 @@ public class SizeProductServiceImp implements SizeProductService {
 			throw new SqlException("Cannot insert Size product");
 		}
 	}
+	@Override
+	public SuccessResponse deleteSizeProductByProductId(String productId) {
+		try {
+			sizeProductRepository.deleteAllByProductsSizeProducts_Id(productId);
+			return new SuccessResponse("202","delete size product success", productId);
+		} catch (Exception e) {
+			throw new SqlException("Cannot delete size product");
+		}
+	}
 
 }

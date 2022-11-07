@@ -16,4 +16,9 @@ public interface SizeProductRepository extends JpaRepository<SizeProducts,String
 	@Transactional
 	@Query(value = "call createNewSizeProduct(:#{#c.attributeId},:#{#c.productId},:#{#c.id})",nativeQuery = true)
 	public int createNewSizeProduct(@Param("c")AttributeAddProductPojo AttributeAddProduct);
+	
+	@Modifying(clearAutomatically = true)
+	@Transactional
+	public void deleteAllByProductsSizeProducts_Id(String productId);
+	
 }

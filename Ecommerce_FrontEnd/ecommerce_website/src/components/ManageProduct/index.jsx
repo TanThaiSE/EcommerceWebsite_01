@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams} from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { apiAdmin, apiCategory, apiProduct } from '../../api';
 import { Link, useNavigate } from 'react-router-dom';
@@ -13,30 +13,90 @@ const ManageProduct = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [lstCategory, setLstCategory] = useState([]);
     const [pageCount, setPageCount] = useState(4);
-    const [itemOffset, setItemOffset] = useState("4");
+    const [itemOffset, setItemOffset] = useState("5");
     const [detailProduct, setDetailProduct] = useState({});
-    const [itemCategory, setItemCategory] = useState("all");
+    const [itemCategory, setItemCategory] = useState("allCategory");
     const [lstProduct, setLstProduct] = useState([]);
     const [showModalConfirm, setShowModalConfirm] = useState(false);
-    const [itemPrice,setItemPrice]=useState("hightToLow");
+    const [itemPrice, setItemPrice] = useState("desc");
+    const [itemSearch, setItemSearch] = useState(null);
     const fetchGetCategory = () => {
         apiCategory.fetchCategory().then((res) => {
             setLstCategory(res.data);
         }).catch((err) => { console.log(err); })
     }
-    const fetchGetListProduct = async (searchKey, page, offset) => {
-        await apiProduct.fetchGetEntireProduct(searchKey, page, offset).then((res) => {
+    const fetchGetListProduct = async (searchKey, sortPrice, page, offset) => {
+        await apiProduct.fetchGetEntireProduct(searchKey, sortPrice, page, offset).then((res) => {
             setPageCount(res.data.dataResponse.totalPage);
             setLstProduct(res.data.dataResponse.listProduct);
         }).catch((err) => { console.log('fetchGetListProduct failed') });
     };
 
+    const fetchGetListProductByCategory = async (idCategory,sortPrice, page, offset) => {
+        await apiProduct.fetchGetAllProduct(idCategory,sortPrice, page, offset).then((res) => {
+            setPageCount(res.data.dataResponse.totalPage);
+            setLstProduct(res.data.dataResponse.listProduct);
+        }).catch((err) => { console.log('fetchGetListProductByCategory failed') });
+    };
+
     const handleChangeSelect = (event) => { setItemOffset(event.target.value); }
-    const handleChangeSelectCategory = (event) => { setItemCategory(event.target.value); }
-    const handleChangeSelectPrice = (event) => { setItemPrice(event.target.value); }
+    const handleChangeSelectCategory = (event) => { 
+        let category=event.target.value;
+        if(category==="allCategory"){
+            setSearchParams({});
+        }
+        else{
+            setSearchParams({ category: event.target.value });
+            
+        }
+        setItemPrice("desc");
+        setItemCategory(event.target.value); 
+        
+    }
+    const handleChangeSelectPrice = (event) => {
+        let searchKey = searchParams.get('keyword');
+        let category = searchParams.get('category');
+        if (category && category.length) {
+            setSearchParams({ category: category, sortByPrice: event.target.value, page: 0 });
+        }
+        else if (searchKey && searchKey.length) {
+            setSearchParams({ keyword: searchKey, sortByPrice: event.target.value, page: 0 });
+        }
+        else {
+            setSearchParams({ sortByPrice: event.target.value, page: 0 });
+        }
+        setItemPrice(event.target.value);
+    }
+
     const handlePageClick = (event) => {
         const { selected } = event;
-        setSearchParams({ page: selected });
+        let searchKey = searchParams.get('keyword');
+        let sortByPrice = searchParams.get('sortByPrice');
+        let category = searchParams.get('category');
+        if (searchKey && searchKey.length) {
+            if (sortByPrice && sortByPrice.length) {
+                setSearchParams({ keyword: searchKey, sortByPrice: sortByPrice, page: selected });
+            }
+            else {
+                setSearchParams({ keyword: searchKey, page: selected });
+            }
+        }
+        else if (category && category.length) {
+            if (sortByPrice && sortByPrice.length) {
+                setSearchParams({ category: category, sortByPrice: sortByPrice, page: selected });
+            }
+            else {
+                setSearchParams({ category: category, page: selected });
+            }
+        }
+        else {
+            if (sortByPrice && sortByPrice.length) {
+                setSearchParams({ sortByPrice: sortByPrice, page: selected });
+            }
+            else {
+                setSearchParams({  page: selected });
+            }
+        }
         setPageCount(selected);
     }
 
@@ -44,7 +104,6 @@ const ManageProduct = () => {
     const handleCloseModalConfirm = () => { setShowModalConfirm(false); }
 
     const fetchStatusProduct = (product) => {
-
         apiAdmin.fetchUpdateStatusProduct(product.id).then((res) => {
             if (res.data.code === '202') {
                 let indexStatus = lstProduct.findIndex((item) => item.id === product.id);
@@ -84,7 +143,6 @@ const ManageProduct = () => {
                             <ReactSwitch checked={item?.statusProduct === 0 ? true : false} onChange={() => { handleChangeStatus(item) }} className="react-switch" />
                         </div>
                     </div>
-
                 )
             })
         }
@@ -93,6 +151,15 @@ const ManageProduct = () => {
         }
     }
 
+    const handleSearch = () => {
+        if (!itemSearch || itemSearch.length === 0) {
+            return;
+        }
+        setSearchParams({ keyword: itemSearch });
+        setItemPrice("desc");
+        setItemCategory("allCategory");
+        fetchGetListProduct(itemSearch, 0, 4);
+    }
 
     useEffect(() => {
         fetchGetCategory();
@@ -101,36 +168,42 @@ const ManageProduct = () => {
 
     useEffect(() => {
         let page = searchParams.get('page') ? searchParams.get('page') : 0;
-        let searchKey = searchParams.get('searchKey');
-
-        fetchGetListProduct(searchKey, page, itemOffset);
-    }, [pageCount, itemOffset]);
+        let searchKey = searchParams.get('keyword');
+        let category = searchParams.get('category');
+        let sortPrice = searchParams.get('sortByPrice') ? searchParams.get('sortByPrice') : 'desc'
+        if(!category||category.length === 0){
+            fetchGetListProduct(searchKey, sortPrice, page, itemOffset);
+        }
+        else{
+            fetchGetListProductByCategory(category,sortPrice, page, itemOffset);
+        }
+    }, [pageCount, itemOffset, itemCategory, itemPrice]);
 
     return (
         <div>
             <h1>Manage Product</h1>
             <form className="d-flex formSearchManger mt-5" >
-                <input className="form-control me-2 navbarSearchInputManager" type="search" placeholder="Search" aria-label="Search" />
+                <input className="form-control me-2 navbarSearchInputManager" type="search" placeholder="Search" aria-label="Search" onChange={e => setItemSearch(e.target.value)} />
                 <div className='containIconSearchManager'>
-                    <FontAwesomeIcon icon={faMagnifyingGlass} id="iconSearchManager" />
+                    <FontAwesomeIcon icon={faMagnifyingGlass} id="iconSearchManager" onClick={() => { handleSearch() }} />
                 </div>
             </form>
             <div className='d-flex mt-5' >
-             
-                    <select className="form-select" value={itemCategory} onChange={handleChangeSelectCategory} style={{ width: '15%', marginLeft: '20px' }}>
-                        <option defaultValue={'allCategory'}>All categories</option>
-                        {lstCategory.length > 0 ? (
-                            lstCategory.map((item, index) => {
-                                return (<option value={item.id} key={`cate-${index}`}>{item.name}</option>)
-                            })
-                        ) : (<></>)}
-                    </select>
 
-                    <select className="form-select" value={itemPrice} onChange={handleChangeSelectPrice} style={{ width: '18%', marginLeft: '20px' }}>
-                        <option defaultValue={'lowToHight'}>Price: Lowest to Highest</option>
-                        <option defaultValue={'hightToLow'}>Price: Highest to Lowest</option>
-                    </select>
-    
+                <select className="form-select" value={itemCategory} onChange={handleChangeSelectCategory} style={{ width: '15%', marginLeft: '20px' }}>
+                    <option value={'allCategory'}>All categories</option>
+                    {lstCategory.length > 0 ? (
+                        lstCategory.map((item, index) => {
+                            return (<option value={item.id} key={`cate-${index}`}>{item.name}</option>)
+                        })
+                    ) : (<></>)}
+                </select>
+
+                <select className="form-select" value={itemPrice} onChange={handleChangeSelectPrice} style={{ width: '18%', marginLeft: '20px' }}>
+                    <option value={'desc'}>Price: Highest to Lowest</option>
+                    <option value={'asc'}>Price: Lowest to Highest</option>
+                </select>
+
 
             </div>
             <div className='d-flex justify-content-between mt-5 mb-3'>
@@ -140,7 +213,7 @@ const ManageProduct = () => {
                 <div className='d-flex' >
                     <label className='mb-3'>Items per Page</label>
                     <select className="form-select" value={itemOffset} onChange={handleChangeSelect} style={{ width: '35%', textAlign: 'center', marginLeft: '20px' }}>
-                        <option defaultValue={5}>5</option>
+                        <option value={5}>5</option>
                         <option value={10}>10</option>
                         <option value={20}>20</option>
                     </select>

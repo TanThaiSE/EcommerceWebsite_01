@@ -338,7 +338,7 @@ const AddProduct = () => {
                     </button>
                 </div>
             </form>
-            <ModalSuccess title={'New product is created'} handleCloseModal={handleCloseModal} showModal={showModal} />
+            <ModalSuccess headers={"headers"} title={'New product is created'} handleCloseModal={handleCloseModal} showModal={showModal} />
             <ModalLoadding title={'Please wait to create product'} handleCloseModal={handleCloseLoading} showModal={loadingCreateProduct}/>
         </div>
     )

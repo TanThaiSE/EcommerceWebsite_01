@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.nashtech.ecommerce_website.dto.request.ProductUpdateRequest;
 import com.nashtech.ecommerce_website.entity.ColorsProducts;
 import com.nashtech.ecommerce_website.pojo.AttributeAddProductPojo;
 
@@ -19,4 +20,7 @@ public interface ColorProductRepository extends JpaRepository<ColorsProducts,Str
 	@Query(value = "call createNewColorProduct(:#{#c.attributeId},:#{#c.productId},:#{#c.id})",nativeQuery = true)
 	public int createNewColorProduct(@Param("c")AttributeAddProductPojo AttributeAddProduct);
 
+	@Modifying(clearAutomatically = true)
+	@Transactional
+	public void deleteAllByProductsColorsProducts_Id(String productId);
 }
