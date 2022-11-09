@@ -14,6 +14,7 @@ public class CartsRequestDto {
 	@Min(value = 1,message = "Price should be a positive number")
 	private int price;
 	
+	@NotBlank(message = "accountId is required")
 	private String accountId;
 	
 	@NotBlank(message = "sizeId is required")

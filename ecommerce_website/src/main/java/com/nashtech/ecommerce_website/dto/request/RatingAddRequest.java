@@ -15,21 +15,38 @@ public class RatingAddRequest {
 	@Min(value = 1,message = "pointRate must be at least 1")
 	@Max(value=5,message = "pointRate must be maximum is 5")
 	private int pointRate;
-	
 	@NotNull(message = "comment cannot null")
 	private String comment;
 	private Date ratingDate;
+	@NotBlank(message = "productId is required")
+	private String productId;
 	public RatingAddRequest() {
 
 	}
 	
 
-	public RatingAddRequest(String id, String orderDetailId, int pointRate, String comment, Date ratingDate) {
+	public RatingAddRequest(String id, String orderDetailId,
+			int pointRate,
+			String comment, Date ratingDate, String productId) {
 		this.id = id;
 		this.orderDetailId = orderDetailId;
 		this.pointRate = pointRate;
 		this.comment = comment;
 		this.ratingDate = ratingDate;
+		this.productId = productId;
+	}
+
+
+
+
+
+	public String getProductId() {
+		return productId;
+	}
+
+
+	public void setProductId(String productId) {
+		this.productId = productId;
 	}
 
 

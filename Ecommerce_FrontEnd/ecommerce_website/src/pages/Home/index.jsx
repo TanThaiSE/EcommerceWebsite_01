@@ -2,9 +2,9 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import CarouselBanner from '../../components/Carousel';
-import NavBar from '../../components/Navbar';
-import NavBarInfo from '../../components/NavbarInfo';
-import Category from '../../components/Category';
+import NavBar from '../../components/Navbars/Navbar';
+import NavBarInfo from '../../components/Navbars/NavbarInfo';
+import Category from '../../components/Categories/Category';
 const Home = () => {
   return (
     <>

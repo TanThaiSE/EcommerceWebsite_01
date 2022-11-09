@@ -46,6 +46,13 @@ public class GlobalExceptionsHandler extends ResponseEntityExceptionHandler {
 		return new ResponseEntity<ErrorResponse>(error, HttpStatus.CONFLICT);
 	}
 	
+	@ExceptionHandler({BadRequestException.class})
+	protected ResponseEntity<ErrorResponse> handleBadRequestException(RuntimeException exception,
+			WebRequest request) {
+		ErrorResponse error = new ErrorResponse("400", exception.getMessage());
+		return new ResponseEntity<ErrorResponse>(error, HttpStatus.BAD_REQUEST);
+	}
+	
 	@Override
 	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
 			HttpHeaders headers, HttpStatus status, WebRequest request) {

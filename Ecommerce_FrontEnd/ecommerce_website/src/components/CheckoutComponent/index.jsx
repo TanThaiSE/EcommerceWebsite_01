@@ -7,7 +7,7 @@ import './index.css';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import ModalSuccess from '../ModalSuccess';
+import ModalSuccess from '../Modals/ModalSuccess'
 
 const schema = yup.object().shape({
   address: yup.string().required("Vui lòng nhập địa chỉ")
@@ -34,35 +34,7 @@ const CheckoutComponent = () => {
   }
   const handleShowModal = () => { setShowModal(true); }
   const handleCloseModal = () => { setShowModal(false); }
-  // const handleOrder = (listProducts) => {
-    // if (listProducts.length > 0) {
-    //   let tempList = listProducts.map((item) => {
-    //     return { ...item, totalPrice: Number(item.price) * Number(item.quantity) }
-    //   });
-    //   let dataSend = {
-    //     orderDetails: tempList,
-    //     address: "123456779",
-    //     paymentId: selectedOptionPayment?.id
-    //   }
-    //   apiOrderDetail.fetchAddToOrderDetail(dataSend)
-    //     .then(async (res) => {
-    //       if (res.data.code === "201") {
-    //         await apiCart.fetchDeleteMultipleProduct({ prepareToDelete: tempList })
-    //           .then(async (res) => {
-    //             if (res.data.code === "200") {
-    //               await apiProduct.fetchUpdateQuantityProduct({ prepareToUpdate: listProducts })
-    //                 .then((res) => console.log('fetchUpdateQuantityProduct', res.data))
-    //                 .catch((err) => console.log(err))
-    //             }
-    //           })
-    //           .then((res) => console.log('handleOrder finish'))
-    //           .catch((err) => { console.log(err); });
-    //       }
-    //     })
-    //     .catch((err) => console.log(err));
-    // }
 
-  // }
   const handleComeToOrder = () => {
     handleCloseModal();
     navigate('/user/purchase');
@@ -91,7 +63,7 @@ const CheckoutComponent = () => {
                   .catch((err) => console.log(err))
               }
             })
-            .then((res) => console.log('handleOrder finish'))
+            .then((res) => {})
             .catch((err) => { console.log(err); });
         }
       })
@@ -212,7 +184,7 @@ const CheckoutComponent = () => {
 
       </div>
       </form>
-      <ModalSuccess headers={"Success"} title={'Product is edited'} handleCloseModal={handleCloseModal} showModal={showModal} />
+      <ModalSuccess headers={"Thành công"} title={'Đặt hàng thành công'} handleCloseModal={handleCloseModal} showModal={showModal} />
     </div>
   )
 }

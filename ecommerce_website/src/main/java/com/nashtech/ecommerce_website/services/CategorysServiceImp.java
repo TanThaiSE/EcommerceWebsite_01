@@ -89,5 +89,29 @@ public class CategorysServiceImp implements CategorysService{
 		}
 		throw new NotFoundException("Not found users");
 	}
+
+	@Override
+	public SuccessResponse updateStatusCategory(String categoryId) {
+		Optional<Categorys> category=categorysRepository.findById(categoryId);
+		if(category.isEmpty()) {
+			throw new NotFoundException("Not found category");
+		}
+		categorysRepository.updateStatusCategory(categoryId);
+		Optional<Categorys> res=categorysRepository.findById(categoryId);
+		SuccessResponse successResponse=new SuccessResponse("201","Update category success",res.get());
+		return successResponse;
+	}
+
+	@Override
+	public SuccessResponse deleteEmptyCategory(String categoryId) {
+		List<Categorys> categories=categorysRepository.findAllByIdAndStatusCategorys(categoryId, 1);
+		if(categories.size()>0) {
+			SuccessResponse successResponse=new SuccessResponse("302","Cannot delete category due to containing product",categoryId);
+			return successResponse;
+		}
+		categorysRepository.deleteById(categoryId);
+		SuccessResponse successResponse=new SuccessResponse("202","Delete category success",categoryId);
+		return successResponse;
+	}
 	
 }

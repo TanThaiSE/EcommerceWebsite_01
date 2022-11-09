@@ -1,5 +1,7 @@
 package com.nashtech.ecommerce_website.repository;
 import java.util.List;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.data.domain.Page;
@@ -35,4 +37,13 @@ public interface CategorysRepository extends JpaRepository<Categorys,String> {
 	nativeQuery = true)
 	public Page<ProductsInCategoryDto> getAllProductByCategory(@Param("categoryId") String categoryId,Pageable pageable);
 	
+	@Modifying(clearAutomatically = true)
+	@Transactional
+	@Query(value = "call updateStatusCategory(:id)",nativeQuery = true)
+	public int updateStatusCategory(@Param("id")String idCategory);
+	
+	@Modifying(clearAutomatically = true)
+	@Transactional
+	public void deleteById(String productId);
+	public List<Categorys> findAllByIdAndStatusCategorys(String category,int statusCategory);
 }

@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { apiOrderDetail } from '../../api';
 import { Link } from 'react-router-dom';
 import './index.css';
-import ModalReviewProduct from '../ModalReviewProduct';
+import ModalReviewProduct from '../Modals/ModalReviewProduct';
 const OrderDetail = () => {
     const [listProducts, setListProducts] = useState([]);
-    const [idOrder, setIdOrder] = useState("");
+    const [detailOrder, setDetailOrder] = useState("");
     const [showModal, setShowModal] = useState(false);
     const [isComment, setIsComment] = useState(false);
     const fetchGetProductInOrderDetail = async () => {
@@ -25,8 +25,8 @@ const OrderDetail = () => {
         }
     }
 
-    const handleShowReview = (id) => {
-        setIdOrder(id);
+    const handleShowReview = (item) => {
+        setDetailOrder(item);
         handleShowModal();
     }
     const handleCloseModal = () => {
@@ -68,7 +68,7 @@ const OrderDetail = () => {
                         </>) :
                             (<>
                                 <div className='total-price'>
-                                    <button onClick={() => { handleShowReview(item.id) }} className='btnReviewProducts mt-3'>Đánh giá</button>
+                                    <button onClick={() => { handleShowReview(item) }} className='btnReviewProducts mt-3'>Đánh giá</button>
                                 </div>
 
                             </>)}
@@ -90,7 +90,7 @@ const OrderDetail = () => {
     return (
         <div className='container'>
             {displayProducts(listProducts)}
-            <ModalReviewProduct idOrder={idOrder} handleCloseModal={handleCloseModal} showModal={showModal} handleCommented={handleCommented} />
+            <ModalReviewProduct item={detailOrder} handleCloseModal={handleCloseModal} showModal={showModal} handleCommented={handleCommented} />
         </div>
     )
 }

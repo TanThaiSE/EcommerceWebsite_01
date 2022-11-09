@@ -1,5 +1,7 @@
 package com.nashtech.ecommerce_website.services;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -15,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.nashtech.ecommerce_website.dto.request.ProfileRequest;
+import com.nashtech.ecommerce_website.dto.request.ProfileUpdateInfoRequest;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.entity.Profiles;
 import com.nashtech.ecommerce_website.exceptions.NotFoundException;
@@ -29,15 +32,16 @@ public class ProfileServiceImp implements ProfileService{
 	@Autowired
 	AccountsRepository accountsRepository;
 	
+	
 	@Override
 	public SuccessResponse addToProfile(ProfileRequest profileRequest) {
 		try {
 			String idProfile = UUID.randomUUID().toString();
 			profileRequest.setId(idProfile);
-			profileRequest.setName("");
+			profileRequest.setName("Unknow");
 			profileRequest.setSex(0);
 			profileRequest.setBirth(new Date());
-			profileRequest.setAddress("");
+			profileRequest.setAddress("Unknow");
 			profileRepository.addToProfile(profileRequest);
 			SuccessResponse result = new SuccessResponse("201", "add profile success", profileRequest);
 			return result;
@@ -85,6 +89,18 @@ public class ProfileServiceImp implements ProfileService{
 		accountsRepository.updateBlocked(accountId, newBlocked);
 		Profiles res=profileRepository.findAllByAccountsProfiles_Id(accountId).get();
 		return new SuccessResponse("202","update user success",res);
+	}
+
+
+
+	@Override
+	public SuccessResponse updateInfoUser(ProfileUpdateInfoRequest profileUpdateInfoRequest) {
+		Optional<Profiles> detail=profileRepository.findAllByAccountsProfiles_Id(profileUpdateInfoRequest.getAccountId());
+		if(detail.isEmpty()) {
+			throw new NotFoundException("Not found account");
+		}
+		profileRepository.updateProfile(profileUpdateInfoRequest);
+		return new SuccessResponse("202","update user success",profileUpdateInfoRequest);
 	}
 
 }

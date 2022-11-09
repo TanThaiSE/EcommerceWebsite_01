@@ -66,4 +66,9 @@ public interface ProductsRepository extends JpaRepository<Products,String> {
 	@Transactional
 	@Query(value="call UpdateProduct(:#{#c.id},:#{#c.name},:#{#c.detail},:#{#c.description},:#{#c.price},:#{#c.updateDate},:#{#c.categoryId})",nativeQuery = true)
 	public int updateProduct(@Param("c") ProductUpdateRequest productUpdateRequest);	
+	
+	@Modifying(clearAutomatically = true)
+	@Transactional
+	@Query(value ="call updateRatingProduct(:id,:rate)",nativeQuery = true)
+	public int updateRatingProduct(@Param("id") String id,@Param("rate") float rate);
 }

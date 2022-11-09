@@ -3,6 +3,7 @@ package com.nashtech.ecommerce_website.services;
 import java.util.List;
 
 import com.nashtech.ecommerce_website.dto.request.ProfileRequest;
+import com.nashtech.ecommerce_website.dto.request.ProfileUpdateInfoRequest;
 import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.entity.Profiles;
 
@@ -14,4 +15,6 @@ public interface ProfileService {
 	public SuccessResponse showDetailProfile(String accountId);
 	
 	public SuccessResponse updateBlockedUsers(String accountId);
+	
+	public SuccessResponse updateInfoUser(ProfileUpdateInfoRequest profileUpdateInfoRequest);
 }

@@ -12,8 +12,9 @@ import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 
 public interface CartsService{
 	public SuccessResponse addToCart(CartsRequestDto cartsRequestDto);
-	public List<CartResponseDto> getAllProductInCartByAccountId();
+	public List<CartResponseDto> getAllProductInCartByAccountId(String accountId);
 	public CartResponseDto updateQuantityProductInCart(String id,CartUpdateQuantityRequest cartsRequestDto);
-	public SuccessResponse deleteProductInCart(String id);
+	public SuccessResponse deleteProductInCart(String id,String idAccount);
 	public SuccessResponse deleteMutipleProductInCart(CartsDeleteRequest listProductCart);
+	
 }

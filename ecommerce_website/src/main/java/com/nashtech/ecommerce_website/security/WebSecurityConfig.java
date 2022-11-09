@@ -51,25 +51,45 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 	}
 	
 	@Override
-	protected void configure(HttpSecurity http) throws Exception {
+	protected void configure(HttpSecurity http) throws Exception {	
 		http
 		.csrf().disable()
 		.cors().and()
 		.exceptionHandling().authenticationEntryPoint(jwtAuthEntryPoint).accessDeniedHandler(jwtAccessDenied).and()
 		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 		.authorizeHttpRequests()
-		.antMatchers("/api/v1/category/**").permitAll()
+		
+		.antMatchers(HttpMethod.GET,"/api/v1/category").permitAll()
+		
 		.antMatchers("/api/v1/login/**").permitAll()
 		.antMatchers("/api/v1/product/**").permitAll()
-		.antMatchers("/api/v1/profile/**").permitAll()
+		.antMatchers(HttpMethod.POST,"/api/v1/profile/**").permitAll()
 		.antMatchers(HttpMethod.GET,"/api/v1/rating/**").permitAll()
 		.antMatchers("/api/v1/signup/**").permitAll()
 		.antMatchers("/api/v1/payment/**").permitAll()
-		.antMatchers("/api/v1/admin/**").permitAll()
-//		.antMatchers(HttpMethod.DELETE,"/api/v1/cart/entireProduct").permitAll()
-		.anyRequest().authenticated().and().addFilterBefore(jwtAuthFilter(),UsernamePasswordAuthenticationFilter.class);
-		//getprodfile->admin
-		//phaan quyen het trong nayf 
+		.antMatchers("/api/v1/email/**").permitAll()
+		
+		.antMatchers("/api/v1/cart/**").hasAuthority("ROLE_USER")
+		.antMatchers("/api/v1/orderdetail/**").hasAuthority("ROLE_USER")
+		.antMatchers(HttpMethod.POST,"/api/v1/rating/**").hasAuthority("ROLE_USER")
+
+
+		
+		.antMatchers(HttpMethod.GET,"/api/v1/profile/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+		.antMatchers(HttpMethod.PUT,"/api/v1/profile/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+		.antMatchers(HttpMethod.PUT,"/api/v1/accounts/**").hasAnyAuthority("ROLE_USER","ROLE_ADMIN")
+		
+
+		.antMatchers("/api/v1/users/**").hasAuthority("ROLE_ADMIN")
+		.antMatchers("/api/v1/size/**").hasAuthority("ROLE_ADMIN")
+		.antMatchers("/api/v1/color/**").hasAuthority("ROLE_ADMIN")
+		.antMatchers("/api/v1/image/**").hasAuthority("ROLE_ADMIN")
+		.antMatchers(HttpMethod.GET,"/api/v1/category/manager/**").hasAuthority("ROLE_ADMIN")
+		.antMatchers(HttpMethod.POST,"/api/v1/category/**").hasAuthority("ROLE_ADMIN")
+		.antMatchers(HttpMethod.PUT,"/api/v1/category/**").hasAuthority("ROLE_ADMIN")
+		.antMatchers(HttpMethod.DELETE,"/api/v1/category/**").hasAuthority("ROLE_ADMIN")
+		.antMatchers(HttpMethod.POST,"/api/v1/accounts/**").hasAuthority("ROLE_ADMIN")
+		.and().addFilterBefore(jwtAuthFilter(),UsernamePasswordAuthenticationFilter.class);
 	}
 	
 	@Bean

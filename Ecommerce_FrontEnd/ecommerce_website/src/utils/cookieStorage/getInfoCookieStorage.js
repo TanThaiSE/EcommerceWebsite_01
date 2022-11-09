@@ -7,10 +7,10 @@ export const getId=()=>{
 export const getUserName=()=>{
     return cookies.get("userName")!==undefined ?(cookies.get("userName")):(undefined);
 }
-export const idRole=()=>{
+export const getIdRole=()=>{
     return cookies.get("idRole")!==undefined ?(cookies.get("idRole")):(undefined);
 }
-export const nameRole=()=>{
+export const getNameRole=()=>{
     return cookies.get("nameRole")!==undefined ?(cookies.get("nameRole")):(undefined);
 }
 export const getToken=()=>{

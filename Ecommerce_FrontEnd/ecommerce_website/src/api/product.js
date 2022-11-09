@@ -1,3 +1,4 @@
+import { getAuthor } from "../utils/cookieStorage";
 import axios from "./config";
 
 export const fetchGetAllProduct = async (idCategory,sortPrice,page,offset) => {
@@ -22,3 +23,23 @@ export const fetchGetEntireProduct = async (searchKey,sortPrice,page,offset) => 
         return result;
     });
 };
+
+//
+export const fetchCreateProduct = async (data) => {
+    return axios.post(`/product`, data, { headers: getAuthor.getAuthorization() }).then((result) => {
+        return result;
+    });
+};
+
+export const fetchUpdateStatusProduct = async (idProduct) => {
+    return axios.put(`/product/${idProduct}/status-product`,{}, { headers: getAuthor.getAuthorization() }).then((result) => {
+        return result;
+    });
+};
+
+export const fetchUpdateProduct = async (data) => {
+    return axios.put(`/product/attribute-product`, data, { headers: getAuthor.getAuthorization() }).then((result) => {
+        return result;
+    });
+};
+

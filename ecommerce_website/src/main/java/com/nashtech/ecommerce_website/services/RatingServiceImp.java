@@ -16,13 +16,15 @@ import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.exceptions.ItemExistException;
 import com.nashtech.ecommerce_website.exceptions.NotFoundException;
 import com.nashtech.ecommerce_website.exceptions.SqlException;
+import com.nashtech.ecommerce_website.repository.ProductsRepository;
 import com.nashtech.ecommerce_website.repository.RatingRepository;
 
 @Service
 public class RatingServiceImp implements RatingService {
 	@Autowired
 	RatingRepository ratingRepository;
-
+	@Autowired
+	ProductsRepository productsRepository;
 	private ModelMapper modelMapper = new ModelMapper();
 	
 	@Override
@@ -33,7 +35,13 @@ public class RatingServiceImp implements RatingService {
 				String idRating = UUID.randomUUID().toString();
 				ratingAddRequest.setId(idRating);
 				ratingAddRequest.setRatingDate(new Date());
-				ratingRepository.addRatingToProduct(ratingAddRequest);
+				int isAddRating= ratingRepository.addRatingToProduct(ratingAddRequest);
+				if(isAddRating>0) {
+					float avgRating= ratingRepository.calAvgPointRate(ratingAddRequest.getProductId());
+					if(avgRating>0) {
+						productsRepository.updateRatingProduct(ratingAddRequest.getProductId(), avgRating);
+					}
+				}
 				SuccessResponse result = new SuccessResponse("201", "add rating success", ratingAddRequest);
 				return result;
 			} catch (Exception e) {

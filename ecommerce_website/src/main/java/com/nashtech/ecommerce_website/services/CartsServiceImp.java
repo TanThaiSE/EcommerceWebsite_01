@@ -1,12 +1,11 @@
 package com.nashtech.ecommerce_website.services;
 
-//import java.net.http.HttpHeaders;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
-import javax.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,8 +28,7 @@ public class CartsServiceImp implements CartsService {
 	@Autowired
 	CartsRepository cartsRepository;
 	
-	@Autowired
-	HttpServletRequest httpServletRequest;
+
 	
 	@Autowired 
 	JwtAuthFilter jwtAuthFilter;
@@ -42,8 +40,7 @@ public class CartsServiceImp implements CartsService {
 
 	@Override
 	public SuccessResponse addToCart(CartsRequestDto cartsRequestDto) {
-		String token=jwtAuthFilter.getJwtToken(httpServletRequest);
-		String accountId=jwtProvider.decodeToken(token).getId();
+		String accountId=cartsRequestDto.getAccountId();
 		Map<String, Object> isValidValue = cartsRepository.findProductWithSizeAndColor(cartsRequestDto);
 		if (isValidValue == null || isValidValue.isEmpty()) {
 			throw new NotFoundException("Values are not correct");
@@ -71,9 +68,8 @@ public class CartsServiceImp implements CartsService {
 	}
 
 	@Override
-	public List<CartResponseDto> getAllProductInCartByAccountId() {
-		String token=jwtAuthFilter.getJwtToken(httpServletRequest);
-		String accountId=jwtProvider.decodeToken(token).getId();
+	public List<CartResponseDto> getAllProductInCartByAccountId(String accountId) {
+
 		List<Map<String, Object>> getProduct = cartsRepository.getAllProductInCartByAccountId(accountId);
 		if (getProduct.size()==0 || getProduct == null) {
 			throw new NotFoundException("Not found product in cart");
@@ -89,8 +85,7 @@ public class CartsServiceImp implements CartsService {
 
 	@Override
 	public CartResponseDto updateQuantityProductInCart(String id, CartUpdateQuantityRequest cartUpdateQuantityRequest) {
-		String token=jwtAuthFilter.getJwtToken(httpServletRequest);
-		String accountId=jwtProvider.decodeToken(token).getId();
+		String accountId=cartUpdateQuantityRequest.getAccountId();
 		try {
 			int isUpdate = cartsRepository.updateQuantityCart(id, cartUpdateQuantityRequest, accountId);
 			if (isUpdate == 1) {
@@ -108,9 +103,7 @@ public class CartsServiceImp implements CartsService {
 	}
 	
 	@Override
-	public SuccessResponse deleteProductInCart(String id) {
-		String token=jwtAuthFilter.getJwtToken(httpServletRequest);
-		String accountId=jwtProvider.decodeToken(token).getId();
+	public SuccessResponse deleteProductInCart(String id,String accountId) {
 		try {
 			Optional<Carts> c = cartsRepository.findByIdAndAccountCart_Id(id, accountId);
 			System.out.println(c.get());

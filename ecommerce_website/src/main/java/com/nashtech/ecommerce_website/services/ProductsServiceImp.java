@@ -43,7 +43,9 @@ public class ProductsServiceImp implements ProductsService {
 	SizeProductRepository sizeProductRepository;
 	@Autowired
 	ImagesRepository imagesRepository;
-
+	@Autowired
+	CategorysServiceImp categorysServiceImp;
+	
 	public ProductsServiceImp(ProductsRepository productsRepository) {
 		this.productsRepository = productsRepository;
 	}
@@ -94,7 +96,10 @@ public class ProductsServiceImp implements ProductsService {
 		productCreateRequest.setRate(5);
 		productCreateRequest.setNumberBuy(0);
 		try {
-			productsRepository.createNewProduct(idProduct, productCreateRequest);
+			int isCreate=productsRepository.createNewProduct(idProduct, productCreateRequest);
+			if(isCreate>0) {
+				categorysServiceImp.updateStatusCategory(productCreateRequest.getCategoryId());
+			}
 			return new SuccessResponse("201","Create product success", productCreateRequest);
 		} catch (Exception e) {
 			throw new SqlException("Cannot insert to product");

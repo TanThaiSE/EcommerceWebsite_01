@@ -22,11 +22,16 @@ public interface RatingRepository extends JpaRepository<Rating,String>  {
 	@Modifying
 	@Transactional
 	@Query(value = "call AddRaringProduct(:#{#c.id},:#{#c.orderDetailId},:#{#c.pointRate},:#{#c.comment},:#{#c.ratingDate})",nativeQuery = true)
-	public void addRatingToProduct(@Param("c") RatingAddRequest ratingAddRequest);
+	public int addRatingToProduct(@Param("c") RatingAddRequest ratingAddRequest);
 	
 	@Query(value = "call findRatingWithOrderDetailId(:orderDetailId)",nativeQuery = true)
 	public Map<String,Object> findRatingWithOrderDetailId(@Param("orderDetailId")String orderDetailId);
 	
 	@Query(value="call getRatingAndCommentProduct(:productId)",nativeQuery = true)
 	public List<Map<String,Object>> getRatingAndCommentProduct(@Param("productId")String productId);
+	
+	@Query(value="call calAvgPointRate(:id)",nativeQuery = true)
+	public float calAvgPointRate(@Param("id") String productId);
+	
+
 }

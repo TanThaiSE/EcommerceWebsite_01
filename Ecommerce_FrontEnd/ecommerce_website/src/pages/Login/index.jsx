@@ -2,7 +2,7 @@ import React,{useEffect,useState} from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './index.css';
-import NavBarCommon from '../../components/NavBarComon';
+import NavBarCommon from '../../components/Navbars/NavBarComon';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,9 +10,8 @@ import * as yup from 'yup';
 import { apiLogin } from '../../api';
 import { getLogin, setLogin } from '../../utils/cookieStorage';
 import { useNavigate } from 'react-router-dom';
-import ModalFailed from '../../components/ModalFailed';
+import ModalFailed from '../../components/Modals/ModalFailed';
 const schema = yup.object().shape({
-  // userName: yup.string().email("Email không hợp lệ").required("Vui lòng điền vào mục này"),
   userName:yup.string().matches(/^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/,'Số điện thoại không hợp lệ').required("Vui lòng điền vào mục này"),
   password: yup.string().required("Vui lòng điền vào mục này")
 });
@@ -27,7 +26,13 @@ const Login = () => {
     apiLogin.fetchLogin(data)
       .then((res) => {
         setLogin.saveLogin(res.data);
-        navigate("/");
+        if(res.data.nameRole==="ROLE_ADMIN"){
+          navigate("/manage-account");
+        }
+        else{
+          navigate("/");
+        }
+        
       })
       .catch((err) => {
         handleShowModal();
@@ -54,7 +59,7 @@ const Login = () => {
             <div className="form-container">
               <p className='title-login'>Đăng nhập</p>
               <form onSubmit={handleSubmit(onSubmitLogin)}>
-                <input type="text" placeholder="Email address" {...register("userName")} />
+                <input type="text" placeholder="Phone number" {...register("userName")} />
                 {errors.userName?.message && <span className='content-error'>{errors.userName?.message}</span>}
 
                 <input type="password" placeholder="Password" {...register("password")} />

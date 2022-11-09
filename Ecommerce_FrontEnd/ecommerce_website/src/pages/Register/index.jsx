@@ -2,15 +2,15 @@ import React, { useEffect, useState } from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './index.css';
-import NavBarCommon from '../../components/NavBarComon';
+import NavBarCommon from '../../components/Navbars/NavBarComon';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import { apiProfile, apiRegister } from '../../api';
 import { useNavigate } from 'react-router-dom';
-import ModalFailed from '../../components/ModalFailed';
-import ModalSuccess from '../../components/ModalSuccess';
+import ModalFailed from '../../components/Modals/ModalFailed';
+import ModalSuccess from '../../components/Modals/ModalSuccess';
 
 const schema = yup.object().shape({
   
@@ -62,11 +62,6 @@ const Register = () => {
     fetchRegister(data);
   }
 
-  // useEffect(() => {
-  //   if (getLogin.getToken() !== null) {
-  //     navigate('/');
-  //   }
-  // }, []);
 
   return (
     <>
@@ -75,7 +70,7 @@ const Register = () => {
         <div className="container bg-register" style={{ backgroundImage: "url('https://res.cloudinary.com/dwolphrup/image/upload/v1665237930/cart_4_srrov7.jpg')" }}>
           <div className="colm-form">
             <div className="form-container">
-              <p className='title-login'>Đăng nhập</p>
+              <p className='title-login'>Đăng ký</p>
               <form onSubmit={handleSubmit(onSubmitLogin)}>
 
                 <input type="text" placeholder="Số điện thoại" {...register("phone")} />

@@ -2,6 +2,7 @@ package com.nashtech.ecommerce_website.repository;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -11,6 +12,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.nashtech.ecommerce_website.dto.request.AccountCreateRequest;
 import com.nashtech.ecommerce_website.dto.request.CartsRequestDto;
 import com.nashtech.ecommerce_website.dto.request.NewAccountRequest;
 import com.nashtech.ecommerce_website.dto.request.RegisterRequest;
@@ -36,6 +38,15 @@ public interface AccountsRepository extends JpaRepository<Accounts,String>  {
 	@Modifying
 	@Transactional
 	@Query(value = "call registerAccount(:#{#c.idAccount},:#{#c.email},:#{#c.password},:#{#c.roleId},:#{#c.isBlocked},:#{#c.phone},:#{#c.createdDate})",nativeQuery = true)
-	public int addNewAccount(@Param("c") NewAccountRequest registerRequest);
+	public int addNewAccount(@Param("c") AccountCreateRequest registerRequest);
+
 	
+	public Optional<Accounts> findById(String id);
+	
+	@Modifying(clearAutomatically = true)
+	@Transactional
+	@Query(value="call updatePassword(:accountId,:newPassword)",nativeQuery = true)
+	public int updatePassword(@Param("accountId") String accountId,@Param("newPassword") String newPassword);
+	
+	public Optional<Accounts> findByEmail(String email);
 }

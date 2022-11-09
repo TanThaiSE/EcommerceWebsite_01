@@ -2,9 +2,9 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import './index.css';
-import NavBarAdmin from '../../components/NavBarAdmin';
-import NavBarInfoAdmin from '../../components/NavBarInfoAdmin';
-import ManageDetailProduct from '../../components/ManageDetailProduct';
+import NavBarAdmin from '../../components/Navbars/NavBarAdmin';
+import NavBarInfoAdmin from '../../components/Navbars/NavBarInfoAdmin';
+import ManageDetailProduct from '../../components/Products/ManageDetailProduct';
 import { useParams } from 'react-router';
 const EditProduct = () => {
     const {idProduct}=useParams();

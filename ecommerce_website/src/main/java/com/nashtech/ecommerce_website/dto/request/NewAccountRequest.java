@@ -18,7 +18,7 @@ public class NewAccountRequest {
 	@NotBlank(message = "Password is required")
 	private String password;
 
-	@NotBlank(message = "Email is required")
+	@NotBlank(message = "roleId is required")
 	private String roleId;
 
 	private int isBlocked;

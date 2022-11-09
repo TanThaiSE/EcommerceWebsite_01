@@ -18,6 +18,9 @@ public class Categorys {
 	
 	@OneToMany(mappedBy = "categorysProducts")
 	private Set<Products> products;
+	@Column(name="status_category")
+	private int statusCategorys;
+	
 	public String getId() {
 		return id;
 	}
@@ -35,6 +38,12 @@ public class Categorys {
 	}
 	public void setImage(String image) {
 		this.image = image;
+	}
+	public int getStatusCategory() {
+		return statusCategorys;
+	}
+	public void setStatusCategory(int statusCategory) {
+		this.statusCategorys = statusCategory;
 	}
 	
 }
