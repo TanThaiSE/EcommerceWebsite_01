@@ -3,6 +3,7 @@ package com.nashtech.ecommerce_website.controller;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -19,12 +20,16 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nashtech.ecommerce_website.dto.request.ProductCreateRequest;
+import com.nashtech.ecommerce_website.dto.request.ProductUpdateRequest;
 import com.nashtech.ecommerce_website.dto.response.ProductDetailResponseDto;
 import com.nashtech.ecommerce_website.dto.response.ProductUpdateResponse;
+import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.exceptions.NotFoundException;
 import com.nashtech.ecommerce_website.pojo.AttributeProductPojo;
 import com.nashtech.ecommerce_website.pojo.DetailProductPojo;
@@ -88,6 +93,7 @@ public class ProductsControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(value ="user",roles = { "USER" })
 	public void updateNumberBuyListProduct_ShouldReturnListUpdateProductPojo_WhenDataValid() throws JsonProcessingException, Exception {
 		ProductUpdateResponse productUpdate=new ProductUpdateResponse("1", "abc", "dbd", "Abc", 10, new Date(),new Date(), 2, 2);
 		List<ProductUpdateResponse> lst=new ArrayList<>();
@@ -102,6 +108,7 @@ public class ProductsControllerTest {
 	}
 	
 	@Test
+	@WithMockUser(value ="user",roles = { "USER" })
 	public void updateNumberBuyListProduct_ShouldReturnNotFound_WhenDataValid() throws JsonProcessingException, Exception {
 		ProductUpdateResponse productUpdate=new ProductUpdateResponse("1", "abc", "dbd", "Abc", 10, new Date(),new Date(), 2, 2);
 		List<ProductUpdateResponse> lst=new ArrayList<>();
@@ -113,6 +120,52 @@ public class ProductsControllerTest {
 				.accept(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(lstUpdatePojo)))
 				.andExpect(status().isNotFound());
 		
+	}
+	
+	@Test
+	@WithMockUser(value ="admin",roles = { "ADMIN" })
+	public void createNewProduct_ShouldReturnSuccess_WhenDataValid() throws JsonProcessingException, Exception {
+		ProductCreateRequest productCreateRequest=new ProductCreateRequest("1","abc", "Abc", "Abc", 10, "1", new Date(), new Date(), 5, 0);
+		SuccessResponse res= new SuccessResponse("201","Create product success", productCreateRequest);
+		when(productsServiceImp.createNewProduct(productCreateRequest)).thenReturn(res);
+		mockMvc.perform(post("/api/v1/product").contentType(MediaType.APPLICATION_JSON)
+		.accept(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(productCreateRequest)))
+		.andExpect(status().isOk());				
+	}
+	@Test
+	@WithMockUser(value ="admin",roles = { "ADMIN" })
+	public void updateProduct_ShouldReturnSuccess_WhenDataValid() throws JsonProcessingException, Exception {
+		ProductUpdateRequest productUpdateRequest=new ProductUpdateRequest("1", "abc", "Abc", "Abc", 10, "1", new Date());
+		SuccessResponse res= new SuccessResponse("202","update product success",productUpdateRequest);
+		when(productsServiceImp.updateProduct(productUpdateRequest)).thenReturn(res);
+		mockMvc.perform(put("/api/v1/product/attribute-product").contentType(MediaType.APPLICATION_JSON)
+		.accept(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(productUpdateRequest)))
+		.andExpect(status().isOk());				
+	}
+	
+	@Test
+	@WithMockUser(value ="user",roles = { "USER" })
+	public void updateStatusProduct_ShouldReturnSuccess_WhenDataValid() throws JsonProcessingException, Exception {
+		String idProduct="1";
+		ProjectionFactory factory=new SpelAwareProxyProjectionFactory();
+		DetailProductPojo detailProduct=factory.createProjection(DetailProductPojo.class);;
+		detailProduct.setId(idProduct);
+		detailProduct.setDescriptionProduct("product good");
+		detailProduct.setNumber_buy(10);
+		detailProduct.setNameProduct("Shirt");
+		detailProduct.setPrice(140000);
+		detailProduct.setRate((float) 5.0);
+		detailProduct.setDetail("Big");
+		detailProduct.setStatusProduct(0);
+		detailProduct.setCategoryId("1");
+		detailProduct.setCategoryName("abc");
+		detailProduct.setCreatedDate(new Date());
+		detailProduct.setUpdatedDate(new Date());
+		 
+		SuccessResponse res=new SuccessResponse("202","update status product success",detailProduct);
+		when(productsServiceImp.updateStatusProduct(idProduct)).thenReturn(res);
+		mockMvc.perform(put("/api/v1/product/{idProduct}/status-product",idProduct)).andExpect(status().isOk());
+			
 	}
 	
 }

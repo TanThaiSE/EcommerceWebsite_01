@@ -37,7 +37,7 @@ public class LoginControllerTest {
 		LoginRequest loginRequest=new LoginRequest();
 		loginRequest.setUserName("user");
 		loginRequest.setPassword("user");
-		LoginResponseDto loginResponseDto=new LoginResponseDto("user","token");
+		LoginResponseDto loginResponseDto=new LoginResponseDto("1","user","1","ROLE_USER","token");
 		when(loginServiceImp.login(loginRequest)).thenReturn(loginResponseDto);
 		mockMvc.perform(post("/api/v1/login").contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON)

@@ -47,8 +47,10 @@ public class CartsControllerTest {
 	private MockMvc mockMvc;
 	ObjectMapper mapper = new ObjectMapper();
 	CartResponseDto cartResponseDto;
+	String idAccount;
 	@BeforeEach
 	void beforeEach() {
+		idAccount="1";
 		cartResponseDto=new CartResponseDto();
 		cartResponseDto.setId("1");
 		cartResponseDto.setProductId("1");
@@ -67,15 +69,16 @@ public class CartsControllerTest {
 	public void getAllProductInCart_ShouldReturnListCartResponseDto_WhenGetSuccess() throws Exception {
 		List<CartResponseDto> lst=new ArrayList<>();
 		lst.add(cartResponseDto);
-		when(cartsServiceImp.getAllProductInCartByAccountId()).thenReturn(lst);
-		mockMvc.perform(get("/api/v1/cart")).andExpect(status().isOk());
+		when(cartsServiceImp.getAllProductInCartByAccountId(idAccount)).thenReturn(lst);
+		mockMvc.perform(get("/api/v1/cart/{accountId}",idAccount)).andExpect(status().isOk());
 	}
 	
 	@Test
 	@WithMockUser(value ="user",roles = { "USER" })
 	public void getAllProductInCart_ShouldReturnNotFound_WhenNotFoundData() throws Exception {
-		when(cartsServiceImp.getAllProductInCartByAccountId()).thenThrow(NotFoundException.class);
-		mockMvc.perform(get("/api/v1/cart")).andExpect(status().isNotFound());
+		String idAc="2";
+		when(cartsServiceImp.getAllProductInCartByAccountId(idAc)).thenThrow(NotFoundException.class);
+		mockMvc.perform(get("/api/v1/cart/{accountId}",idAc)).andExpect(status().isNotFound());
 	}
 	
 	@Test
@@ -153,16 +156,16 @@ public class CartsControllerTest {
 	public void deleteProductInCart_ShoudReturnSuccessResponse_WhenIdValid() throws Exception {
 		SuccessResponse successResponse = new SuccessResponse("200", "delete product success", null);
 		String id="1";
-		when(cartsServiceImp.deleteProductInCart(id)).thenReturn(successResponse);
-		mockMvc.perform(delete("/api/v1/cart/{idCart}",id)).andExpect(status().isOk());
+		when(cartsServiceImp.deleteProductInCart(id,idAccount)).thenReturn(successResponse);
+		mockMvc.perform(delete("/api/v1/cart/{idCart}/{accountId}/account",id,idAccount)).andExpect(status().isOk());
 	}
 	
 	@Test
 	@WithMockUser(value ="user",roles = { "USER" })
 	public void deleteProductInCart_ShoudReturnNotFound_WhenIdInValid() throws Exception {
 		String id="10";
-		when(cartsServiceImp.deleteProductInCart(id)).thenThrow(NotFoundException.class);
-		mockMvc.perform(delete("/api/v1/cart/{idCart}",id)).andExpect(status().isNotFound());
+		when(cartsServiceImp.deleteProductInCart(id,idAccount)).thenThrow(NotFoundException.class);
+		mockMvc.perform(delete("/api/v1/cart/{idCart}/{accountId}/account",id,idAccount)).andExpect(status().isNotFound());
 	}
 	
 	@Test

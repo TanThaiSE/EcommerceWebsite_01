@@ -1,7 +1,11 @@
 package com.nashtech.ecommerce_website.controller;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.util.ArrayList;
@@ -13,11 +17,19 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.projection.ProjectionFactory;
 import org.springframework.data.projection.SpelAwareProxyProjectionFactory;
+import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nashtech.ecommerce_website.dto.request.CategoryCreateRequest;
 import com.nashtech.ecommerce_website.dto.response.ProductsInCategoryDto;
+import com.nashtech.ecommerce_website.dto.response.SuccessResponse;
 import com.nashtech.ecommerce_website.entity.Categorys;
 import com.nashtech.ecommerce_website.exceptions.NotFoundException;
 import com.nashtech.ecommerce_website.services.CategorysServiceImp;
@@ -27,7 +39,7 @@ import com.nashtech.ecommerce_website.services.CategorysServiceImp;
 public class CategorysControllerTest {
 	@MockBean
 	CategorysServiceImp categorysServiceImp;
-	
+	ObjectMapper mapper = new ObjectMapper();
 	@Autowired
 	private MockMvc mockMvc;
 	
@@ -61,14 +73,40 @@ public class CategorysControllerTest {
 		pCategoryDto.setNameImg("abc.jpg");
 		List<ProductsInCategoryDto> lst=new ArrayList<>();
 		lst.add(pCategoryDto);
-		when(categorysServiceImp.getAllProductByCategory("1",0,1)).thenReturn(lst);
+		SuccessResponse res=new SuccessResponse("200","get all categories success",lst);
+		when(categorysServiceImp.getAllProductByCategory("1",0,3,"desc")).thenReturn(res);
 		mockMvc.perform(get("/api/v1/category/{idCategory}/product","1")).andExpect(status().isOk());
 	}
 	
 	@Test
-	public void getProductsByCategoryId_ShouldReturnNotFound_WhenNotFoundData() throws Exception {
-		when(categorysServiceImp.getAllProductByCategory("10",0,1)).thenThrow(NotFoundException.class);
-		mockMvc.perform(get("/api/v1/category/{idCategory}/product","10")).andExpect(status().isNotFound());
+	@WithMockUser(value ="admin",roles = { "ADMIN" })
+	public void createNewCategory_ShouldReturnSuccessResponse_WhenCreateSuccess() throws Exception {
+		CategoryCreateRequest categoryCreateRequest=new CategoryCreateRequest("1","abcd","abc.png");
+		SuccessResponse res=new SuccessResponse("200","create new category success",categoryCreateRequest);
+		when(categorysServiceImp.createNewCategory(categoryCreateRequest)).thenReturn(res);
+		mockMvc.perform(post("/api/v1/category").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(categoryCreateRequest)))
+				.andExpect(status().isOk());
+	}
+	
+	@Test
+	@WithMockUser(value ="admin",roles = { "ADMIN" })
+	public void updateCategory_ShouldReturnSuccessResponse_WhenUpdateSuccess() throws Exception {
+		CategoryCreateRequest categoryCreateRequest=new CategoryCreateRequest("1","abcd","abc.png");
+		SuccessResponse res=new SuccessResponse("200","create new category success",categoryCreateRequest);
+		when(categorysServiceImp.updateCategory(categoryCreateRequest)).thenReturn(res);
+		mockMvc.perform(put("/api/v1/category").contentType(MediaType.APPLICATION_JSON)
+				.accept(MediaType.APPLICATION_JSON).content(mapper.writeValueAsString(categoryCreateRequest)))
+				.andExpect(status().isOk());
+	}
+	
+	@Test
+	@WithMockUser(value ="admin",roles = { "ADMIN" })
+	public void deleteEmptyCategory_ShouldReturnSuccessResponse_WhenDeleteSuccess() throws Exception {
+		String idCategory="12345";
+		SuccessResponse res=new SuccessResponse("202","Delete category success",idCategory);
+		when(categorysServiceImp.deleteEmptyCategory(idCategory)).thenReturn(res);
+		mockMvc.perform(delete("/api/v1/category/{idCategory}",idCategory)).andExpect(status().isOk());
 	}
 }
 

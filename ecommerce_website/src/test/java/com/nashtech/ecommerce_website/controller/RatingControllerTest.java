@@ -40,15 +40,13 @@ public class RatingControllerTest {
 	private MockMvc mockMvc;
 	ObjectMapper mapper=new ObjectMapper();
 	
-	RatingAddRequest ratingAddRequest;
-	@BeforeEach
-	public void beforeEach() {
-		ratingAddRequest=new RatingAddRequest("1","1", 5,"abc",new Date());
-	}
+
+
 	
 	@Test
 	@WithMockUser(value ="user",roles = { "USER" })
 	public void addRatingProduct_ShouldReturnSuccessResponse_WhenPostSuccess() throws Exception {
+		RatingAddRequest ratingAddRequest=new RatingAddRequest("1","1", 5,"abc",new Date(),"1");
 		SuccessResponse expected = new SuccessResponse("201", "add rating success", ratingAddRequest);
 		when(ratingServiceImp.addRatingProduct(ratingAddRequest)).thenReturn(expected);
 		mockMvc.perform(post("/api/v1/rating").contentType(MediaType.APPLICATION_JSON)
@@ -59,6 +57,7 @@ public class RatingControllerTest {
 	@Test
 	@WithMockUser(value ="user",roles = { "USER" })
 	public void addRatingProduct_ShouldReturnConflig_WhenConflig() throws JsonProcessingException, Exception   {
+		RatingAddRequest ratingAddRequest=new RatingAddRequest("1","1", 5,"abc",new Date(),"1");
 		when(ratingServiceImp.addRatingProduct(any())).thenThrow(ItemExistException.class);
 		mockMvc.perform(post("/api/v1/rating").contentType(MediaType.APPLICATION_JSON)
 		.accept(MediaType.APPLICATION_JSON)
