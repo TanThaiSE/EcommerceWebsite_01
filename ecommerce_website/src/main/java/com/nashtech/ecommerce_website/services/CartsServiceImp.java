@@ -106,7 +106,6 @@ public class CartsServiceImp implements CartsService {
 	public SuccessResponse deleteProductInCart(String id,String accountId) {
 		try {
 			Optional<Carts> c = cartsRepository.findByIdAndAccountCart_Id(id, accountId);
-			System.out.println(c.get());
 			if (c.isEmpty()) {
 				throw new NotFoundException("Not found product in cart");
 			} else {

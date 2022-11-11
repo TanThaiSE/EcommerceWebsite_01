@@ -62,7 +62,7 @@ public class CategorysServiceImp implements CategorysService{
 		String idCategory = UUID.randomUUID().toString();
 		categoryCreateRequest.setId(idCategory);
 		categorysRepository.createNewCategory(categoryCreateRequest);
-		SuccessResponse successResponse=new SuccessResponse("200","create new category success",categoryCreateRequest);
+		SuccessResponse successResponse=new SuccessResponse("201","create new category success",categoryCreateRequest);
 		return successResponse;
 	}
 
@@ -73,7 +73,7 @@ public class CategorysServiceImp implements CategorysService{
 			throw new NotFoundException("Not found category");
 		}
 		categorysRepository.updateCategory(categoryCreateRequest);
-		SuccessResponse successResponse=new SuccessResponse("201","Update category success",categoryCreateRequest);
+		SuccessResponse successResponse=new SuccessResponse("202","Update category success",categoryCreateRequest);
 		return successResponse;
 	}
 

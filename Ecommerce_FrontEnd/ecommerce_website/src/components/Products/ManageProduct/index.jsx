@@ -21,7 +21,8 @@ const ManageProduct = () => {
     const [itemPrice, setItemPrice] = useState("desc");
     const [itemSearch, setItemSearch] = useState(null);
     const fetchGetCategory = () => {
-        apiCategory.fetchCategoryManger().then((res) => {
+        apiCategory.fetchCategory().then((res) => {
+            console.log(res.data);
             setLstCategory(res.data);
         }).catch((err) => { console.log(err); })
     }

@@ -1,11 +1,13 @@
 package com.nashtech.ecommerce_website.dto.request;
 
-import java.util.Date;
 
+import java.util.Date;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class AccountCreateRequest {
 	
@@ -30,6 +32,8 @@ public class AccountCreateRequest {
 	@Max(value = 1, message = "sex must be maximum is 1")
 	private int sex;
 	
+
+	@NotNull(message = "birth is required")
 	private Date birth;
 	
 	@NotBlank(message = "address is required")
@@ -37,9 +41,12 @@ public class AccountCreateRequest {
 	
 	private String roleId;
 	
+
 	private Date createdDate;
 
 	private int isBlocked;
+	
+	
 	public AccountCreateRequest(String idAccount, String idProfile, String email, String password, String phone,
 			String name, int sex, Date birth, String address, String roleId, Date createdDate,int isBlocked) {
 		this.idAccount = idAccount;
@@ -151,6 +158,8 @@ public class AccountCreateRequest {
 	public void setIsBlocked(int isBlocked) {
 		this.isBlocked = isBlocked;
 	}
+
+
 	
 	
 }

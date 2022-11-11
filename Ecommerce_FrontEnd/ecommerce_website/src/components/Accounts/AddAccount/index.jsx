@@ -68,7 +68,7 @@ const AddAccount = () => {
                 handleShowModalFailed();
                 setTimeout(() => { handleCloseModalFailed(); }, 1000);
             }
-            if(res.data.code==='202'){
+            if(res.data.code==='201'){
                 handleCloseLoading();
                 handleShowModal();
                 setTimeout(() => { handleComeToManageCustomer(); }, 1000);

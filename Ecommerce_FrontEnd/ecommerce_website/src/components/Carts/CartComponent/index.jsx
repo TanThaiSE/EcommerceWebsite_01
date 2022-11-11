@@ -89,7 +89,7 @@ const CartComponent = () => {
     }
   }
   const handleRemoveProduct = async (idCart) => {
-    await apiCart.fetchDeleteCart(idCart,getLogin.getId)
+    await apiCart.fetchDeleteCart(idCart,getLogin.getId())
       .then((res) => {
         if (res.data.code === "200") {
           let tempListProduct = [...listProducts];

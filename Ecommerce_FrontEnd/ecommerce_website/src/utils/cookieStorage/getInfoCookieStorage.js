@@ -16,3 +16,15 @@ export const getNameRole=()=>{
 export const getToken=()=>{
     return cookies.get("token")!==undefined ?(cookies.get("token")):(undefined);
 }
+
+/*
+    FRONT END
+        +) props (truyền đc) , state (ko truyền đc): như thế nào
+        +) sử lý product còn hàng hay không
+        +) account bị active
+        +) Check lại xóa hình
+    BACK END
+        +) tận dụng jpa
+        +) flow authen, author 
+        +) viết thêm login có bị block chưa. trả lỗi ra. front end nhận show lên.
+*/

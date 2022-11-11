@@ -12,7 +12,7 @@ const EditProduct = () => {
         <div className='container-fluid'>
             <div className="row">
                 <div className="col-md-2">
-                    <NavBarAdmin/>
+                    <NavBarAdmin type={2}/>
                 </div>
                 <div className="col-md-10">
                     <NavBarInfoAdmin/>

@@ -1,6 +1,9 @@
 package com.nashtech.ecommerce_website.controller;
 
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,12 +38,12 @@ public class CategorysController {
 	}
 	
 	@PostMapping("")
-	public SuccessResponse createNewCategory(@RequestBody CategoryCreateRequest categoryCreateRequest) {
+	public SuccessResponse createNewCategory(@Valid @RequestBody CategoryCreateRequest categoryCreateRequest) {
 		return categorysServiceImp.createNewCategory(categoryCreateRequest);
 	}
 	
 	@PutMapping("")
-	public SuccessResponse updateCategory(@RequestBody CategoryCreateRequest categoryCreateRequest) {
+	public SuccessResponse updateCategory(@Valid @RequestBody CategoryCreateRequest categoryCreateRequest) {
 		return categorysServiceImp.updateCategory(categoryCreateRequest);
 	}
 	

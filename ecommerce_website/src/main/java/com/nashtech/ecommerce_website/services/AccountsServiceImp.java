@@ -64,7 +64,8 @@ public class AccountsServiceImp implements AccountsService{
 		
 		List<Accounts> isExistAccount=accountsRepository.findByEmailOrPhone(accountCreateRequest.getEmail(),accountCreateRequest.getPhone());
 		if(isExistAccount.size()>0) {
-			SuccessResponse result = new SuccessResponse("302", "account is existed",accountCreateRequest);
+//			SuccessResponse result = new SuccessResponse("302", "account is existed",accountCreateRequest);
+			SuccessResponse result = new SuccessResponse("302", "account is existed",isExistAccount.get(0));
 			return result;
 		}
 		String idAccount = UUID.randomUUID().toString();
@@ -80,7 +81,8 @@ public class AccountsServiceImp implements AccountsService{
 		if(ac>0) {
 			profileRepository.addNewProfile(accountCreateRequest);
 		}
-		SuccessResponse result = new SuccessResponse("202", "create account success",accountCreateRequest);
+		//SuccessResponse result = new SuccessResponse("202", "create account success",accountCreateRequest);
+		SuccessResponse result = new SuccessResponse("201", "create account success",accountCreateRequest);
 		return result;
 	}
 

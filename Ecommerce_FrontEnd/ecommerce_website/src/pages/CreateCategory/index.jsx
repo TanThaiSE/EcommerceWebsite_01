@@ -11,7 +11,7 @@ const CreateCategory = () => {
         <div className='container-fluid'>
             <div className="row">
                 <div className="col-md-2">
-                    <NavBarAdmin/>
+                    <NavBarAdmin type={1}/>
                 </div>
                 <div className="col-md-10">
                     <NavBarInfoAdmin/>

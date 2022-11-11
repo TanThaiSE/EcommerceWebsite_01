@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import './index.css';
 
-const NavBarAdmin = () => {
+const NavBarAdmin = ({type}) => {
     return (
         <div className='nav-admin'>
             <div className="brand-admin">
@@ -14,17 +14,17 @@ const NavBarAdmin = () => {
 
                 <div className="categories">
                     <Link to="/manage-category" className='link-navigate navbar-categories'>
-                        <p>Categories</p>
+                    {type === 1 ? (<p style={{ color: '#ee4d2d' }}>Categories</p>) : (<p>Categories</p>)}
                     </Link>
                 </div>
                 <div className="products">
                     <Link to="/manage-product" className='link-navigate navbar-products'>
-                        <p>Products</p>
+                    {type === 2 ? (<p style={{ color: '#ee4d2d' }}>Products</p>) : (<p>Products</p>)}
                     </Link>
                 </div>
                 <div className="employees">
                     <Link to="/manage-account" className='link-navigate navbar-employees'>
-                        <p>Customers</p>
+                    {type === 3 ? (<p style={{ color: '#ee4d2d' }}>Customers</p>) : (<p>Customers</p>)}
                     </Link>
                 </div>
             </div>

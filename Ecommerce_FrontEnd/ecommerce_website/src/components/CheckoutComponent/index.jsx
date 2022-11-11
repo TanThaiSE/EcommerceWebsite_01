@@ -39,6 +39,8 @@ const CheckoutComponent = () => {
     handleCloseModal();
     navigate('/user/purchase');
   }
+
+
   const onSubmitOrderProduct = async (data) => {
   if (listProducts.length > 0) {
     let tempList = listProducts.map((item) => {

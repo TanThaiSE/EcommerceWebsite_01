@@ -10,7 +10,7 @@ const DashBoard = () => {
         <div className='container-fluid'>
             <div className="row">
                 <div className="col-md-2">
-                    <NavBarAdmin/>
+                    <NavBarAdmin type={3}/>
                 </div>
                 <div className="col-md-10">
                     <NavBarInfoAdmin/>

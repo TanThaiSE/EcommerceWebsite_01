@@ -30,6 +30,8 @@ public class EmailServiceImp implements EmailService{
 	
 	private String apiKey="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";
 	private String emailFrom="tanthai172k@gmail.com";
+
+	
 	
 	@Autowired
 	AccountsRepository accountsRepository;
